@@ -80,7 +80,7 @@ export default function contactForm() {
                             type="name"
                             name="name"
                             id="name"
-                            autocomplete="given-name"
+                            autoComplete="given-name"
                             className="h-9 mt-1 pt-0.5 pl-2 focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
                         </div>
@@ -96,7 +96,7 @@ export default function contactForm() {
                             type="text"
                             name="email_address"
                             id="email_address"
-                            autocomplete="email"
+                            autoComplete="email"
                             className="h-9 mt-1 pt-0.5 pl-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
                         </div>
@@ -112,7 +112,7 @@ export default function contactForm() {
                             type="text"
                             name="phone"
                             id="phone"
-                            autocomplete="phone"
+                            autoComplete="phone"
                             className="h-9 mt-1 pt-0.5 pl-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
                         </div>
@@ -129,7 +129,7 @@ export default function contactForm() {
                             type="text"
                             name="country"
                             id="country"
-                            autocomplete="country"
+                            autoComplete="country"
                             className="h-9 mt-1 pt-0.5 pl-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
                         </div>
@@ -145,7 +145,7 @@ export default function contactForm() {
                             type="text"
                             name="street_address"
                             id="street_address"
-                            autocomplete="street-address"
+                            autoComplete="street-address"
                             className="h-9 mt-1 pt-0.5 pl-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
                         </div>
@@ -191,7 +191,7 @@ export default function contactForm() {
                             type="text"
                             name="postal_code"
                             id="postal_code"
-                            autocomplete="postal-code"
+                            autoComplete="postal-code"
                             className="h-9 mt-1 pt-0.5 pl-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
                         </div>

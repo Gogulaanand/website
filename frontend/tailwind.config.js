@@ -20,6 +20,9 @@ module.exports = {
       animation: {
         zoomIn: "zoomIn ease-in 3s",
       },
+      transitionDuration: {
+        2000: "2000ms",
+      },
     },
   },
   variants: {
