@@ -12,8 +12,28 @@ export default function products() {
       },
       {
         src: "https://source.unsplash.com/5VXH4RG88gc",
-        w: 1024,
-        h: 683,
+        w: 964,
+        h: 1024,
+      },
+      {
+        src: "https://source.unsplash.com/XtUd5SiX464",
+        w: 964,
+        h: 1024,
+      },
+      {
+        src: "https://source.unsplash.com/JYGnB9gTCls",
+        w: 964,
+        h: 1024,
+      },
+      {
+        src: "https://source.unsplash.com/-RBuQ2PK_L8",
+        w: 964,
+        h: 1024,
+      },
+      {
+        src: "https://source.unsplash.com/P44RIGl9V54",
+        w: 964,
+        h: 1024,
       },
     ];
 
@@ -28,7 +48,7 @@ export default function products() {
       tapToClose: true,
       spacing: 0,
       loop: false,
-      preload: [1, 5],
+      preload: [1, 3],
     };
 
     var gallery = new PhotoSwipe(
@@ -67,24 +87,32 @@ export default function products() {
           <img
             src="https://source.unsplash.com/XtUd5SiX464"
             className="object-cover w-full h-full transform hover:scale-110 transition hover:ease-in-out hover:duration-2000 cursor-pointer"
+            id="2"
+            onClick={handleGalleryView}
           />
         </div>
         <div className="w-full col-span-1 row-span-3 overflow-hidden">
           <img
             src="https://source.unsplash.com/JYGnB9gTCls"
             className="object-cover w-full h-full transform hover:scale-110 transition hover:ease-in-out hover:duration-2000 cursor-pointer"
+            id="3"
+            onClick={handleGalleryView}
           />
         </div>
         <div className="w-full col-span-3 row-span-3 overflow-hidden">
           <img
             src="https://source.unsplash.com/-RBuQ2PK_L8"
             className="object-cover w-full h-full transform hover:scale-110 transition hover:ease-in-out hover:duration-2000 cursor-pointer"
+            id="4"
+            onClick={handleGalleryView}
           />
         </div>
         <div className="w-full col-span-2 row-start-5 row-end-7 overflow-hidden">
           <img
             src="https://source.unsplash.com/P44RIGl9V54"
             className="object-cover w-full h-full transform hover:scale-110 transition hover:ease-in-out hover:duration-2000 cursor-pointer"
+            id="5"
+            onClick={handleGalleryView}
           />
         </div>
       </div>

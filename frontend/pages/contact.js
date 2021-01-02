@@ -1,16 +1,76 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
+import emailjs from "emailjs-com";
+import { toaster } from "evergreen-ui";
+
+const validate = (values) => {
+  const errors = {};
+  if (!values.name) {
+    errors.names = "Required";
+  }
+
+  if (!values.email) {
+    errors.email = "Required";
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = "Invalid email address";
+  }
+
+  if (!values.message) {
+    errors.message = "Required";
+  }
+
+  return errors;
+};
 
 export default function contactForm() {
+  const [loading, setloading] = useState(false);
   const formik = useFormik({
     initialValues: {
       email: "",
       name: "",
       phone: "",
+      address: "",
       message: "",
     },
     onSubmit: (values) => {
       console.log(values);
+      if (loading) return;
+      setloading(true);
+      let templateParams = {
+        from_name: values.name,
+        to_name: "Company",
+        message_html: `<table>
+                        <tr><th>Subject</th><td>${values.name} contacting from Company website</td></tr>
+                        <tr><th>Phone</th><td>${values.phone}</td></tr>
+                        <tr><th>Email</th><td>${values.email}</td></tr>
+                        <tr><th>Address</th><td>${values.address}</td></tr>
+                        <tr><th>Message</th><td>${values.message}</td></tr>`,
+      };
+      emailjs
+        .send(
+          "gmail",
+          process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+          templateParams,
+          process.env.NEXT_PUBLIC_EMAILJS_USER_ID
+        )
+        .then((resp) => {
+          if (resp.status === 200) {
+            toaster.success("Message sent successfully !", {
+              description: "We will get you back to you shortly",
+            });
+            resetForm();
+            setloading(false);
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+          toaster.danger("Something went wrong, pls try after sometime!", {
+            description:
+              "If the issue persists, pls write to us at abc@gmail.com",
+            duration: 10,
+          });
+          setloading(false);
+        });
     },
   });
 
@@ -65,13 +125,13 @@ export default function contactForm() {
                 </div>
               </div>
               <div className="mt-5 md:mt-0 md:col-span-2">
-                <form action="#" method="POST">
+                <form onSubmit={formik.handleSubmit}>
                   <div className="shadow-md overflow-hidden sm:rounded-md">
                     <div className="px-4 py-5 bg-white sm:p-6">
                       <div className="grid grid-cols-6 gap-6">
                         <div className="col-span-6 sm:col-span-3">
                           <label
-                            for="name"
+                            htmlFor="name"
                             className="block text-sm font-medium text-gray-700"
                           >
                             Name
@@ -80,30 +140,40 @@ export default function contactForm() {
                             type="name"
                             name="name"
                             id="name"
-                            autoComplete="given-name"
+                            autoComplete="name"
+                            onChange={formik.handleChange}
+                            value={formik.values.name}
                             className="h-9 mt-1 pt-0.5 pl-2 focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
+                          {formik.errors.name ? (
+                            <div>{formik.errors.name}</div>
+                          ) : null}
                         </div>
 
                         <div className="col-span-6 sm:col-span-3">
                           <label
-                            for="email_address"
+                            htmlFor="email"
                             className="block text-sm font-medium text-gray-700"
                           >
                             Email address
                           </label>
                           <input
                             type="text"
-                            name="email_address"
-                            id="email_address"
+                            name="email"
+                            id="email"
                             autoComplete="email"
+                            onChange={formik.handleChange}
+                            value={formik.values.email}
                             className="h-9 mt-1 pt-0.5 pl-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
+                          {formik.errors.email ? (
+                            <div>{formik.errors.email}</div>
+                          ) : null}
                         </div>
 
                         <div className="mt-5 md:mt-2 col-span-6 sm:col-span-3">
                           <label
-                            for="phone"
+                            htmlFor="phone"
                             className="block text-sm font-medium text-gray-700"
                           >
                             Phone
@@ -113,13 +183,15 @@ export default function contactForm() {
                             name="phone"
                             id="phone"
                             autoComplete="phone"
+                            onChange={formik.handleChange}
+                            value={formik.values.phone}
                             className="h-9 mt-1 pt-0.5 pl-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
                         </div>
 
-                        <div className="mt-5 md:mt-2 col-span-6 sm:col-span-3">
+                        {/* <div className="mt-5 md:mt-2 col-span-6 sm:col-span-3">
                           <label
-                            for="country"
+                            htmlFor="country"
                             className="block text-sm font-medium text-gray-700"
                           >
                             Country / Region
@@ -132,27 +204,29 @@ export default function contactForm() {
                             autoComplete="country"
                             className="h-9 mt-1 pt-0.5 pl-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
-                        </div>
+                        </div> */}
 
                         <div className="mt-5 md:mt-2 col-span-6 sm:col-span-6">
                           <label
-                            for="street_address"
+                            htmlFor="address"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            Street address
+                            Address
                           </label>
                           <input
                             type="text"
-                            name="street_address"
-                            id="street_address"
-                            autoComplete="street-address"
+                            name="address"
+                            id="address"
+                            autoComplete="address"
+                            onChange={formik.handleChange}
+                            value={formik.values.address}
                             className="h-9 mt-1 pt-0.5 pl-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
                         </div>
 
-                        <div className="mt-5 md:mt-2 col-span-6 sm:col-span-6 lg:col-span-2">
+                        {/* <div className="mt-5 md:mt-2 col-span-6 sm:col-span-6 lg:col-span-2">
                           <label
-                            for="city"
+                            htmlFor="city"
                             className="block text-sm font-medium text-gray-700"
                           >
                             City
@@ -163,11 +237,11 @@ export default function contactForm() {
                             id="city"
                             className="h-9 mt-1 pt-0.5 pl-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
-                        </div>
+                        </div> */}
 
-                        <div className="mt-5 md:mt-2 col-span-6 sm:col-span-3 lg:col-span-2">
+                        {/* <div className="mt-5 md:mt-2 col-span-6 sm:col-span-3 lg:col-span-2">
                           <label
-                            for="state"
+                            htmlFor="state"
                             className="block text-sm font-medium text-gray-700"
                           >
                             State / Province
@@ -178,11 +252,11 @@ export default function contactForm() {
                             id="state"
                             className="h-9 mt-1 pt-0.5 pl-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
-                        </div>
+                        </div> */}
 
-                        <div className="mt-5 md:mt-2 col-span-6 sm:col-span-3 lg:col-span-2">
+                        {/* <div className="mt-5 md:mt-2 col-span-6 sm:col-span-3 lg:col-span-2">
                           <label
-                            for="postal_code"
+                            htmlFor="postal_code"
                             className="block text-sm font-medium text-gray-700"
                           >
                             ZIP / Postal
@@ -194,26 +268,62 @@ export default function contactForm() {
                             autoComplete="postal-code"
                             className="h-9 mt-1 pt-0.5 pl-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
-                        </div>
+                        </div> */}
 
                         <div className="mt-5 md:mt-2 col-span-6 sm:col-span-6 lg:col-span-4">
-                          <label for="message" className="">
-                            Message
-                          </label>
+                          <label htmlFor="message">Message</label>
                           <textarea
+                            name="message"
+                            id="message"
+                            type="message"
+                            autoComplete="message"
+                            onChange={formik.handleChange}
+                            value={formik.values.message}
                             placeholder="Write your message..."
                             className="resize h-16 mt-1 pt-1 pl-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
+                          {formik.errors.message ? (
+                            <div>{formik.errors.message}</div>
+                          ) : null}
                         </div>
                       </div>
                     </div>
                     <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                      <button
-                        type="submit"
-                        className="inline-flex justify-center py-3 px-5 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                      >
-                        Submit
-                      </button>
+                      {loading ? (
+                        <button
+                          type="submit"
+                          className="inline-flex justify-center py-3 px-5 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        >
+                          <svg
+                            className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <circle
+                              className="opacity-25"
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="currentColor"
+                              strokeWidth="4"
+                            ></circle>
+                            <path
+                              className="opacity-75"
+                              fill="currentColor"
+                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                            ></path>
+                          </svg>
+                          Submit
+                        </button>
+                      ) : (
+                        <button
+                          type="submit"
+                          className="inline-flex justify-center py-3 px-5 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        >
+                          Submit
+                        </button>
+                      )}
                     </div>
                   </div>
                 </form>
