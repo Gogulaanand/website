@@ -32,7 +32,7 @@ export default function contactForm() {
       address: "",
       message: "",
     },
-    onSubmit: (values) => {
+    onSubmit: (values, { resetForm }) => {
       console.log(values);
       if (loading) return;
       setloading(true);
@@ -58,7 +58,7 @@ export default function contactForm() {
             toaster.success("Message sent successfully !", {
               description: "We will get you back to you shortly",
             });
-            resetForm();
+            resetForm({});
             setloading(false);
           }
         })
