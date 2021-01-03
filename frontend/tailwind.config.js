@@ -16,9 +16,14 @@ module.exports = {
           "0%, 100%": { transform: "scale(1.05)" },
           "50%": { transform: "scale(1)" },
         },
+        fadeIn: {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 1 },
+        },
       },
       animation: {
         zoomIn: "zoomIn ease-in 3s",
+        fadeIn: "fadeIn ease-in 0.5s",
       },
       transitionDuration: {
         2000: "2000ms",
