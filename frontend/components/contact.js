@@ -75,7 +75,10 @@ export default function contactForm() {
   });
 
   return (
-    <div className="h-auto w-4/5 shadow rounded-md bg-gray-200 mx-auto mt-16">
+    <div
+      className="h-auto w-4/5 shadow rounded-md bg-gray-200 mx-auto mt-32"
+      id="contact"
+    >
       <div className="text-center mx-auto">
         <h1 className="text-5xl font-large mt-12 inline-block">Contact Us</h1>
         <p className="text-md font-medium text-gray-500 mt-4">
