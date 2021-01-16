@@ -1,6 +1,7 @@
 const withImages = require("next-images");
-module.exports = {
+
+module.exports = withImages({
   images: {
     domains: ["source.unsplash.com"],
   },
-};
+});
