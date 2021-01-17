@@ -7,6 +7,10 @@ function MyApp({ Component, pageProps }) {
     <>
       <html lang="en"></html>
       <title>Sunfabb</title>
+      <meta
+        name="description"
+        content="company name: Sunfabb. High Quality bedspreads, bed sheets, pillow covers, scarf, hand keys, kerchief manufactured and priced reasonable but of best quality unmatched by others in the market"
+      ></meta>
       <Layout />
       <Component {...pageProps} />
     </>

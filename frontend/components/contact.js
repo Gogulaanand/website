@@ -76,7 +76,7 @@ export default function contactForm() {
 
   return (
     <>
-      <div className="text-center mx-auto w-4/5">
+      <div className="text-center mx-auto w-4/5" id="contact">
         <h1 className="lg:text-5xl md:text-4xl sm:text-3xl font-large mt-12 inline-block">
           Contact Us
         </h1>
@@ -88,7 +88,7 @@ export default function contactForm() {
         <div className="flex justify-center rounded-md">
           <div className="mt-10 sm:mt-0">
             <div className="md:grid md:grid-cols-3 md:gap-6">
-              <div className="md:col-span-1 grid items-center bg-indigo-600 rounded-md py-8 ">
+              <div className="md:col-span-1 grid items-center bg-indigo-600 rounded-md py-8">
                 <div className="px-4 sm:px-0">
                   <h3 className="text-lg font-medium leading-6 text-white text-center">
                     Contact Information
