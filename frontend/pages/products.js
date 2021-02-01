@@ -1,9 +1,9 @@
-import ProductsList from "../components/ProductList/index";
+import ProductDetail from "../components/product/detail";
 
-export default function products() {
+export default function products(props) {
   return (
-    <div className="m-auto w-4/5 h-4/5">
-      <ProductsList />
-    </div>
+    <>
+      <ProductDetail props={props} />
+    </>
   );
 }
