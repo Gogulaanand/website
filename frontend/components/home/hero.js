@@ -1,5 +1,5 @@
 import Image from "next/image";
-import hand from "../media/ok-hand.png";
+import hand from "../../media/ok-hand.png";
 
 export default function Hero() {
   return (

@@ -3,8 +3,10 @@ import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import Loading from "../../components/product/loading";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import Link from "next/link";
 
 const QUERY = gql`
   {
@@ -21,7 +23,7 @@ const QUERY = gql`
   }
 `;
 
-function ProductsList(props) {
+export default function Products() {
   useEffect(() => {
     AOS.init({
       duration: 750,
@@ -30,16 +32,18 @@ function ProductsList(props) {
       animatedClassName: "animated",
     });
   }, []);
+
   var { loading, error, data } = useQuery(QUERY);
+
   if (error) return <p className="m-auto">Error fetching products</p>;
-  if (loading) return <h1 className="m-auto">Fetching...</h1>;
+  if (loading) return <Loading />;
   if (data.products && data.products.length) {
     return (
       <>
-        <div className="mx-auto mt-36 grid grid-cols-3 grid-space-6 w-4/5">
+        <div className="mx-auto mt-36 grid grid-cols-3 grid-space-4 w-4/5">
           {data.products.map((res) => (
             <Card
-              className="lg:w-80 md:w-64 sm:w-44 mb-32"
+              className="lg:w-80 md:w-64 sm:w-44 mb-32 ml-16"
               data-aos="animate-fadeInUp"
               key={res.id}
             >
@@ -51,9 +55,9 @@ function ProductsList(props) {
               <Card.Body>
                 <Card.Title>{res.name}</Card.Title>
                 <Card.Text>{res.description}</Card.Text>
-                <Button variant="primary" className="mt-6">
-                  View
-                </Button>
+                <Link href={`/products?id=${res.id}`} passHref>
+                  <Button className="mt-6">View</Button>
+                </Link>
               </Card.Body>
             </Card>
           ))}
@@ -64,5 +68,3 @@ function ProductsList(props) {
 
   return <h1>Product Inventory seem to be empty at the moment !!</h1>;
 }
-
-export default ProductsList;

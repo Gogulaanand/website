@@ -1,6 +1,6 @@
 import "../styles/globals.sass";
 import "tailwindcss/tailwind.css";
-import Layout from "../components/layout";
+import Layout from "../components/general/layout";
 import withData from "../lib/apollo";
 
 function MyApp({ Component, pageProps }) {

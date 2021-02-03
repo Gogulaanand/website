@@ -47,7 +47,7 @@ export default function Layout() {
                 </a>
               </Link>
 
-              <Link href="/products-list">
+              <Link href="/products">
                 <a className="text-base font-medium text-gray-700 hover:text-gray-900">
                   Products
                 </a>
