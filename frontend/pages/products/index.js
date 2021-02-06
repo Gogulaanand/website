@@ -55,8 +55,8 @@ export default function Products() {
                 <Card.Title>{res.name}</Card.Title>
                 <Card.Text>{res.description}</Card.Text>
                 <Link
-                  href={`/products?id=${res.id}`}
-                  as={`/products/${res.name.replace(/\s/g, "-")}`}
+                  href={`/products/${res.id}`}
+                  // as={`/products/${res.name.replace(/\s/g, "-")}`}
                   passHref
                 >
                   <Button
