@@ -10,8 +10,8 @@ app
   .then(() => {
     const server = express();
 
-    server.get("/restaurants/:id", (req, res) => {
-      const actualPage = "/restaurants";
+    server.get("/products/:id", (req, res) => {
+      const actualPage = "/products";
       const queryParams = { id: req.params.id };
       console.dir("req.params.id = " + JSON.stringify(req.params.id));
       app.render(req, res, actualPage, queryParams);

@@ -25,7 +25,7 @@ const client = new ApolloClient({
   queryDeduplication: false,
   defaultOptions: {
     watchQuery: {
-      fetchPolicy: "cache-and-network",
+      fetchPolicy: "cache-first",
     },
   },
 });
@@ -90,17 +90,53 @@ export async function getStaticProps({ params }) {
 export default function ProductDetail(props) {
   return (
     <>
-      <div className="mx-auto w-4/5 mt-32">
-        <div className="grid grid-cols-2 gap-6">
+      <div className="mx-auto w-4/5 mt-32 justify-center">
+        <div className="grid grid-cols-2 gap-6 h-screen">
           <div className="productCarousel">
             <img
-              src={`${process.env.NEXT_PUBLIC_API_URL}${props.cover.url}`}
+              src={`${process.env.NEXT_PUBLIC_API_URL}${props.cover.formats.medium.url}`}
               alt={`Image of ${props.name}`}
+              className="animate-fadeInUp"
             />
           </div>
-          <div className="productIntro flex-col">
-            <h1>{props.name}</h1>
-            <h2>{props.description}</h2>
+          <div className="productIntro flex-col text-center">
+            <h1 className="font-bold text-3xl">{props.name}</h1>
+            <h2 className="mt-8 text-xl">{props.description}</h2>
+            <h2 className="mt-8 text-xl">Price : Rs. X</h2>
+          </div>
+        </div>
+        <div className="flex-col mb-32">
+          <div className="grid grid-cols-6 gap-6">
+            <p className="col-span-4 text-right text-xl self-center lg:leading-relaxed lg:tracking-wide">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur.
+            </p>
+            <img
+              src={`${process.env.NEXT_PUBLIC_API_URL}${props.cover.formats.small.url}`}
+              alt={`Image of ${props.name}`}
+              className="col-span-2 ml-8"
+            />
+          </div>
+        </div>
+        <div className="flex-col mt-64 mb-48">
+          <div className="grid grid-cols-6 gap-6">
+            <img
+              src={`${process.env.NEXT_PUBLIC_API_URL}${props.cover.formats.medium.url}`}
+              alt={`Image of ${props.name}`}
+              className="col-span-2"
+            />
+            <p className="ml-8 col-span-4 text-left text-xl self-center lg:leading-relaxed lg:tracking-wide">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur.
+            </p>
           </div>
         </div>
       </div>

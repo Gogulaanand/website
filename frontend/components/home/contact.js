@@ -88,9 +88,9 @@ export default function contactForm() {
         <div className="flex justify-center rounded-md">
           <div className="mt-10 sm:mt-0">
             <div className="md:grid md:grid-cols-3 md:gap-6">
-              <div className="md:col-span-1 grid items-center bg-indigo-600 rounded-md py-8">
+              <div className="md:col-span-1 grid items-center bg-indigo-600 rounded-md">
                 <div className="px-4 sm:px-0">
-                  <h3 className="text-lg font-medium leading-6 text-white text-center">
+                  <h3 className="text-lg leading-6 text-white text-center">
                     Contact Information
                   </h3>
                   <p className="mt-3 text-sm text-white text-center mx-4">
@@ -127,14 +127,14 @@ export default function contactForm() {
                 </div>
               </div>
               <div
-                className="mt-5 md:mt-0 md:col-span-2 bg-opacity-60 bg-clip-padding border-2 rounded-md"
+                className="md:col-span-2 border-2 rounded-md"
                 style={{ backdropFilter: "blur(5px)" }}
               >
                 <form onSubmit={formik.handleSubmit}>
                   <div className="shadow-md overflow-hidden sm:rounded-md">
                     <div className="px-4 py-5 bg-white sm:p-6">
                       <div className="grid grid-cols-6 gap-6">
-                        <div className="col-span-6 sm:col-span-3">
+                        <div className="md:mt-1 col-span-6 lg:col-span-3">
                           <label
                             htmlFor="name"
                             className="block text-sm font-medium text-gray-700"
@@ -154,7 +154,7 @@ export default function contactForm() {
                             <div>{formik.errors.name}</div>
                           ) : null}
                         </div>
-                        <div className="col-span-6 sm:col-span-3">
+                        <div className="md:mt-1 col-span-6 lg:col-span-3">
                           <label
                             htmlFor="email"
                             className="block text-sm font-medium text-gray-700"
@@ -174,7 +174,7 @@ export default function contactForm() {
                             <div>{formik.errors.email}</div>
                           ) : null}
                         </div>
-                        <div className="mt-5 md:mt-2 col-span-6 sm:col-span-3">
+                        <div className="mt-3 md:mt-1 col-span-6 lg:col-span-3">
                           <label
                             htmlFor="phone"
                             className="block text-sm font-medium text-gray-700"
@@ -191,7 +191,7 @@ export default function contactForm() {
                             className="h-9 mt-1 pt-0.5 pl-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
                         </div>
-                        <div className="mt-5 md:mt-2 col-span-6 sm:col-span-6">
+                        <div className="mt-3 md:mt-1 col-span-6 lg:col-span-3">
                           <label
                             htmlFor="address"
                             className="block text-sm font-medium text-gray-700"
@@ -208,7 +208,7 @@ export default function contactForm() {
                             className="h-9 mt-1 pt-0.5 pl-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                           />
                         </div>
-                        <div className="mt-5 md:mt-2 col-span-6 lg:col-span-4">
+                        <div className="mt-3 md:mt-1 col-span-6 lg:col-span-4">
                           <label htmlFor="message">Message</label>
                           <textarea
                             name="message"
