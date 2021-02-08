@@ -1,9 +1,21 @@
+import { useEffect } from "react";
 import "../styles/globals.sass";
 import "tailwindcss/tailwind.css";
 import Layout from "../components/general/layout";
 import withData from "../lib/apollo";
+import AOS from "aos";
 
 function MyApp({ Component, pageProps }) {
+  useEffect(() => {
+    setTimeout(() => {
+      AOS.init({
+        useClassNames: true,
+        initClassName: false,
+        animatedClassName: "animated",
+      });
+    }, 1000);
+  }, []);
+
   return (
     <>
       <head>

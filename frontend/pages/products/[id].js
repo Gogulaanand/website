@@ -91,12 +91,14 @@ export default function ProductDetail(props) {
   return (
     <>
       <div className="mx-auto w-4/5 mt-32 justify-center">
-        <div className="grid grid-cols-2 gap-6 h-screen">
+        <div data-aos="fade-in" className="grid grid-cols-2 gap-6 h-screen">
           <div className="productCarousel">
             <img
               src={`${process.env.NEXT_PUBLIC_API_URL}${props.cover.formats.medium.url}`}
               alt={`Image of ${props.name}`}
-              className="animate-fadeInUp"
+              data-aos="fade-in"
+              data-aos-duration="800"
+              data-aos-delay="200"
             />
           </div>
           <div className="productIntro flex-col text-center">
@@ -107,7 +109,12 @@ export default function ProductDetail(props) {
         </div>
         <div className="flex-col mb-32">
           <div className="grid grid-cols-6 gap-6">
-            <p className="col-span-4 text-right text-xl self-center lg:leading-relaxed lg:tracking-wide">
+            <p
+              className="col-span-4 text-right text-xl self-center lg:leading-relaxed lg:tracking-wide"
+              data-aos="fade-in"
+              data-aos-duration="900"
+              data-aos-delay="300"
+            >
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
               enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -119,6 +126,9 @@ export default function ProductDetail(props) {
               src={`${process.env.NEXT_PUBLIC_API_URL}${props.cover.formats.small.url}`}
               alt={`Image of ${props.name}`}
               className="col-span-2 ml-8"
+              data-aos="fade-in"
+              data-aos-duration="800"
+              data-aos-delay="200"
             />
           </div>
         </div>
@@ -128,8 +138,16 @@ export default function ProductDetail(props) {
               src={`${process.env.NEXT_PUBLIC_API_URL}${props.cover.formats.medium.url}`}
               alt={`Image of ${props.name}`}
               className="col-span-2"
+              data-aos="fade-in"
+              data-aos-duration="800"
+              data-aos-delay="200"
             />
-            <p className="ml-8 col-span-4 text-left text-xl self-center lg:leading-relaxed lg:tracking-wide">
+            <p
+              className="ml-8 col-span-4 text-left text-xl self-center lg:leading-relaxed lg:tracking-wide"
+              data-aos="fade-in"
+              data-aos-duration="900"
+              data-aos-delay="300"
+            >
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
               enim ad minim veniam, quis nostrud exercitation ullamco laboris
