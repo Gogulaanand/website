@@ -3,6 +3,7 @@ import { ApolloClient } from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { HttpLink } from "apollo-link-http";
 import { onError } from "apollo-link-error";
+import ImageGallery from "react-image-gallery";
 
 // Instantiate apollo client constructor
 const cache = new InMemoryCache();
@@ -88,17 +89,27 @@ export async function getStaticProps({ params }) {
 }
 
 export default function ProductDetail(props) {
+  const images = [
+    {
+      original: `${process.env.NEXT_PUBLIC_API_URL}${props.cover.formats.medium.url}`,
+      thumbnail: `${process.env.NEXT_PUBLIC_API_URL}${props.cover.formats.medium.url}`,
+    },
+    {
+      original: `${process.env.NEXT_PUBLIC_API_URL}${props.cover.formats.medium.url}`,
+      thumbnail: `${process.env.NEXT_PUBLIC_API_URL}${props.cover.formats.medium.url}`,
+    },
+  ];
   return (
     <>
       <div className="mx-auto w-4/5 mt-32 justify-center">
         <div data-aos="fade-in" className="grid grid-cols-2 gap-6 h-screen">
           <div className="productCarousel">
-            <img
-              src={`${process.env.NEXT_PUBLIC_API_URL}${props.cover.formats.medium.url}`}
-              alt={`Image of ${props.name}`}
-              data-aos="fade-in"
-              data-aos-duration="800"
-              data-aos-delay="200"
+            <ImageGallery
+              items={images}
+              lazyLoad={true}
+              showNav={false}
+              showPlayButton={false}
+              thumbnailPosition="left"
             />
           </div>
           <div className="productIntro flex-col text-center">
@@ -107,7 +118,7 @@ export default function ProductDetail(props) {
             <h2 className="mt-8 text-xl">Price : Rs. X</h2>
           </div>
         </div>
-        <div className="flex-col mb-32">
+        <div className="flex-col -mt-32 mb-32">
           <div className="grid grid-cols-6 gap-6">
             <p
               className="col-span-4 text-right text-xl self-center lg:leading-relaxed lg:tracking-wide"
