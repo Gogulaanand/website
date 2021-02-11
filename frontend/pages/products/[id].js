@@ -110,9 +110,10 @@ export default function ProductDetail(props) {
               showNav={false}
               showPlayButton={false}
               thumbnailPosition="left"
+              slideOnThumbnailOver={true}
             />
           </div>
-          <div className="productIntro flex-col text-center">
+          <div className="productIntro flex-col text-left ml-16">
             <h1 className="font-bold text-3xl">{props.name}</h1>
             <h2 className="mt-8 text-xl">{props.description}</h2>
             <h2 className="mt-8 text-xl">Price : Rs. X</h2>

@@ -1,11 +1,8 @@
-import { useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import Loading from "../../components/product/loading";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import Loading from "../../components/loading";
 import Link from "next/link";
 
 const QUERY = gql`
@@ -24,15 +21,6 @@ const QUERY = gql`
 `;
 
 export default function Products() {
-  useEffect(() => {
-    AOS.init({
-      duration: 750,
-      useClassNames: true,
-      initClassName: true,
-      animatedClassName: "animated",
-    });
-  }, []);
-
   var { loading, error, data } = useQuery(QUERY);
 
   if (error) return <p className="m-auto">Error fetching products</p>;

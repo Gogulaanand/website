@@ -1,13 +1,10 @@
 const colors = require("tailwindcss/colors");
 
 module.exports = {
-  purge: ["./pages/**/*.js", "./components/**/*.js"],
+  purge: ["./pages/**/*.js", "./components/*.js"],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
-      backgroundImage: (theme) => ({
-        "home-fabric": "url('/media/curtain.webp')",
-      }),
       colors: {
         peach: "#FA949D",
       },
@@ -35,9 +32,6 @@ module.exports = {
         zoomIn: "zoomIn ease-in 3s",
         fadeIn: "fadeIn ease-in 0.5s",
         fadeInUp: "fadeInUp 0.75s",
-      },
-      transitionDuration: {
-        2000: "2000ms",
       },
     },
   },

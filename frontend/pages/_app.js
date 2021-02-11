@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import "../styles/globals.sass";
 import "tailwindcss/tailwind.css";
-import Layout from "../components/general/layout";
+import Layout from "../components/layout";
 import withData from "../lib/apollo";
 import AOS from "aos";
+import "aos/dist/aos.css";
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {

@@ -1,6 +1,8 @@
 import * as PhotoSwipe from "photoswipe";
 import * as PhotoSwipeUI_Default from "photoswipe/dist/photoswipe-ui-default";
 import Image from "next/image";
+import "photoswipe/dist/default-skin/default-skin.css";
+import "photoswipe/dist/photoswipe.css";
 
 export default function Gallery() {
   const openPhotoSwipe = (index = 0) => {
