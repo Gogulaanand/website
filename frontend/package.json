@@ -35,6 +35,7 @@
     "react-dom": "16.13.1",
     "react-image-gallery": "^1.0.8",
     "sass": "^1.30.0",
+    "styled-jsx": "^3.4.2",
     "tailwindcss": "^2.0.2"
   }
 }
