@@ -31,10 +31,6 @@ function MyApp({ Component, pageProps }) {
         <Layout />
         <Component {...pageProps} />
         <Footer />
-        <link
-          href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
-          rel="stylesheet"
-        ></link>
       </body>
     </>
   );
