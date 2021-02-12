@@ -9,10 +9,6 @@ module.exports = {
         peach: "#FA949D",
       },
       keyframes: {
-        zoomIn: {
-          "0%, 100%": { transform: "scale(1.05)" },
-          "50%": { transform: "scale(1)" },
-        },
         fadeIn: {
           "0%": { opacity: 0 },
           "100%": { opacity: 1 },
@@ -29,7 +25,6 @@ module.exports = {
         },
       },
       animation: {
-        zoomIn: "zoomIn ease-in 3s",
         fadeIn: "fadeIn ease-in 0.5s",
         fadeInUp: "fadeInUp 0.75s",
       },

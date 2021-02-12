@@ -41,6 +41,7 @@ export default function Hero() {
             height={800}
             width={500}
             className="animate-fadeIn"
+            alt="super ok hand symbol, indicating top notch product quality"
           ></Image>
         </div>
       </div>
