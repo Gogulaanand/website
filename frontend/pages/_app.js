@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import "../styles/globals.sass";
-import "tailwindcss/tailwind.css";
 import Layout from "../components/layout";
 import Footer from "../components/footer";
 import withData from "../lib/apollo";
@@ -32,6 +31,10 @@ function MyApp({ Component, pageProps }) {
         <Layout />
         <Component {...pageProps} />
         <Footer />
+        <link
+          href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+          rel="stylesheet"
+        ></link>
       </body>
     </>
   );

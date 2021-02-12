@@ -15,18 +15,20 @@ module.exports = {
         },
         fadeInUp: {
           "0%": {
-            transform: "translate3d(0,30px,0)",
             opacity: 0,
+            transform: "translate3d(0,30px,0)",
+            "-webkit-transform": "translate3d(0,30px,0)",
           },
           "100%": {
-            transform: "translate3d(0,0,0)",
             opacity: 1,
+            "-webkit-transform": "translate3d(0,0,0)",
+            transform: "translate3d(0,0,0)",
           },
         },
       },
       animation: {
         fadeIn: "fadeIn ease-in 0.5s",
-        fadeInUp: "fadeInUp 0.75s",
+        fadeInUp: "fadeInUp ease-out 0.5s",
       },
     },
   },
