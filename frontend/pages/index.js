@@ -1,15 +1,14 @@
-import dynamic from "next/dynamic";
-
-import Hero from "../components/hero";
-const DynamicGallery = dynamic(() => import("../components/gallery"));
-const DynamicContact = dynamic(() => import("../components/contact"));
+import loadable from "@loadable/component";
+const Hero = loadable(() => import("../components/hero"));
+const Gallery = loadable(() => import("../components/gallery"));
+const Contact = loadable(() => import("../components/contact"));
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <DynamicGallery />
-      <DynamicContact />
+      <Gallery />
+      <Contact />
     </>
   );
 }

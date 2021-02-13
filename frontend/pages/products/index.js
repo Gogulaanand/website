@@ -2,8 +2,10 @@ import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import Loading from "../../components/loading";
+import loadable from "@loadable/component";
 import Link from "next/link";
+
+const Loading = loadable(() => import("../../components/loading"));
 
 const QUERY = gql`
   {

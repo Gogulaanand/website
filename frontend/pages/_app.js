@@ -1,10 +1,12 @@
 import { useEffect } from "react";
 import "../styles/globals.sass";
-import Layout from "../components/layout";
-import Footer from "../components/footer";
+import loadable from "@loadable/component";
 import withData from "../lib/apollo";
 import AOS from "aos";
 import "aos/dist/aos.css";
+
+const Layout = loadable(() => import("../components/layout"));
+const Footer = loadable(() => import("../components/footer"));
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {

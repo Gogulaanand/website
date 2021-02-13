@@ -71,9 +71,9 @@ export default function contactForm() {
             <div className="md:grid md:grid-cols-3 md:gap-6">
               <div className="md:col-span-1 grid items-center bg-indigo-600 rounded-md">
                 <div className="px-4 sm:px-0">
-                  <h3 className="text-lg leading-6 text-white text-center">
+                  <h1 className="text-md leading-6 text-white text-center">
                     Contact Information
-                  </h3>
+                  </h1>
                   <p className="mt-3 text-sm text-white text-center mx-4">
                     Fill up the form and we will get back to you within 24
                     hours.
