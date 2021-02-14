@@ -7,6 +7,8 @@ module.exports = {
     extend: {
       colors: {
         peach: "#FA949D",
+        purple: "#472ECD",
+        ash: "#F4F4F8",
       },
       keyframes: {
         fadeIn: {
@@ -35,5 +37,5 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/forms")],
 };

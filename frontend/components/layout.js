@@ -10,7 +10,11 @@ export default function Layout() {
             <div className="flex justify-start">
               <a href="/">
                 <span className="sr-only">Sunfabb</span>
-                <img src="/sun.svg" alt="logo" className="w-16 h-16" />
+                <img
+                  src="/sun.svg"
+                  alt="logo"
+                  className="lg:w-16 lg:h-16 md:w-12 md:h-12 sm:w-8 sm:h-8"
+                />
               </a>
             </div>
             <div className="-mr-2 -my-2 md:hidden">

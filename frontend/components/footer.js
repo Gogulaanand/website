@@ -21,6 +21,7 @@ export default function Footer() {
                 fill: red;
                 position: relative;
                 width: 20px;
+                height: 20px;
               }
             `}</style>
           </div>

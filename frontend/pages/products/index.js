@@ -2,10 +2,9 @@ import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import loadable from "@loadable/component";
 import Link from "next/link";
-
-const Loading = loadable(() => import("../../components/loading"));
+import dynamic from "next/dynamic";
+const Loading = dynamic(() => import("../../components/loading"));
 
 const QUERY = gql`
   {
