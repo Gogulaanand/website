@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import Link from "next/link";
+import { logout } from "../lib/auth";
+import AppContext from "../context/AppContext";
 
 export default function Layout() {
+  const { user, setUser } = useContext(AppContext);
+
   return (
     <>
       <div className="relative bg-white">
@@ -59,6 +63,22 @@ export default function Layout() {
                   Contact
                 </a>
               </Link>
+              {user ? (
+                <Link href="/">
+                  <a
+                    onClick={() => {
+                      logout();
+                      setUser(null);
+                    }}
+                  >
+                    Logout
+                  </a>
+                </Link>
+              ) : (
+                <Link href="/login">
+                  <a>SignIn</a>
+                </Link>
+              )}
             </nav>
           </div>
         </div>
