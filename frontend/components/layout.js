@@ -63,9 +63,12 @@ export default function Layout() {
                   Contact
                 </a>
               </Link>
+            </nav>
+            <div className="md:flex">
               {user ? (
                 <Link href="/">
                   <a
+                    className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
                     onClick={() => {
                       logout();
                       setUser(null);
@@ -76,10 +79,12 @@ export default function Layout() {
                 </Link>
               ) : (
                 <Link href="/login">
-                  <a>SignIn</a>
+                  <a className="px-4 py-2 rounded-md shadow-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700">
+                    Login
+                  </a>
                 </Link>
               )}
-            </nav>
+            </div>
           </div>
         </div>
       </div>

@@ -15,7 +15,7 @@ export default function Footer() {
 	c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"
               />
             </svg>
-            <p className="pl-2">in India</p>
+            <p className="pl-2">from India</p>
             <style jsx>{`
               .heart {
                 fill: red;
