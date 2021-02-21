@@ -70,22 +70,22 @@ export default function Layout() {
                   Contact
                 </a>
               </Link>
+              {user ? (
+                <DropdownButton
+                  title={user.username}
+                  id="dropdown-user-button"
+                  className="text-base font-medium text-gray-700 hover:text-gray-900"
+                >
+                  <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+                </DropdownButton>
+              ) : (
+                <Link href="/login">
+                  <a className="text-base font-medium text-gray-700 hover:text-gray-900">
+                    Login
+                  </a>
+                </Link>
+              )}
             </nav>
-            {user ? (
-              <DropdownButton
-                title={user.username}
-                id="dropdown-user-button"
-                className="text-gray-500 hover:text-gray-900"
-              >
-                <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
-              </DropdownButton>
-            ) : (
-              <Link href="/login">
-                <a className="font-medium text-indigo-500 hover:text-indigo-700">
-                  Login
-                </a>
-              </Link>
-            )}
           </div>
         </div>
       </div>
