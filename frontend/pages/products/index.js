@@ -4,7 +4,7 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-const Loading = dynamic(() => import("../../components/loading"));
+const Loading = dynamic(() => import("../../components/svg/SvgLoading"));
 
 const QUERY = gql`
   {
