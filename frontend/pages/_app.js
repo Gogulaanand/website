@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     const token = Cookie.get("token");
     if (token) {
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}users/me`, {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/me`, {
         headers: { Authorization: `Bearer ${token}` },
       }).then(async (res) => {
         if (!res.ok) {
@@ -24,6 +24,7 @@ function MyApp({ Component, pageProps }) {
         }
         const user = await res.json();
         setUser(user);
+        console.log(user);
       });
     }
 

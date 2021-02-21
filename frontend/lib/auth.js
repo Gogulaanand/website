@@ -22,14 +22,14 @@ export const registerUser = (username, email, password) => {
   });
 };
 
-export const loginUser = (identifier, pwd) => {
+export const loginUser = (identifier, password) => {
   if (typeof window === undefined) return;
 
   return new Promise((resolve, reject) => {
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/auth/local/`, {
         identifier,
-        pwd,
+        password,
       })
       .then((res) => {
         Cookie.set("token", res.data.jwt);
