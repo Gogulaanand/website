@@ -7,6 +7,7 @@ import AppContext from "../context/AppContext";
 
 export default function Register() {
   const [loading, setLoading] = useState(false);
+  const [showPassword, setshowPassword] = useState(false);
   const appContext = useContext(AppContext);
 
   const formik = useFormik({
@@ -36,10 +37,14 @@ export default function Register() {
     },
   });
 
+  const handlePasswordView = () => {
+    setshowPassword(!showPassword);
+  };
+
   return (
     <form onSubmit={formik.handleSubmit} className="w-full">
       <div>
-        <label htmlFor="username" className="text-sm font-medium text-gray-700">
+        <label htmlFor="username" className="font-medium text-gray-700">
           Username
         </label>
         <input
@@ -53,11 +58,11 @@ export default function Register() {
         />
       </div>
       <div className="lg:mt-8 md:mt-6 sm:mt-4">
-        <label htmlFor="password" className="text-sm font-medium text-gray-700">
+        <label htmlFor="password" className="font-medium text-gray-700">
           Password
         </label>
         <input
-          type="password"
+          type={showPassword ? "text" : "password"}
           id="password"
           name="password"
           autoComplete="password"
@@ -65,6 +70,14 @@ export default function Register() {
           value={formik.values.password}
           className="mt-1 block w-full rounded-lg bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
         />
+      </div>
+      <div className="lg:mt-4 md:mt-3 sm:mt-2">
+        <input
+          type="checkbox"
+          className="lg:mr-3 md:mr-2 sm:mr-1 rounded-md text-black bg-gray-200 border-transparent focus:border-gray-500 border-2 focus:ring-black"
+          onChange={handlePasswordView}
+        />
+        <span className="font-medium text-gray-700">Show password</span>
       </div>
       <div className="bg-indigo-400 w-full text-white px-4 py-2 rounded-lg mt-9 text-center flex hover:scale-110 relative">
         <button onClick={formik.handleSubmit} className="w-full">
