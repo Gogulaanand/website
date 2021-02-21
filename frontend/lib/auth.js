@@ -3,7 +3,7 @@ import Router from "next/router";
 import Cookie from "js-cookie";
 import axios from "axios";
 
-export const registerUser = (username, email, pwd) => {
+export const registerUser = (username, email, password) => {
   if (typeof window === undefined) return;
 
   return new Promise((resolve, reject) => {
@@ -11,7 +11,7 @@ export const registerUser = (username, email, pwd) => {
       .post(`${process.env.NEXT_PUBLIC_API_URL}/auth/local/register`, {
         username,
         email,
-        pwd,
+        password,
       })
       .then((res) => {
         Cookie.set("token", res.data.jwt);
