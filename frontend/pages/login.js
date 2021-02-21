@@ -1,11 +1,10 @@
-import React, { useContext, useState } from "react";
-import AppContext from "../context/AppContext";
-import Register from "../components/register";
-import Login from "../components/login";
+import React, { useState } from "react";
+import dynamic from "next/dynamic";
+const Login = dynamic(() => import("../components/login"));
+const Register = dynamic(() => import("../components/register"));
 
 export default function User() {
-  const [login, setlogin] = useState(false);
-  const appContext = useContext(AppContext);
+  const [login, setlogin] = useState(true);
 
   const handleSwitch = () => setlogin(!login);
 

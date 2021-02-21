@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { loginUser } from "../lib/auth";
 import { useFormik } from "formik";
 import SvgArrowPointingToRight from "./svg/SvgArrowPointingToRight";
 import { toaster } from "evergreen-ui";
+import AppContext from "../context/AppContext";
 
 export default function Register() {
   const [loading, setLoading] = useState(false);
+  const appContext = useContext(AppContext);
 
   const formik = useFormik({
     initialValues: {
@@ -21,6 +23,7 @@ export default function Register() {
           if (res.status === 200) {
             setLoading(false);
             toaster.success("Login successful");
+            appContext.setUser(res.data.user);
           }
         })
         .catch((err) => {

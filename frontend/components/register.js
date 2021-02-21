@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { registerUser } from "../lib/auth";
 import { useFormik } from "formik";
+import AppContext from "../context/AppContext";
 import SvgArrowPointingToRight from "./svg/SvgArrowPointingToRight";
 import { toaster } from "evergreen-ui";
 
 export default function Register() {
   const [loading, setLoading] = useState(false);
+  const appContext = useContext(AppContext);
 
   const formik = useFormik({
     initialValues: {
@@ -21,9 +23,8 @@ export default function Register() {
         .then((res) => {
           if (res.status === 200) {
             setLoading(false);
-            toaster.success("Activation email sent !", {
-              description: "Please check your inbox",
-            });
+            toaster.success("Signup Successful");
+            appContext.setUser(res.data.user);
           }
         })
         .catch((err) => {
