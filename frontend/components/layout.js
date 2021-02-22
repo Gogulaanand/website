@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import Link from "next/link";
+import { logout } from "../lib/auth";
+import AppContext from "../context/AppContext";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
 
 export default function Layout() {
+  const { user, setUser } = useContext(AppContext);
+
+  const handleLogout = () => {
+    logout();
+    setUser(null);
+  };
+
   return (
     <>
       <div className="relative bg-white">
@@ -59,6 +70,21 @@ export default function Layout() {
                   Contact
                 </a>
               </Link>
+              {user ? (
+                <DropdownButton
+                  title={user.username}
+                  id="dropdown-user-button"
+                  className="text-base font-medium text-gray-700 hover:text-gray-900"
+                >
+                  <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+                </DropdownButton>
+              ) : (
+                <Link href="/login">
+                  <a className="text-base font-medium text-gray-700 hover:text-gray-900">
+                    Login
+                  </a>
+                </Link>
+              )}
             </nav>
           </div>
         </div>
