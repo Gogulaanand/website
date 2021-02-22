@@ -4,7 +4,7 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-const Loading = dynamic(() => import("../../components/svg/SvgLoading"));
+const Fetching = dynamic(() => import("../../components/svg/SvgFetching"));
 
 const QUERY = gql`
   {
@@ -25,7 +25,7 @@ export default function Products() {
   var { loading, error, data } = useQuery(QUERY);
 
   if (error) return <p className="m-auto">Error fetching products</p>;
-  if (loading) return <Loading />;
+  if (loading) return <Fetching />;
   if (data.products && data.products.length) {
     return (
       <>
