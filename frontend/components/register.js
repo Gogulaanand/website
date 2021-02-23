@@ -43,7 +43,7 @@ export default function Register() {
           });
         });
       resetForm({});
-      setloading(false);
+      setLoading(false);
     },
   });
 

@@ -38,7 +38,7 @@ export default function Register() {
           toaster.danger("Login unsuccessful!");
         });
       resetForm({});
-      setloading(false);
+      setLoading(false);
     },
   });
 

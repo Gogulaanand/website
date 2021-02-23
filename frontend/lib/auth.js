@@ -14,7 +14,7 @@ export const registerUser = (username, email, password) => {
         password,
       })
       .then((res) => {
-        Cookie.set("token", res.data.jwt);
+        Cookie.set("token", res.data.jwt, { sameSite: "None", secure: true });
         resolve(res);
         Router.push("/");
       })
@@ -32,7 +32,7 @@ export const loginUser = (identifier, password) => {
         password,
       })
       .then((res) => {
-        Cookie.set("token", res.data.jwt);
+        Cookie.set("token", res.data.jwt, { sameSite: "None", secure: true });
         resolve(res);
         Router.push("/");
       })
