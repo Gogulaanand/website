@@ -47,7 +47,7 @@ export default function Register() {
   };
 
   return (
-    <form onSubmit={formik.handleSubmit} className="w-full">
+    <form onSubmit={formik.handleSubmit} className="w-full content-auto">
       <div>
         <label htmlFor="username" className="font-medium text-gray-700">
           Username
