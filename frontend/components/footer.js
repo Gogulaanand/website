@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <>
-      <div className="flex-col w-screen">
+      <div className="flex-col w-screen content-auto">
         <div className="w-4/5 h-42 mx-40">
           <hr></hr>
         </div>
