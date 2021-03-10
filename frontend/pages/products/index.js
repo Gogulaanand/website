@@ -43,11 +43,7 @@ export default function Products() {
               <Card.Body>
                 <Card.Title>{res.name}</Card.Title>
                 <Card.Text>{res.description}</Card.Text>
-                <Link
-                  href={`/products/${res.id}`}
-                  // as={`/products/${res.name.replace(/\s/g, "-")}`}
-                  passHref
-                >
+                <Link href={`/products/${res.id}`} passHref>
                   <Button
                     className="mt-6 cursor-pointer"
                     variant="primary"
@@ -67,6 +63,5 @@ export default function Products() {
       </>
     );
   }
-
   return <h1>Product Inventory seem to be empty at the moment !!</h1>;
 }
