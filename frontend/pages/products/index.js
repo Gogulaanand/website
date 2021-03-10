@@ -3,8 +3,7 @@ import { gql } from "apollo-boost";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Link from "next/link";
-import dynamic from "next/dynamic";
-const Fetching = dynamic(() => import("../../components/svg/SvgFetching"));
+import SvgFetching from "../../components/svg/SvgFetching";
 
 const QUERY = gql`
   {
@@ -25,7 +24,7 @@ export default function Products() {
   var { loading, error, data } = useQuery(QUERY);
 
   if (error) return <p className="m-auto">Error fetching products</p>;
-  if (loading) return <Fetching />;
+  if (loading) return <SvgFetching />;
   if (data.products && data.products.length) {
     return (
       <>
@@ -56,10 +55,6 @@ export default function Products() {
             </Card>
           ))}
         </div>
-        <link
-          rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        />
       </>
     );
   }
