@@ -56,6 +56,12 @@ export default function contactForm() {
 
   return (
     <>
+      <script>
+        {function onSubmit(token) {
+          document.getElementById("demo-form").submit();
+        }}
+      </script>
+
       <div className="text-center mx-auto w-4/5" id="contact">
         <h1 className="lg:text-5xl md:text-4xl sm:text-3xl font-large mt-12 inline-block">
           Contact Us
@@ -107,7 +113,7 @@ export default function contactForm() {
                 </div>
               </div>
               <div className="border-2 rounded-md">
-                <form onSubmit={formik.handleSubmit}>
+                <form onSubmit={formik.handleSubmit} id="contact_form">
                   <div className="shadow-md overflow-hidden sm:rounded-md">
                     <div className="px-4 py-5 bg-white sm:p-6">
                       <div className="grid grid-cols-2 gap-6 row-span-5">
@@ -198,6 +204,9 @@ export default function contactForm() {
                       ) : (
                         <button
                           type="submit"
+                          data-sitekey="6LflhHsaAAAAALORhCm3tAguZR_BvAmCakZlUaep"
+                          data-callback="onSubmit"
+                          data-action="submit"
                           className="my-8 inline-flex justify-center py-3 px-5 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-400"
                         >
                           Send Message
@@ -206,6 +215,7 @@ export default function contactForm() {
                     </div>
                   </div>
                 </form>
+                <script src="https://www.google.com/recaptcha/api.js"></script>
               </div>
             </div>
           </div>
