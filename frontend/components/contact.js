@@ -56,7 +56,7 @@ export default function contactForm() {
 
   return (
     <>
-      <div className="text-center mx-auto w-4/5 content-auto" id="contact">
+      <div className="text-center mx-auto w-4/5" id="contact">
         <h1 className="lg:text-5xl md:text-4xl sm:text-3xl font-large mt-12 inline-block">
           Contact Us
         </h1>

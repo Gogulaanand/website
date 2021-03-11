@@ -52,7 +52,7 @@ export default function Register() {
   };
 
   return (
-    <form onSubmit={formik.handleSubmit} className="w-full content-auto">
+    <form onSubmit={formik.handleSubmit} className="w-full">
       <div>
         <label htmlFor="username" className="text-sm font-medium text-gray-700">
           Username
