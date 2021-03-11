@@ -67,10 +67,7 @@ export default function Gallery() {
     openPhotoSwipe(parseInt(e.target.id, 10));
   };
   return (
-    <div
-      className="mx-auto w-4/5 h-4/5 lg:pt-4 lg:pb-24 content-auto"
-      id="home-gallery"
-    >
+    <div className="mx-auto w-4/5 h-4/5 lg:pt-4 lg:pb-24" id="home-gallery">
       <div className="text-center lg:text-2xl md:text-xl sm:text-base">
         <p>Sample collections</p>
       </div>
