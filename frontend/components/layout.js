@@ -1,12 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Link from "next/link";
 import { logout } from "../lib/auth";
 import AppContext from "../context/AppContext";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
+import MobileMenu from "./mobileMenu";
 
 export default function Layout() {
   const { user, setUser } = useContext(AppContext);
+  const [showMobileMenu, setshowMobileMenu] = useState(false);
 
   const handleLogout = () => {
     logout();
@@ -35,6 +37,7 @@ export default function Layout() {
               <button
                 type="button"
                 className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                onClick={() => setshowMobileMenu(!showMobileMenu)}
               >
                 <span className="sr-only">Open menu</span>
 
@@ -92,6 +95,12 @@ export default function Layout() {
           </div>
         </div>
       </div>
+      {showMobileMenu ? (
+        <MobileMenu
+          changeState={setshowMobileMenu}
+          showState={showMobileMenu}
+        />
+      ) : null}
     </>
   );
 }
