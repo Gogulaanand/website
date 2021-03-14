@@ -24,9 +24,12 @@ export default function Layout() {
                 <img
                   src="/sun.svg"
                   alt="logo"
-                  className="lg:w-16 lg:h-16 md:w-12 md:h-12 sm:w-8 sm:h-8"
+                  className="lg:w-16 lg:h-16 md:w-12 md:h-12 sm:w-8 sm:h-8 h-8 w-8"
                 />
               </a>
+            </div>
+            <div className="sm:hidden">
+              <h1 className="text-xl">Company</h1>
             </div>
             <div className="-mr-2 -my-2 md:hidden">
               <button
