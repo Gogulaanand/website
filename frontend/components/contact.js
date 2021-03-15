@@ -73,7 +73,7 @@ export default function contactForm() {
         <div className="flex justify-center rounded-md">
           <div className="mt-10 sm:mt-0">
             <div className="md:grid md:grid-cols-2 md:gap-6">
-              <div className="grid items-center bg-purple rounded-md">
+              <div className="grid items-center bg-voilet rounded-md">
                 <div className="px-4 sm:px-0">
                   <h1 className="text-2xl leading-6 text-white text-left ml-8">
                     Contact Information
