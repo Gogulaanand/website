@@ -2,30 +2,36 @@ import Link from "next/link";
 export default function ProductCard(props) {
   return (
     <>
-      <div className="overflow-hidden transition-shadow duration-300 bg-white rounded shadow-sm">
-        <img
-          src={`${process.env.NEXT_PUBLIC_API_URL}${props.data.cover.url}`}
-          className="object-cover w-full h-64"
-          alt=""
-        />
-        <div className="p-5 border border-t-0">
-          <a
-            href={`/products/${props.data.id}`}
-            aria-label="Category"
-            title="Visit the East"
-            className="inline-block mb-3 text-2xl font-bold leading-5 transition-colors duration-200 hover:text-deep-purple-accent-700"
-          >
-            {props.data.name}
-          </a>
-          <p className="mb-2 text-gray-700">{props.data.description}</p>
-          <Link href={`/products/${props.data.id}`}>
+      <div className="relative overflow-hidden p-px transition-shadow duration-300 bg-white rounded-sm shadow-sm hover:scale-105 group hover:shadow-xl">
+        <div class="absolute bottom-0 left-0 w-full h-1 duration-300 origin-left transform scale-x-0 bg-indigo-600 group-hover:scale-x-100"></div>
+        <div class="absolute bottom-0 left-0 w-1 h-full duration-300 origin-bottom transform scale-y-0 bg-indigo-600 group-hover:scale-y-100"></div>
+        <div class="absolute top-0 left-0 w-full h-1 duration-300 origin-right transform scale-x-0 bg-indigo-600 group-hover:scale-x-100"></div>
+        <div class="absolute bottom-0 right-0 w-1 h-full duration-300 origin-top transform scale-y-0 bg-indigo-600 group-hover:scale-y-100"></div>
+        <div className="relative bg-white rounded-sm">
+          <img
+            src={`${process.env.NEXT_PUBLIC_API_URL}${props.data.cover.url}`}
+            className="object-cover w-full h-64"
+            alt=""
+          />
+          <div className="p-5 border border-t-0">
             <a
-              aria-label=""
-              className="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
+              href={`/products/${props.data.id}`}
+              aria-label="Category"
+              title="Visit the East"
+              className="inline-block mb-3 text-2xl font-bold leading-5 transition-colors duration-200 hover:text-deep-purple-accent-700"
             >
-              View
+              {props.data.name}
             </a>
-          </Link>
+            <p className="mb-2 text-gray-700">{props.data.description}</p>
+            <Link href={`/products/${props.data.id}`}>
+              <a
+                aria-label=""
+                className="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
+              >
+                View
+              </a>
+            </Link>
+          </div>
         </div>
       </div>
     </>
