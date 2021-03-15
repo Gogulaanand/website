@@ -1,10 +1,8 @@
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
-import Link from "next/link";
 import dynamic from "next/dynamic";
 const Fetching = dynamic(() => import("../../components/svg/SvgFetching"));
+import ProductCard from "../../components/productCard";
 
 const QUERY = gql`
   {
@@ -29,41 +27,13 @@ export default function Products() {
   if (data.products && data.products.length) {
     return (
       <>
-        <div className="mx-auto mt-36 grid grid-cols-3 grid-space-4 w-4/5">
-          {data.products.map((res) => (
-            <Card
-              className="lg:w-80 md:w-64 sm:w-44 mb-32 ml-16 shadow-md animate-fadeInUp"
-              key={res.id}
-            >
-              <Card.Img
-                variant="top"
-                src={`${process.env.NEXT_PUBLIC_API_URL}${res.cover.url}`}
-                className="lg:w-80 lg:h-72 md:w-64 md:h-60 sm:w-44 sm:h-40"
-              />
-              <Card.Body>
-                <Card.Title>{res.name}</Card.Title>
-                <Card.Text>{res.description}</Card.Text>
-                <Link
-                  href={`/products/${res.id}`}
-                  // as={`/products/${res.name.replace(/\s/g, "-")}`}
-                  passHref
-                >
-                  <Button
-                    className="mt-6 cursor-pointer"
-                    variant="primary"
-                    as="a"
-                  >
-                    View
-                  </Button>
-                </Link>
-              </Card.Body>
-            </Card>
-          ))}
+        <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+          <div className="grid gap-8 lg:grid-cols-3 sm:max-w-sm sm:mx-auto lg:max-w-full">
+            {data.products.map((res) => (
+              <ProductCard key={res.id} data={res} />
+            ))}
+          </div>
         </div>
-        <link
-          rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        />
       </>
     );
   }
