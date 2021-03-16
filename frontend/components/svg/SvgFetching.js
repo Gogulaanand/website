@@ -8,7 +8,7 @@ export default function Fetching() {
           width="20"
           height="20"
           fill="currentColor"
-          class="mr-2 animate-spin"
+          className="mr-2 animate-spin"
           viewBox="0 0 1792 1792"
           xmlns="http://www.w3.org/2000/svg"
         >

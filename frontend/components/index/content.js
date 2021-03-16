@@ -64,7 +64,7 @@ export default function Content() {
           <div>
             <a
               href="/"
-              aria-label=""
+              aria-label="view products"
               className="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
             >
               Learn more

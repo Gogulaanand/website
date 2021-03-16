@@ -69,7 +69,7 @@ export default function Gallery() {
   return (
     <div className="mx-auto w-4/5 h-4/5 lg:pt-4 lg:pb-24" id="home-gallery">
       <div className="text-center lg:text-2xl md:text-xl sm:text-base">
-        <p>Sample collections</p>
+        <p>Some of our collections</p>
       </div>
       <div className="grid grid-cols-6 grid-rows-9 gap-2 mx-auto mt-16 h-auto">
         <div className="w-full col-span-2 row-span-1 overflow-hidden">

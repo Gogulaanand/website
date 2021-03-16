@@ -1,14 +1,14 @@
 import { useState, useContext } from "react";
-import { registerUser } from "../lib/auth";
+import { registerUser } from "../../lib/auth";
 import { useFormik } from "formik";
-import AppContext from "../context/AppContext";
+import AppContext from "../../context/AppContext";
 import { toaster } from "evergreen-ui";
 import dynamic from "next/dynamic";
 
 const SvgArrowPointingToRight = dynamic(() =>
-  import("./svg/SvgArrowPointingToRight")
+  import("../svg/SvgArrowPointingToRight")
 );
-const SvgLoading = dynamic(() => import("./svg/SvgLoading"));
+const SvgLoading = dynamic(() => import("../svg/SvgLoading"));
 
 export default function Register() {
   const [loading, setLoading] = useState(false);
