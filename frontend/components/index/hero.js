@@ -1,68 +1,46 @@
-export default function Header() {
+export default function Hero() {
   return (
-    <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
-      <div className="max-w-xl sm:mx-auto lg:max-w-2xl">
-        <div className="flex flex-col mb-16 sm:text-center sm:mb-0">
-          <a href="/" className="mb-6 sm:mx-auto">
-            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-indigo-50">
-              <svg
-                className="w-10 h-10 text-deep-purple-accent-400"
-                stroke="currentColor"
-                viewBox="0 0 52 52"
-              >
-                <polygon
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  fill="none"
-                  points="29 13 14 29 25 29 23 39 38 23 27 23"
-                />
-              </svg>
-            </div>
-          </a>
-          <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
-            <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
-              <span className="relative inline-block">
-                <svg
-                  viewBox="0 0 52 24"
-                  fill="currentColor"
-                  className="absolute top-0 left-0 z-0 hidden w-32 -mt-8 -ml-20 text-blue-gray-100 lg:w-32 lg:-ml-28 lg:-mt-10 sm:block"
-                >
-                  <defs>
-                    <pattern
-                      id="e77df901-b9d7-4b9b-822e-16b2d410795b"
-                      x="0"
-                      y="0"
-                      width=".135"
-                      height=".30"
-                    >
-                      <circle cx="1" cy="1" r=".7" />
-                    </pattern>
-                  </defs>
-                  <rect
-                    fill="url(#e77df901-b9d7-4b9b-822e-16b2d410795b)"
-                    width="52"
-                    height="24"
-                  />
-                </svg>
-                <span className="relative">The</span>
-              </span>{" "}
-              quick, brown fox jumps over a lazy dog
+    <div className="relative px-4 pt-16 mx-auto lg:py-32 md:px-8 xl:px-10 sm:max-w-xl md:max-w-full lg:h-screen">
+      <div className="max-w-xl mx-auto lg:max-w-screen-xl">
+        <div className="mb-16 lg:max-w-lg lg:mb-0 lg:mt-32">
+          <div className="max-w-xl mb-6">
+            <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
+              The quick, brown fox
+              <br className="hidden md:block" />
+              jumps over{" "}
+              <span className="inline-block text-deep-purple-accent-400">
+                a lazy dog
+              </span>
             </h2>
             <p className="text-base text-gray-700 md:text-lg">
               Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque rem aperiam, eaque ipsa quae.
+              accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
+              quae. explicabo.
             </p>
           </div>
-          <div>
+          <div className="flex items-center">
             <a
-              href="/"
-              className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+              href="/products"
+              className="inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
             >
-              Get started
+              Explore
+            </a>
+            <a
+              href="/#contact"
+              aria-label=""
+              className="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
+            >
+              Contact Us
             </a>
           </div>
         </div>
+      </div>
+      <div className="flex justify-center h-full overflow-hidden lg:w-2/3 xl:w-1/2 lg:absolute lg:justify-start lg:bottom-0 lg:right-0 lg:items-center lg:mb-32">
+        <img
+          src="https://kitwind.io/assets/kometa/full-browser.png"
+          className="object-cover object-top w-4/5 h-64 max-w-xl -mb-16 rounded shadow-2xl lg:ml-32 xl:ml-4 lg:-mb-24 xl:-mb-28 lg:h-auto lg:max-w-screen-md"
+          alt=""
+        />
       </div>
     </div>
   );

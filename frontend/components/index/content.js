@@ -1,6 +1,6 @@
 export default function Content() {
   return (
-    <div className="lg:my-28 md:my-16 sm:my-8 px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:w-4/5 md:px-24 lg:px-8 lg:py-20">
+    <div className="lg:my-16 md:my-12 sm:my-8 px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:w-4/5 md:px-24 lg:px-8 lg:py-12">
       <div className="grid gap-10 lg:grid-cols-2">
         <div className="flex flex-col justify-center md:pr-8 xl:pr-0 lg:max-w-lg">
           <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-teal-accent-400">
