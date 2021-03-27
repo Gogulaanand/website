@@ -45,6 +45,7 @@ export default function Nav() {
               <a
                 aria-label="Home"
                 title="Home"
+                href="/"
                 className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
               >
                 Home
@@ -56,6 +57,7 @@ export default function Nav() {
               <a
                 aria-label="Our products"
                 title="Our products"
+                href="/products"
                 className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
               >
                 Products
@@ -67,28 +69,35 @@ export default function Nav() {
               <a
                 aria-label="Contact us"
                 title="Contact us"
+                href="/#contact"
                 className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
               >
                 Contact us
               </a>
             </Link>
           </li>
+        </ul>
+        <ul className="invisible flex items-center hidden space-x-8 lg:flex">
           <li>
             {user ? (
-              <a
-                className="ifont-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                aria-label="Logout"
-                title="Logout"
-                onClick={handleLogout}
-              >
-                Logout
-              </a>
+              <Link href="/">
+                <a
+                  className="ifont-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                  aria-label="Logout"
+                  title="Logout"
+                  onClick={handleLogout}
+                  href="/"
+                >
+                  Logout
+                </a>
+              </Link>
             ) : (
               <Link href="/login">
                 <a
                   className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
                   aria-label="Sign Up"
                   title="Sign Up"
+                  href="/login"
                 >
                   Sign Up
                 </a>
@@ -168,24 +177,40 @@ export default function Nav() {
                 <nav>
                   <ul className="space-y-4">
                     <li>
-                      <a
-                        href="/"
-                        aria-label="Our products"
-                        title="Our products"
-                        className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                      >
-                        Products
-                      </a>
+                      <Link href="/">
+                        <a
+                          aria-label="Home"
+                          title="Home"
+                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          Home
+                        </a>
+                      </Link>
                     </li>
                     <li>
-                      <a
-                        href="/#contact"
-                        aria-label="Contact us"
-                        title="Contact us"
-                        className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                      >
-                        Contact
-                      </a>
+                      <Link href="/products">
+                        <a
+                          aria-label="Our products"
+                          title="Our products"
+                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          Products
+                        </a>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/#contact">
+                        <a
+                          aria-label="Contact us"
+                          title="Contact us"
+                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          Contact us
+                        </a>
+                      </Link>
                     </li>
                     {/* <li>
                       <a
