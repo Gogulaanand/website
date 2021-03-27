@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
-const Login = dynamic(() => import("../components/login"));
-const Register = dynamic(() => import("../components/register"));
+const Login = dynamic(() => import("../components/user/login"));
+const Register = dynamic(() => import("../components/user/register"));
 
 export default function User() {
   const [login, setlogin] = useState(true);
