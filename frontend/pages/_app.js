@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "../styles/globals.sass";
-import Layout from "../components/layout";
-import Footer from "../components/footer";
+import Nav from "../components/index/nav";
+import Footer from "../components/index/footer";
 import withData from "../lib/apollo";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -51,7 +51,7 @@ function MyApp({ Component, pageProps }) {
           name="description"
           content="company name: Sunfabb. High Quality bedspreads, bed sheets, pillow covers, scarf, hand keys, kerchief manufactured and priced reasonable but of best quality unmatched by others in the market"
         ></meta>
-        <Layout />
+        <Nav />
         <Component {...pageProps} />
         <Footer />
       </AppContext.Provider>
