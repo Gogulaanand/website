@@ -2,7 +2,28 @@ export default function Content() {
   return (
     <div className="lg:my-16 md:my-12 sm:my-8 px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:w-4/5 md:px-24 lg:px-8 lg:py-12">
       <div className="grid gap-10 lg:grid-cols-2">
-        <div className="flex flex-col justify-center md:pr-8 xl:pr-0 lg:max-w-lg">
+        <div className="flex items-center justify-center md:pr-8 xl:pr-0 lg:max-w-lg">
+          <div className="flex flex-col items-end px-3">
+            <img
+              className="object-cover mb-6 rounded shadow-lg h-28 sm:h-48 xl:h-56 w-28 sm:w-48 xl:w-56"
+              src="https://images.pexels.com/photos/3184287/pexels-photo-3184287.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
+              alt=""
+            />
+            <img
+              className="object-cover w-20 h-20 rounded shadow-lg sm:h-32 xl:h-40 sm:w-32 xl:w-40"
+              src="https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
+              alt=""
+            />
+          </div>
+          <div className="px-3">
+            <img
+              className="object-cover w-40 h-40 rounded shadow-lg sm:h-64 xl:h-80 sm:w-64 xl:w-80"
+              src="https://images.pexels.com/photos/3182739/pexels-photo-3182739.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;w=500"
+              alt=""
+            />
+          </div>
+        </div>
+        <div className="flex flex-col justify-center -mx-4 lg:pl-8">
           <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-teal-accent-400">
             <svg className="text-teal-900 w-7 h-7" viewBox="0 0 24 24">
               <polyline
@@ -63,7 +84,7 @@ export default function Content() {
           </div>
           <div>
             <a
-              href="/"
+              href="/products"
               aria-label="view products"
               className="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
             >
@@ -76,27 +97,6 @@ export default function Content() {
                 <path d="M9.707,5.293l-5-5A1,1,0,0,0,3.293,1.707L7.586,6,3.293,10.293a1,1,0,1,0,1.414,1.414l5-5A1,1,0,0,0,9.707,5.293Z" />
               </svg>
             </a>
-          </div>
-        </div>
-        <div className="flex items-center justify-center -mx-4 lg:pl-8">
-          <div className="flex flex-col items-end px-3">
-            <img
-              className="object-cover mb-6 rounded shadow-lg h-28 sm:h-48 xl:h-56 w-28 sm:w-48 xl:w-56"
-              src="https://images.pexels.com/photos/3184287/pexels-photo-3184287.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
-              alt=""
-            />
-            <img
-              className="object-cover w-20 h-20 rounded shadow-lg sm:h-32 xl:h-40 sm:w-32 xl:w-40"
-              src="https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
-              alt=""
-            />
-          </div>
-          <div className="px-3">
-            <img
-              className="object-cover w-40 h-40 rounded shadow-lg sm:h-64 xl:h-80 sm:w-64 xl:w-80"
-              src="https://images.pexels.com/photos/3182739/pexels-photo-3182739.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;w=500"
-              alt=""
-            />
           </div>
         </div>
       </div>
