@@ -77,12 +77,12 @@ export default function Nav() {
             </Link>
           </li>
         </ul>
-        <ul className="invisible flex items-center hidden space-x-8 lg:flex">
+        <ul className="invisible hidden flex items-center space-x-8 lg:flex">
           <li>
             {user ? (
               <Link href="/">
                 <a
-                  className="ifont-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                  className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                   aria-label="Logout"
                   title="Logout"
                   onClick={handleLogout}
