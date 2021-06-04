@@ -61,7 +61,7 @@ export async function getStaticPaths() {
 
 // get_static_props query & function
 const GET_ONE_QUERY = gql`
-  query($id: ID!) {
+  query ($id: ID!) {
     product(id: $id) {
       id
       name
@@ -102,7 +102,10 @@ export default function ProductDetail(props) {
   return (
     <>
       <div className="mx-auto w-4/5 mt-32 justify-center">
-        <div data-aos="fade-in" className="grid grid-cols-2 gap-6 h-screen">
+        <div
+          data-aos="fade-in"
+          className="lg:grid lg:grid-cols-2 lg:gap-6 h-screen"
+        >
           <div className="productCarousel">
             <ImageGallery
               items={images}
@@ -113,16 +116,16 @@ export default function ProductDetail(props) {
               slideOnThumbnailOver={true}
             />
           </div>
-          <div className="productIntro flex-col text-left ml-16">
+          <div className="productIntro flex-col text-left ml-16 mt-12 sm:ml-24 lg:mt-2">
             <h1 className="font-bold text-3xl">{props.name}</h1>
             <h2 className="mt-8 text-xl">{props.description}</h2>
             <h2 className="mt-8 text-xl">Price : Rs. X</h2>
           </div>
         </div>
-        <div className="flex-col -mt-32 mb-32">
-          <div className="grid grid-cols-6 gap-6">
+        <div className="flex-col -mt-36 lg:mb-32 mb-12">
+          <div className="lg:grid lg:grid-cols-6 lg:gap-6">
             <p
-              className="col-span-4 text-right text-xl self-center lg:leading-relaxed lg:tracking-wide"
+              className="col-span-4 text-right md:text-xl text-base self-center lg:leading-relaxed lg:tracking-wide"
               data-aos="fade-in"
               data-aos-duration="900"
               data-aos-delay="300"
@@ -135,17 +138,17 @@ export default function ProductDetail(props) {
               nulla pariatur.
             </p>
             <img
-              src={`${process.env.NEXT_PUBLIC_API_URL}${props.cover.formats.small.url}`}
+              src={`${process.env.NEXT_PUBLIC_API_URL}${props.cover.formats.medium.url}`}
               alt={`Image of ${props.name}`}
-              className="col-span-2 ml-8"
+              className="col-span-2 lg:ml-8 lg:mt-0 mt-4"
               data-aos="fade-in"
               data-aos-duration="800"
               data-aos-delay="200"
             />
           </div>
         </div>
-        <div className="flex-col mt-64 mb-48">
-          <div className="grid grid-cols-6 gap-6">
+        <div className="flex-col mt-48 mb-48">
+          <div className="lg:grid lg:grid-cols-6 lg:gap-6">
             <img
               src={`${process.env.NEXT_PUBLIC_API_URL}${props.cover.formats.medium.url}`}
               alt={`Image of ${props.name}`}
@@ -155,7 +158,7 @@ export default function ProductDetail(props) {
               data-aos-delay="200"
             />
             <p
-              className="ml-8 col-span-4 text-left text-xl self-center lg:leading-relaxed lg:tracking-wide"
+              className="lg:ml-8 lg:mt-0 mt-4 col-span-4 text-left md:text-xl text-base self-center lg:leading-relaxed lg:tracking-wide"
               data-aos="fade-in"
               data-aos-duration="900"
               data-aos-delay="300"
