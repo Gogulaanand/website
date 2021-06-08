@@ -11,7 +11,11 @@ import AppContext from "../context/AppContext";
 
 function MyApp({ Component, pageProps }) {
   const [user, setUser] = useState(null);
-  const [cart, updateCart] = useState({ items: [], total: 0 });
+  const [cart, updateCart] = useState({
+    items: [],
+    totalAmount: 0,
+    totalQuantity: 0,
+  });
 
   useEffect(() => {
     const token = Cookie.get("token");
@@ -20,7 +24,8 @@ function MyApp({ Component, pageProps }) {
       JSON.parse(cart).forEach((item) => {
         updateCart({
           cart: JSON.parse(cart),
-          total: item.price * item.quantity,
+          totalAmount: item.price * item.quantity,
+          totalQuantity: item.quantity,
         });
       });
     }
@@ -51,10 +56,13 @@ function MyApp({ Component, pageProps }) {
     let items = cart.items;
     const newItem = items.find((i) => i.id === item.id);
     if (!newItem) {
-      console.log(item);
       item.quantity = 1;
       items = [...items, item];
-      updateCart({ items, total: cart.total + item.price });
+      updateCart({
+        items,
+        totalAmount: cart.totalAmount + item.price,
+        totalQuantity: cart.totalQuantity + 1,
+      });
       Cookie.set("cart", items);
     } else {
       items = cart.items.map((item) =>
@@ -64,7 +72,8 @@ function MyApp({ Component, pageProps }) {
       );
       updateCart({
         items,
-        total: cart.total + item.price,
+        totalAmount: cart.totalAmount + item.price,
+        totalQuantity: cart.totalQuantity + 1,
       });
       Cookie.set("cart", items);
     }
@@ -81,7 +90,8 @@ function MyApp({ Component, pageProps }) {
       );
       updateCart({
         items,
-        total: cart.total - removeItem.price,
+        totalAmount: cart.totalAmount - removeItem.price,
+        totalQuantity: cart.totalQuantity - 1,
       });
       Cookie.set("cart", items);
     } else {
@@ -91,7 +101,8 @@ function MyApp({ Component, pageProps }) {
       updateCart({
         cart: {
           items,
-          total: cart.total - removeItem.price,
+          totalAmount: cart.totalAmount - removeItem.price,
+          totalQuantity: cart.totalAmount - 1,
         },
       });
       Cookie.set("cart", items);

@@ -8,12 +8,8 @@ const ShoppingCart = dynamic(() => import("../svg/SvgShoppingCart"));
 
 export default function Nav() {
   const appContext = useContext(AppContext);
-  const [totalItems, settotalItems] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, setUser, isAuthenticated, cart } = appContext;
-  // cart.items.forEach((item) => {
-  //   settotalItems(totalItems + item.quantity);
-  // });
 
   const handleLogout = () => {
     logout();
@@ -96,7 +92,7 @@ export default function Nav() {
                 className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400 flex flex-row justify-between"
               >
                 <ShoppingCart className="mx-2" />
-                Cart ({`${totalItems}`})
+                Cart ({`${cart.totalQuantity}`})
               </a>
             </Link>
           </li>
