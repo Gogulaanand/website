@@ -1,5 +1,8 @@
 import Link from "next/link";
+import { useContext } from "react";
+import AppContext from "../../context/AppContext";
 export default function ProductCard(props) {
+  const appContext = useContext(AppContext);
   return (
     <>
       <div className="relative overflow-hidden p-px transition-shadow duration-300 bg-white rounded-sm shadow-sm hover:scale-105 group hover:shadow-xl">
@@ -31,6 +34,13 @@ export default function ProductCard(props) {
                 View
               </a>
             </Link>
+            <button
+              aria-label="add to cart"
+              className="absolute bottom-0 right-0 mb-4 mr-4 inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
+              onClick={() => appContext.addItem({ id: props.data.id })}
+            >
+              Add to cart
+            </button>
           </div>
         </div>
       </div>

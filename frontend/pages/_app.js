@@ -11,9 +11,19 @@ import AppContext from "../context/AppContext";
 
 function MyApp({ Component, pageProps }) {
   const [user, setUser] = useState(null);
+  const [cart, updateCart] = useState({ items: [], total: 0 });
 
   useEffect(() => {
     const token = Cookie.get("token");
+    const cart = Cookie.get("cart");
+    if (cart === "String" && cart !== undefined) {
+      JSON.parse(cart).forEach((item) => {
+        updateCart({
+          cart: JSON.parse(cart),
+          total: item.price * item.quantity,
+        });
+      });
+    }
     if (token) {
       fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/me`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -37,13 +47,67 @@ function MyApp({ Component, pageProps }) {
     }, 1000);
   }, []);
 
+  const addItem = (item) => {
+    let items = cart.items;
+    const newItem = items.find((i) => i.id === item.id);
+    if (!newItem) {
+      console.log(item);
+      item.quantity = 1;
+      items = [...items, item];
+      updateCart({ items, total: cart.total + item.price });
+      Cookie.set("cart", items);
+    } else {
+      items = cart.items.map((item) =>
+        item.id === newItem.id
+          ? Object.assign({}, item, { quantity: item.quantity + 1 })
+          : item
+      );
+      updateCart({
+        items,
+        total: cart.total + item.price,
+      });
+      Cookie.set("cart", items);
+    }
+  };
+
+  const removeItem = (item) => {
+    let { items } = cart.items;
+    const removeItem = items.find((i) => i.id === item.id);
+    if (removeItem.quantity > 1) {
+      items = cart.items.map((item) =>
+        item.id === removeItem.id
+          ? Object.assign({}, item, { quantity: item.quantity - 1 })
+          : item
+      );
+      updateCart({
+        items,
+        total: cart.total - removeItem.price,
+      });
+      Cookie.set("cart", items);
+    } else {
+      const items = [...cart.items];
+      const index = items.findIndex((i) => i.id === removeItem.id);
+      items.splice(index, 1);
+      updateCart({
+        cart: {
+          items,
+          total: cart.total - removeItem.price,
+        },
+      });
+      Cookie.set("cart", items);
+    }
+  };
+
   return (
     <>
       <AppContext.Provider
         value={{
-          user: user,
+          user,
           isAuthenticated: !!user,
-          setUser: setUser,
+          setUser,
+          cart,
+          addItem,
+          removeItem,
         }}
       >
         <title>Sunfabb</title>

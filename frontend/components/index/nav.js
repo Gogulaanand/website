@@ -2,10 +2,19 @@ import React, { useContext, useState } from "react";
 import Link from "next/link";
 import { logout } from "../../lib/auth";
 import AppContext from "../../context/AppContext";
+import dynamic from "next/dynamic";
+
+const ShoppingCart = dynamic(() => import("../svg/SvgShoppingCart"));
 
 export default function Nav() {
+  const appContext = useContext(AppContext);
+  const [totalItems, settotalItems] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { user, setUser } = useContext(AppContext);
+  const { user, setUser, isAuthenticated, cart } = appContext;
+  // cart.items.forEach((item) => {
+  //   settotalItems(totalItems + item.quantity);
+  // });
+
   const handleLogout = () => {
     logout();
     setUser(null);
@@ -13,7 +22,7 @@ export default function Nav() {
 
   return (
     <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
-      <div className="relative flex items-center justify-between">
+      <div className="flex items-center justify-between">
         <a
           href="/"
           aria-label="Company"
@@ -39,7 +48,7 @@ export default function Nav() {
             Company
           </span>
         </a>
-        <ul className="flex items-center hidden space-x-8 lg:flex">
+        <ul className="flex hidden items-center space-x-8 lg:flex z-10">
           <li>
             <Link href="/">
               <a
@@ -77,7 +86,20 @@ export default function Nav() {
             </Link>
           </li>
         </ul>
-        <ul className="invisible flex items-center hidden space-x-8 lg:flex">
+        <ul className="flex items-center hidden space-x-8 lg:flex z-10">
+          <li>
+            <Link href="/cart">
+              <a
+                aria-label="Shopping cart"
+                title="Shopping cart"
+                href="/cart"
+                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400 flex flex-row justify-between"
+              >
+                <ShoppingCart className="mx-2" />
+                Cart ({`${totalItems}`})
+              </a>
+            </Link>
+          </li>
           <li>
             {user ? (
               <Link href="/">
@@ -212,7 +234,19 @@ export default function Nav() {
                         </a>
                       </Link>
                     </li>
-                    {/* <li>
+                    <li>
+                      <Link href="/cart">
+                        <a
+                          aria-label="Shopping cart"
+                          title="Shopping cart"
+                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          Cart
+                        </a>
+                      </Link>
+                    </li>
+                    <li>
                       <a
                         href="/register"
                         className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
@@ -221,7 +255,7 @@ export default function Nav() {
                       >
                         Sign up
                       </a>
-                    </li> */}
+                    </li>
                   </ul>
                 </nav>
               </div>
