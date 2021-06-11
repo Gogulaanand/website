@@ -2,9 +2,8 @@ import React, { useContext, useState } from "react";
 import Link from "next/link";
 import { logout } from "../../lib/auth";
 import AppContext from "../../context/AppContext";
-import dynamic from "next/dynamic";
-
-const ShoppingCart = dynamic(() => import("../svg/SvgShoppingCart"));
+import { ShoppingCartOutlined } from "@ant-design/icons";
+import { Badge } from "antd";
 
 export default function Nav() {
   const appContext = useContext(AppContext);
@@ -91,8 +90,12 @@ export default function Nav() {
                 href="/cart"
                 className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400 flex flex-row justify-between"
               >
-                <ShoppingCart className="mx-2" />
-                Cart ({`${cart.totalQuantity}`})
+                <Badge count={cart.totalQuantity} offset={[-2, 5]}>
+                  <ShoppingCartOutlined
+                    className="mx-2"
+                    style={{ fontSize: "2rem" }}
+                  />
+                </Badge>
               </a>
             </Link>
           </li>
@@ -123,11 +126,26 @@ export default function Nav() {
             )}
           </li>
         </ul>
-        <div className="lg:hidden">
+        <div className="lg:hidden flex">
+          <Link href="/cart">
+            <a
+              aria-label="Shopping cart"
+              title="Shopping cart"
+              href="/cart"
+              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400 flex flex-row justify-between"
+            >
+              <Badge count={cart.totalQuantity} offset={[-2, 5]}>
+                <ShoppingCartOutlined
+                  className="mx-2"
+                  style={{ fontSize: "2rem" }}
+                />
+              </Badge>
+            </a>
+          </Link>
           <button
             aria-label="Open Menu"
             title="Open Menu"
-            className="p-2 -mr-1 transition duration-200 rounded focus:outline-none focus:shadow-outline hover:bg-deep-purple-50 focus:bg-deep-purple-50"
+            className="p-2 -mr-1 ml-3 transition duration-200 rounded focus:outline-none focus:shadow-outline hover:bg-deep-purple-50 focus:bg-deep-purple-50"
             onClick={() => setIsMenuOpen(true)}
           >
             <svg className="w-5 text-gray-600" viewBox="0 0 24 24">
