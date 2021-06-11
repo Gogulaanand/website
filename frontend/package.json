@@ -24,7 +24,6 @@
     "autoprefixer": "^10.2.5",
     "axios": "^0.21.1",
     "emailjs-com": "^2.6.4",
-    "evergreen-ui": "^2.0.1",
     "express": "^4.17.1",
     "formik": "^2.2.6",
     "graphql": "^15.0.0",
