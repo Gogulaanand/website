@@ -2,7 +2,8 @@ import { useState, useContext } from "react";
 import { registerUser } from "../../lib/auth";
 import { useFormik } from "formik";
 import AppContext from "../../context/AppContext";
-import { toaster } from "evergreen-ui";
+import { notification } from "antd";
+
 import dynamic from "next/dynamic";
 
 const SvgArrowPointingToRight = dynamic(() =>
@@ -29,23 +30,30 @@ export default function Register() {
         .then((res) => {
           if (res.status === 200) {
             setLoading(false);
-            toaster.success("Signup Successful");
+            openNotification("success", "Signup Successful");
             appContext.setUser(res.data.user);
           }
         })
         .catch((err) => {
           setLoading(false);
           console.log(err);
-          toaster.danger("Something went wrong, pls try after sometime!", {
-            description:
-              "If the issue persists, pls write to us at abc@gmail.com",
-            duration: 10,
-          });
+          openNotification(
+            "warning",
+            "Something went wrong, pls try after sometime!",
+            "If the issue persists, pls write to us at abc@gmail.com"
+          );
         });
       resetForm({});
       setLoading(false);
     },
   });
+
+  const openNotification = (type, message, description = "") => {
+    notification[type]({
+      message,
+      description,
+    });
+  };
 
   const handlePasswordView = () => {
     setshowPassword(!showPassword);

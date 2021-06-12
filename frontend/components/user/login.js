@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { loginUser } from "../../lib/auth";
 import { useFormik } from "formik";
-import { toaster } from "evergreen-ui";
+import { notification } from "antd";
 import AppContext from "../../context/AppContext";
 import dynamic from "next/dynamic";
 
@@ -28,19 +28,30 @@ export default function Register() {
         .then((res) => {
           if (res.status === 200) {
             setLoading(false);
-            toaster.success("Login successful");
+            openNotification("success", "Login successful!");
             appContext.setUser(res.data.user);
           }
         })
         .catch((err) => {
           setLoading(false);
           console.log(err);
-          toaster.danger("Login unsuccessful!");
+          openNotification(
+            "warning",
+            "Login unsuccessful!",
+            "Please try again"
+          );
         });
       resetForm({});
       setLoading(false);
     },
   });
+
+  const openNotification = (type, message, description = "") => {
+    notification[type]({
+      message,
+      description,
+    });
+  };
 
   const handlePasswordView = () => {
     setshowPassword(!showPassword);

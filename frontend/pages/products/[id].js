@@ -4,6 +4,8 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 import { HttpLink } from "apollo-link-http";
 import { onError } from "apollo-link-error";
 import ImageGallery from "react-image-gallery";
+import AppContext from "../../context/AppContext";
+import { useContext } from "react";
 
 // Instantiate apollo client constructor
 const cache = new InMemoryCache();
@@ -89,6 +91,7 @@ export async function getStaticProps({ params }) {
 }
 
 export default function ProductDetail(props) {
+  const appContext = useContext(AppContext);
   const images = [
     {
       original: `${process.env.NEXT_PUBLIC_API_URL}${props.cover.formats.medium.url}`,
@@ -120,6 +123,13 @@ export default function ProductDetail(props) {
             <h1 className="font-bold text-3xl">{props.name}</h1>
             <h2 className="mt-8 text-xl">{props.description}</h2>
             <h2 className="mt-8 text-xl">Price : Rs. X</h2>
+            <button
+              type="submit"
+              className="my-8 py-3 px-5 border-black border-2 font-medium text-black bg-white hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
+              onClick={() => appContext.addItem({ id: props.id })}
+            >
+              Add to cart
+            </button>
           </div>
         </div>
         <div className="flex-col -mt-36 lg:mb-32 mb-12">
