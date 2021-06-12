@@ -20,12 +20,14 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     const token = Cookie.get("token");
     const cart = Cookie.get("cart");
-    if (cart === "String" && cart !== undefined) {
+    if (cart !== undefined) {
+      let totalCount = 0;
       JSON.parse(cart).forEach((item) => {
+        totalCount += item.quantity;
         updateCart({
-          cart: JSON.parse(cart),
+          items: JSON.parse(cart),
           totalAmount: item.price * item.quantity,
-          totalQuantity: item.quantity,
+          totalQuantity: totalCount,
         });
       });
     }
