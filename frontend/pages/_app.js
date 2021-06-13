@@ -58,12 +58,11 @@ function MyApp({ Component, pageProps }) {
     let items = cart.items;
     const newItem = items.find((i) => i.id === item.id);
     if (!newItem) {
-      item.quantity = 1;
       items = [...items, item];
       updateCart({
         items,
         totalAmount: cart.totalAmount + item.price,
-        totalQuantity: cart.totalQuantity + 1,
+        totalQuantity: cart.totalQuantity + item.quantity,
       });
       Cookie.set("cart", items);
     } else {
@@ -75,7 +74,7 @@ function MyApp({ Component, pageProps }) {
       updateCart({
         items,
         totalAmount: cart.totalAmount + item.price,
-        totalQuantity: cart.totalQuantity + 1,
+        totalQuantity: cart.totalQuantity + item.quantity,
       });
       Cookie.set("cart", items);
     }

@@ -5,7 +5,10 @@ import { HttpLink } from "apollo-link-http";
 import { onError } from "apollo-link-error";
 import ImageGallery from "react-image-gallery";
 import AppContext from "../../context/AppContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import { Select, InputNumber } from "antd";
+import { parse } from "graphql";
+const { Option } = Select;
 
 // Instantiate apollo client constructor
 const cache = new InMemoryCache();
@@ -92,6 +95,12 @@ export async function getStaticProps({ params }) {
 
 export default function ProductDetail(props) {
   const appContext = useContext(AppContext);
+  const [quantity, setquantity] = useState(0);
+
+  const handleChange = (value) => {
+    setquantity(parseInt(value));
+  };
+
   const images = [
     {
       original: `${process.env.NEXT_PUBLIC_API_URL}${props.cover.formats.medium.url}`,
@@ -102,6 +111,7 @@ export default function ProductDetail(props) {
       thumbnail: `${process.env.NEXT_PUBLIC_API_URL}${props.cover.formats.medium.url}`,
     },
   ];
+
   return (
     <>
       <div className="mx-auto w-4/5 mt-32 justify-center">
@@ -123,10 +133,31 @@ export default function ProductDetail(props) {
             <h1 className="font-bold text-3xl">{props.name}</h1>
             <h2 className="mt-8 text-xl">{props.description}</h2>
             <h2 className="mt-8 text-xl">Price : Rs. X</h2>
+
+            <div>
+              <p className="mt-8 text-lg mb-2">Quantity: </p>
+              <Select
+                defaultValue="1"
+                style={{ width: 60 }}
+                onChange={handleChange}
+                className="border-1 border-black focus:outline-none"
+              >
+                {[...Array(30)].map((_, i) => {
+                  return (
+                    <Option value={i + 1} key={i + 1}>
+                      {i + 1}
+                    </Option>
+                  );
+                })}
+              </Select>
+            </div>
+
             <button
               type="submit"
               className="my-8 py-3 px-5 border-black border-2 font-medium text-black bg-white hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
-              onClick={() => appContext.addItem({ id: props.id })}
+              onClick={() =>
+                appContext.addItem({ id: props.id, quantity: quantity })
+              }
             >
               Add to cart
             </button>
