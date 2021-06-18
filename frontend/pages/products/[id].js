@@ -6,8 +6,8 @@ import { onError } from "apollo-link-error";
 import ImageGallery from "react-image-gallery";
 import AppContext from "../../context/AppContext";
 import { useContext, useState } from "react";
-import { Select, InputNumber } from "antd";
-import { parse } from "graphql";
+import { Select } from "antd";
+// import { parse } from "graphql";
 const { Option } = Select;
 
 // Instantiate apollo client constructor

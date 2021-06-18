@@ -1,10 +1,8 @@
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import dynamic from "next/dynamic";
-import { useContext } from "react";
 const Fetching = dynamic(() => import("../../components/svg/SvgFetching"));
 import ProductCard from "../../components/product/productCard";
-import AppContext from "../../context/AppContext";
 
 const QUERY = gql`
   {
@@ -22,7 +20,6 @@ const QUERY = gql`
 `;
 
 export default function Products() {
-  const appContext = useContext(AppContext);
   var { loading, error, data } = useQuery(QUERY);
 
   if (error) return <p className="m-auto">Error fetching products</p>;
