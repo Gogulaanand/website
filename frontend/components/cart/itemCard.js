@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { Divider, Select } from "antd";
+import { Divider, Input, Button } from "antd";
 import { PlusOutlined, MinusOutlined, CloseOutlined } from "@ant-design/icons";
 import { useContext, useState } from "react";
 import AppContext from "../../context/AppContext";
@@ -28,6 +28,7 @@ export default function CartItem(props) {
   const appContext = useContext(AppContext);
 
   const [count, setcount] = useState(props.data.quantity);
+  const [disableMinus, setdisableMinus] = useState(count === 1);
 
   const handleChange = (value) => {
     appContext.addItem({ id: props.data.id, quantity: value });
@@ -60,7 +61,7 @@ export default function CartItem(props) {
               {/* <p className="my-3 text-gray-700">{item.type}</p> */}
             </div>
             <div className="col-span-2 my-auto flex justify-center">
-              <p className="mr-3">Qty: </p>
+              {/* <p className="mr-3">Qty: </p>
               <Select
                 defaultValue={count}
                 style={{ width: 60 }}
@@ -74,11 +75,18 @@ export default function CartItem(props) {
                     </Option>
                   );
                 })}
-              </Select>
-              {/* <MinusOutlined
-                className="mt-3 mr-3"
-                onClick={() => setcount(count - 1)}
-              />
+              </Select> */}
+              <Button
+                disabled={disableMinus}
+                icon={<MinusOutlined />}
+                onClick={() => {
+                  setcount(count - 1);
+                  if (count - 1 === 1) setdisableMinus(true);
+                  appContext.removeItem({ id: props.data.id });
+                }}
+                type="text"
+                className="mt-1 mr-2"
+              ></Button>
               <Input
                 min={1}
                 max={10000}
@@ -86,10 +94,16 @@ export default function CartItem(props) {
                 style={{ width: "30%" }}
                 value={count}
               ></Input>
-              <PlusOutlined
-                className="mt-3 ml-3"
-                onClick={() => setcount(count + 1)}
-              /> */}
+              <Button
+                icon={<PlusOutlined />}
+                type="text"
+                onClick={() => {
+                  setcount(count + 1);
+                  setdisableMinus(false);
+                  appContext.addItem({ id: props.data.id, quantity: 1 });
+                }}
+                className="mt-1 ml-2"
+              ></Button>
             </div>
             <p className="col-span-2 my-auto">{item.price}</p>
             <CloseOutlined

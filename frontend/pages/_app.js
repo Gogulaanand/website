@@ -19,18 +19,20 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     const token = Cookie.get("token");
-    const cart = Cookie.get("cart");
-    if (cart !== undefined) {
+    const cookieCart = Cookie.get("cart");
+
+    if (cookieCart !== undefined) {
       let totalCount = 0;
-      JSON.parse(cart).forEach((item) => {
+      JSON.parse(cookieCart).forEach((item) => {
         totalCount += item.quantity;
         updateCart({
-          items: JSON.parse(cart),
+          items: JSON.parse(cookieCart),
           totalAmount: item.price * item.quantity,
           totalQuantity: totalCount,
         });
       });
     }
+
     if (token) {
       fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/me`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -41,7 +43,6 @@ function MyApp({ Component, pageProps }) {
         }
         const user = await res.json();
         setUser(user);
-        console.log(user);
       });
     }
 
@@ -56,58 +57,49 @@ function MyApp({ Component, pageProps }) {
 
   const addItem = (item) => {
     let items = cart.items;
-    const newItem = items.find((i) => i.id === item.id);
-    if (!newItem) {
-      items = [...items, item];
+    let existingItem;
+    if (items) existingItem = items.find((i) => i.id === item.id);
+
+    if (!existingItem) {
       updateCart({
-        items,
-        totalAmount: cart.totalAmount + item.price,
-        totalQuantity: cart.totalQuantity + item.quantity,
+        items: [...(items || []), item],
+        totalAmount: cart.totalAmount + item.price * 1,
+        totalQuantity: cart.totalQuantity + 1,
       });
-      Cookie.set("cart", items);
     } else {
-      items = cart.items.map((item) =>
-        item.id === newItem.id
-          ? Object.assign({}, item, { quantity: item.quantity + 1 })
-          : item
-      );
+      const index = items.findIndex((i) => i.id === item.id);
+      items[index] = Object.assign({}, item, { quantity: item.quantity + 1 });
       updateCart({
         items,
         totalAmount: cart.totalAmount + item.price,
-        totalQuantity: cart.totalQuantity + item.quantity,
+        totalQuantity: cart.totalQuantity + 1,
       });
-      Cookie.set("cart", items);
     }
+    Cookie.set("cart", items);
   };
 
   const removeItem = (item) => {
-    let { items } = cart.items;
+    let items = cart.items;
     const removeItem = items.find((i) => i.id === item.id);
+
     if (removeItem.quantity > 1) {
-      items = cart.items.map((item) =>
-        item.id === removeItem.id
-          ? Object.assign({}, item, { quantity: item.quantity - 1 })
-          : item
-      );
+      const index = items.findIndex((i) => i.id === item.id);
+      items[index] = Object.assign({}, item, { quantity: item.quantity - 1 });
       updateCart({
         items,
         totalAmount: cart.totalAmount - removeItem.price,
         totalQuantity: cart.totalQuantity - 1,
       });
-      Cookie.set("cart", items);
     } else {
-      const items = [...cart.items];
       const index = items.findIndex((i) => i.id === removeItem.id);
-      items.splice(index, 1);
+      items = items.splice(index, 1);
       updateCart({
-        cart: {
-          items,
-          totalAmount: cart.totalAmount - removeItem.price,
-          totalQuantity: cart.totalAmount - 1,
-        },
+        items,
+        totalAmount: cart.totalAmount - removeItem.price,
+        totalQuantity: cart.totalQuantity - 1,
       });
-      Cookie.set("cart", items);
     }
+    Cookie.set("cart", items);
   };
 
   return (

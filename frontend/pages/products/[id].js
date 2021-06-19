@@ -95,11 +95,11 @@ export async function getStaticProps({ params }) {
 
 export default function ProductDetail(props) {
   const appContext = useContext(AppContext);
-  const [quantity, setquantity] = useState(0);
+  // const [quantity, setquantity] = useState(0);
 
-  const handleChange = (value) => {
-    setquantity(parseInt(value));
-  };
+  // const handleChange = (value) => {
+  //   setquantity(parseInt(value));
+  // };
 
   const images = [
     {
@@ -134,7 +134,7 @@ export default function ProductDetail(props) {
             <h2 className="mt-8 text-xl">{props.description}</h2>
             <h2 className="mt-8 text-xl">Price : Rs. X</h2>
 
-            <div>
+            {/* <div>
               <p className="mt-8 text-lg mb-2">Quantity: </p>
               <Select
                 defaultValue="1"
@@ -150,14 +150,12 @@ export default function ProductDetail(props) {
                   );
                 })}
               </Select>
-            </div>
+            </div> */}
 
             <button
               type="submit"
               className="my-8 py-3 px-5 border-black border-2 font-medium text-black bg-white hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
-              onClick={() =>
-                appContext.addItem({ id: props.id, quantity: quantity })
-              }
+              onClick={() => appContext.addItem({ id: props.id, quantity: 1 })}
             >
               Add to cart
             </button>
