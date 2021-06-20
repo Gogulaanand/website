@@ -75,7 +75,7 @@ function MyApp({ Component, pageProps }) {
         totalQuantity: cart.totalQuantity + 1,
       });
     }
-    Cookie.set("cart", items);
+    Cookie.set("cart", items, { secure: true, expires: 365 });
   };
 
   const removeItem = (item) => {
@@ -99,7 +99,7 @@ function MyApp({ Component, pageProps }) {
         totalQuantity: cart.totalQuantity - 1,
       });
     }
-    Cookie.set("cart", items);
+    Cookie.set("cart", items, { secure: true, expires: 365 });
   };
 
   const deleteItem = (item) => {
@@ -108,13 +108,12 @@ function MyApp({ Component, pageProps }) {
     if (deleteItem) {
       const index = items.findIndex((i) => i.id === item.id);
       items.splice(index, 1);
-      console.log(items);
       updateCart({
         items,
         totalAmount: cart.totalAmount - deleteItem.price * deleteItem.quantity,
         totalQuantity: cart.totalQuantity - deleteItem.quantity,
       });
-      Cookie.set("cart", items);
+      Cookie.set("cart", items, { secure: true, expires: 365 });
     }
   };
 
