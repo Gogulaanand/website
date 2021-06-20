@@ -106,10 +106,15 @@ export default function CartItem(props) {
               ></Button>
             </div>
             <p className="col-span-2 my-auto">{item.price}</p>
-            <CloseOutlined
+            <Button
+              icon={<CloseOutlined />}
+              type="text"
+              onClick={() => {
+                setcount(0);
+                appContext.deleteItem({ id: props.data.id });
+              }}
               className="my-auto col-span-1 justify-self-center"
-              onClick={() => appContext.removeItem({ id: props.data.id })}
-            />
+            ></Button>
           </div>
           <Divider />
         </div>

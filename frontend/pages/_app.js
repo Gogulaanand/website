@@ -102,6 +102,22 @@ function MyApp({ Component, pageProps }) {
     Cookie.set("cart", items);
   };
 
+  const deleteItem = (item) => {
+    let items = cart.items;
+    const deleteItem = items.find((i) => i.id === item.id);
+    if (deleteItem) {
+      const index = items.findIndex((i) => i.id === item.id);
+      items.splice(index, 1);
+      console.log(items);
+      updateCart({
+        items,
+        totalAmount: cart.totalAmount - deleteItem.price * deleteItem.quantity,
+        totalQuantity: cart.totalQuantity - deleteItem.quantity,
+      });
+      Cookie.set("cart", items);
+    }
+  };
+
   return (
     <>
       <AppContext.Provider
@@ -112,6 +128,7 @@ function MyApp({ Component, pageProps }) {
           cart,
           addItem,
           removeItem,
+          deleteItem,
         }}
       >
         <title>Sunfabb</title>
