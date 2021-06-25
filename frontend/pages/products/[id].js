@@ -71,6 +71,7 @@ const GET_ONE_QUERY = gql`
       id
       name
       description
+      price
       cover {
         name
         url
@@ -132,7 +133,11 @@ export default function ProductDetail(props) {
           <div className="productIntro flex-col text-left ml-16 mt-12 sm:ml-24 lg:mt-2">
             <h1 className="font-bold text-3xl">{props.name}</h1>
             <h2 className="mt-8 text-xl">{props.description}</h2>
-            <h2 className="mt-8 text-xl">Price : Rs. X</h2>
+            <div className="mt-8 text-xl flex">
+              <h2 className="mr-3">Price:</h2>
+              <i className="fa fa-inr mt-1"></i>
+              <p className="ml-1">{props.price}</p>
+            </div>
 
             {/* <div>
               <p className="mt-8 text-lg mb-2">Quantity: </p>
@@ -155,7 +160,12 @@ export default function ProductDetail(props) {
             <button
               type="submit"
               className="my-8 py-3 px-5 border-black border-2 font-medium text-black bg-white hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
-              onClick={() => appContext.addItem({ id: props.id, quantity: 1 })}
+              onClick={() =>
+                appContext.addItem({
+                  id: props.id,
+                  price: props.price,
+                })
+              }
             >
               Add to cart
             </button>

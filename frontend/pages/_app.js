@@ -68,7 +68,9 @@ function MyApp({ Component, pageProps }) {
       });
     } else {
       const index = items.findIndex((i) => i.id === item.id);
-      items[index] = Object.assign({}, item, { quantity: item.quantity + 1 });
+      items[index] = Object.assign({}, item, {
+        quantity: item.quantity + 1,
+      });
       updateCart({
         items,
         totalAmount: cart.totalAmount + item.price,
@@ -87,17 +89,11 @@ function MyApp({ Component, pageProps }) {
       items[index] = Object.assign({}, item, { quantity: item.quantity - 1 });
       updateCart({
         items,
-        totalAmount: cart.totalAmount - removeItem.price,
+        totalAmount: cart.totalAmount - item.price,
         totalQuantity: cart.totalQuantity - 1,
       });
     } else {
-      const index = items.findIndex((i) => i.id === removeItem.id);
-      items = items.splice(index, 1);
-      updateCart({
-        items,
-        totalAmount: cart.totalAmount - removeItem.price,
-        totalQuantity: cart.totalQuantity - 1,
-      });
+      deleteItem(item);
     }
     Cookie.set("cart", items, { secure: true, expires: 365 });
   };
@@ -138,6 +134,10 @@ function MyApp({ Component, pageProps }) {
         <Nav />
         <Component {...pageProps} />
         <Footer />
+        <link
+          rel="stylesheet"
+          href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+        ></link>
       </AppContext.Provider>
     </>
   );

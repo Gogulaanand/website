@@ -14,6 +14,7 @@ const QUERY = gql`
       id
       name
       description
+      price
       cover {
         name
         url
@@ -30,9 +31,13 @@ export default function CartItem(props) {
   const [count, setcount] = useState(props.data.quantity);
   const [disableMinus, setdisableMinus] = useState(count === 1);
 
-  const handleChange = (value) => {
-    appContext.addItem({ id: props.data.id, quantity: value });
-  };
+  // const handleChange = (value) => {
+  //   appContext.addItem({
+  //     id: props.data.id,
+  //     quantity: value.count,
+  //     price: value.price,
+  //   });
+  // };
 
   if (error) return <p className="m-auto">Error fetching products</p>;
   if (loading) return <Fetching />;
@@ -82,7 +87,10 @@ export default function CartItem(props) {
                 onClick={() => {
                   setcount(count - 1);
                   if (count - 1 === 1) setdisableMinus(true);
-                  appContext.removeItem({ id: props.data.id });
+                  appContext.removeItem({
+                    id: props.data.id,
+                    price: item.price,
+                  });
                 }}
                 type="text"
                 className="mt-1 mr-2"
@@ -90,7 +98,6 @@ export default function CartItem(props) {
               <Input
                 min={1}
                 max={10000}
-                onChange={handleChange}
                 style={{ width: "30%" }}
                 value={count}
               ></Input>
@@ -100,12 +107,17 @@ export default function CartItem(props) {
                 onClick={() => {
                   setcount(count + 1);
                   setdisableMinus(false);
-                  appContext.addItem({ id: props.data.id, quantity: 1 });
+                  appContext.addItem({
+                    id: props.data.id,
+                    price: item.price,
+                  });
                 }}
                 className="mt-1 ml-2"
               ></Button>
             </div>
-            <p className="col-span-2 my-auto">{item.price}</p>
+            <p className="col-span-2 my-auto font-bold">
+              <i class="fa fa-inr"></i> {item.price * count}
+            </p>
             <Button
               icon={<CloseOutlined />}
               type="text"

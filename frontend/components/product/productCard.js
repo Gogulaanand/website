@@ -38,7 +38,10 @@ export default function ProductCard(props) {
               aria-label="add to cart"
               className="absolute bottom-0 right-0 mb-4 mr-4 inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
               onClick={() =>
-                appContext.addItem({ id: props.data.id, quantity: 1 })
+                appContext.addItem({
+                  id: props.data.id,
+                  price: props.data.price,
+                })
               }
             >
               Add to cart
