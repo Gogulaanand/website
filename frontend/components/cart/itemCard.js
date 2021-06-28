@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { Divider, Input, Button } from "antd";
+import { Divider, Input, Button, Popconfirm, message } from "antd";
 import { PlusOutlined, MinusOutlined, CloseOutlined } from "@ant-design/icons";
 import { useContext, useState } from "react";
 import AppContext from "../../context/AppContext";
@@ -118,15 +118,22 @@ export default function CartItem(props) {
             <p className="col-span-2 my-auto font-bold">
               <i class="fa fa-inr"></i> {item.price * count}
             </p>
-            <Button
-              icon={<CloseOutlined />}
-              type="text"
-              onClick={() => {
+            <Popconfirm
+              title="Are you sure to delete this item?"
+              okText="Yes"
+              cancelText="No"
+              onConfirm={() => {
                 setcount(0);
                 appContext.deleteItem({ id: props.data.id });
+                message.warning("Item has been deleted from your cart");
               }}
-              className="my-auto col-span-1 justify-self-center"
-            ></Button>
+            >
+              <Button
+                icon={<CloseOutlined />}
+                type="text"
+                className="my-auto col-span-1 justify-self-center"
+              ></Button>
+            </Popconfirm>
           </div>
           <Divider />
         </div>
