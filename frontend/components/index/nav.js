@@ -103,7 +103,7 @@ export default function Nav() {
             {user ? (
               <Link href="/">
                 <a
-                  className="ifont-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                  className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                   aria-label="Logout"
                   title="Logout"
                   onClick={handleLogout}
