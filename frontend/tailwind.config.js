@@ -343,6 +343,14 @@ module.exports = {
         fadeIn: "fadeIn ease-in 0.5s",
         fadeInUp: "fadeInUp ease-out 0.5s",
       },
+      width: {
+        "340px": "340px",
+        "310px": "310px",
+      },
+      height: {
+        "215px": "215px",
+        "185px": "185px",
+      },
     },
   },
   variants: {
