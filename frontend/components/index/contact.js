@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import emailjs from "emailjs-com";
-import { toaster } from "evergreen-ui";
+import { notification } from "antd";
 
 export default function contactForm() {
   const [loading, setloading] = useState(false);
@@ -34,24 +34,33 @@ export default function contactForm() {
         )
         .then((resp) => {
           if (resp.status === 200) {
-            toaster.success("Message sent successfully !", {
-              description: "We will get you back to you shortly",
-            });
+            openNotification(
+              "success",
+              "Message sent successfully !",
+              "We will get you back to you shortly"
+            );
             resetForm({});
             setloading(false);
           }
         })
         .catch((e) => {
           console.log(e);
-          toaster.danger("Something went wrong, pls try after sometime!", {
-            description:
-              "If the issue persists, pls write to us at abc@gmail.com",
-            duration: 10,
-          });
+          openNotification(
+            "warning",
+            "Something went wrong, pls try after sometime!",
+            "If the issue persists, pls write to us at abc@gmail.com"
+          );
           setloading(false);
         });
     },
   });
+
+  const openNotification = (type, message, description) => {
+    notification[type]({
+      message,
+      description,
+    });
+  };
 
   return (
     <>
