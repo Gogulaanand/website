@@ -11,9 +11,28 @@ import AppContext from "../context/AppContext";
 
 function MyApp({ Component, pageProps }) {
   const [user, setUser] = useState(null);
+  const [cart, updateCart] = useState({
+    items: [],
+    totalAmount: 0,
+    totalQuantity: 0,
+  });
 
   useEffect(() => {
     const token = Cookie.get("token");
+    const cookieCart = Cookie.get("cart");
+
+    if (cookieCart !== undefined) {
+      let totalCount = 0;
+      JSON.parse(cookieCart).forEach((item) => {
+        totalCount += item.quantity;
+        updateCart({
+          items: JSON.parse(cookieCart),
+          totalAmount: item.price * item.quantity,
+          totalQuantity: totalCount,
+        });
+      });
+    }
+
     if (token) {
       fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/me`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -24,7 +43,6 @@ function MyApp({ Component, pageProps }) {
         }
         const user = await res.json();
         setUser(user);
-        console.log(user);
       });
     }
 
@@ -37,13 +55,75 @@ function MyApp({ Component, pageProps }) {
     }, 1000);
   }, []);
 
+  const addItem = (item) => {
+    let items = cart.items;
+    let existingItem;
+    if (items) existingItem = items.find((i) => i.id === item.id);
+
+    if (!existingItem) {
+      updateCart({
+        items: [...(items || []), item],
+        totalAmount: cart.totalAmount + item.price * 1,
+        totalQuantity: cart.totalQuantity + 1,
+      });
+    } else {
+      const index = items.findIndex((i) => i.id === item.id);
+      items[index] = Object.assign({}, item, {
+        quantity: item.quantity + 1,
+      });
+      updateCart({
+        items,
+        totalAmount: cart.totalAmount + item.price,
+        totalQuantity: cart.totalQuantity + 1,
+      });
+    }
+    Cookie.set("cart", items, { secure: true, expires: 365 });
+  };
+
+  const removeItem = (item) => {
+    let items = cart.items;
+    const removeItem = items.find((i) => i.id === item.id);
+
+    if (removeItem.quantity > 1) {
+      const index = items.findIndex((i) => i.id === item.id);
+      items[index] = Object.assign({}, item, { quantity: item.quantity - 1 });
+      updateCart({
+        items,
+        totalAmount: cart.totalAmount - item.price,
+        totalQuantity: cart.totalQuantity - 1,
+      });
+    } else {
+      deleteItem(item);
+    }
+    Cookie.set("cart", items, { secure: true, expires: 365 });
+  };
+
+  const deleteItem = (item) => {
+    let items = cart.items;
+    const deleteItem = items.find((i) => i.id === item.id);
+    if (deleteItem) {
+      const index = items.findIndex((i) => i.id === item.id);
+      items.splice(index, 1);
+      updateCart({
+        items,
+        totalAmount: cart.totalAmount - deleteItem.price * deleteItem.quantity,
+        totalQuantity: cart.totalQuantity - deleteItem.quantity,
+      });
+      Cookie.set("cart", items, { secure: true, expires: 365 });
+    }
+  };
+
   return (
     <>
       <AppContext.Provider
         value={{
-          user: user,
+          user,
           isAuthenticated: !!user,
-          setUser: setUser,
+          setUser,
+          cart,
+          addItem,
+          removeItem,
+          deleteItem,
         }}
       >
         <title>Sunfabb</title>
@@ -54,6 +134,10 @@ function MyApp({ Component, pageProps }) {
         <Nav />
         <Component {...pageProps} />
         <Footer />
+        <link
+          rel="stylesheet"
+          href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+        ></link>
       </AppContext.Provider>
     </>
   );

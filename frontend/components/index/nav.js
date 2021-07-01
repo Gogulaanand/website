@@ -2,10 +2,14 @@ import React, { useContext, useState } from "react";
 import Link from "next/link";
 import { logout } from "../../lib/auth";
 import AppContext from "../../context/AppContext";
+import { ShoppingCartOutlined } from "@ant-design/icons";
+import { Badge } from "antd";
 
 export default function Nav() {
+  const appContext = useContext(AppContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { user, setUser } = useContext(AppContext);
+  const { user, setUser, isAuthenticated, cart } = appContext;
+
   const handleLogout = () => {
     logout();
     setUser(null);
@@ -13,7 +17,7 @@ export default function Nav() {
 
   return (
     <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
-      <div className="relative flex items-center justify-between">
+      <div className="flex items-center justify-between">
         <a
           href="/"
           aria-label="Company"
@@ -39,7 +43,7 @@ export default function Nav() {
             Company
           </span>
         </a>
-        <ul className="flex items-center hidden space-x-8 lg:flex">
+        <ul className="flex hidden items-center space-x-8 lg:flex z-10">
           <li>
             <Link href="/">
               <a
@@ -77,7 +81,24 @@ export default function Nav() {
             </Link>
           </li>
         </ul>
-        <ul className="invisible hidden flex items-center space-x-8 lg:flex">
+        <ul className="flex items-center hidden space-x-8 lg:flex z-10">
+          <li>
+            <Link href="/cart">
+              <a
+                aria-label="Shopping cart"
+                title="Shopping cart"
+                href="/cart"
+                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400 flex flex-row justify-between"
+              >
+                <Badge count={cart.totalQuantity} offset={[-2, 5]}>
+                  <ShoppingCartOutlined
+                    className="mx-2"
+                    style={{ fontSize: "2rem" }}
+                  />
+                </Badge>
+              </a>
+            </Link>
+          </li>
           <li>
             {user ? (
               <Link href="/">
@@ -94,7 +115,7 @@ export default function Nav() {
             ) : (
               <Link href="/login">
                 <a
-                  className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                  className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 hover:text-white focus:shadow-outline focus:outline-none"
                   aria-label="Sign Up"
                   title="Sign Up"
                   href="/login"
@@ -105,11 +126,26 @@ export default function Nav() {
             )}
           </li>
         </ul>
-        <div className="lg:hidden">
+        <div className="lg:hidden flex">
+          <Link href="/cart">
+            <a
+              aria-label="Shopping cart"
+              title="Shopping cart"
+              href="/cart"
+              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400 flex flex-row justify-between"
+            >
+              <Badge count={cart.totalQuantity} offset={[-2, 5]}>
+                <ShoppingCartOutlined
+                  className="mx-2"
+                  style={{ fontSize: "2rem" }}
+                />
+              </Badge>
+            </a>
+          </Link>
           <button
             aria-label="Open Menu"
             title="Open Menu"
-            className="p-2 -mr-1 transition duration-200 rounded focus:outline-none focus:shadow-outline hover:bg-deep-purple-50 focus:bg-deep-purple-50"
+            className="p-2 -mr-1 ml-3 transition duration-200 rounded focus:outline-none focus:shadow-outline hover:bg-deep-purple-50 focus:bg-deep-purple-50"
             onClick={() => setIsMenuOpen(true)}
           >
             <svg className="w-5 text-gray-600" viewBox="0 0 24 24">
@@ -212,7 +248,19 @@ export default function Nav() {
                         </a>
                       </Link>
                     </li>
-                    {/* <li>
+                    <li>
+                      <Link href="/cart">
+                        <a
+                          aria-label="Shopping cart"
+                          title="Shopping cart"
+                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          Cart
+                        </a>
+                      </Link>
+                    </li>
+                    <li>
                       <a
                         href="/register"
                         className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
@@ -221,7 +269,7 @@ export default function Nav() {
                       >
                         Sign up
                       </a>
-                    </li> */}
+                    </li>
                   </ul>
                 </nav>
               </div>
