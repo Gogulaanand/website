@@ -12,7 +12,7 @@
         "password": "${process.env.DATABASE_PASSWORD}"
       },
       "options": {
-        "authenticationDatabase": null,
+        "authenticationDatabase": "${process.env.DATABASE_NAME}",
         "ssl": true
       }
     }
