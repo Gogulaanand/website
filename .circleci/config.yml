@@ -1,7 +1,7 @@
 version: 2.1
 jobs:
   build:
-    working_directory: frontend
+    working_directory: ~/website/frontend
     docker:
       - image: circleci/node:lts
     steps:
