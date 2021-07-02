@@ -1,0 +1,24 @@
+version: 2.1
+jobs:
+  build:
+    working_directory: ~/website/frontend
+    docker:
+      - image: circleci/node:lts
+    steps:
+      - checkout:
+          path: ~/website
+      - run:
+          name: Update NPM
+          command: "sudo npm install -g npm@7"
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run:
+          name: Install Dependencies
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: Run tests
+          command: npm test
