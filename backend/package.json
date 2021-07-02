@@ -13,24 +13,24 @@
   "dependencies": {
     "strapi": "3.6.5",
     "strapi-admin": "3.6.5",
-    "strapi-connector-mongoose": "3.6.5",
-    "strapi-plugin-content-manager": "3.6.5",
+    "strapi-utils": "3.6.5",
     "strapi-plugin-content-type-builder": "3.6.5",
-    "strapi-plugin-email": "3.6.5",
-    "strapi-plugin-graphql": "3.6.5",
-    "strapi-plugin-upload": "3.6.5",
+    "strapi-plugin-content-manager": "3.6.5",
     "strapi-plugin-users-permissions": "3.6.5",
-    "strapi-utils": "3.6.5"
+    "strapi-plugin-email": "3.6.5",
+    "strapi-plugin-upload": "3.6.5",
+    "strapi-plugin-i18n": "3.6.5",
+    "strapi-connector-mongoose": "3.6.5"
   },
   "author": {
-    "name": "Gogulaanand R"
+    "name": "A Strapi developer"
   },
   "strapi": {
-    "uuid": "87993e75-8437-44e0-a0c6-ad0bbad3b04b"
+    "uuid": "3fe26446-d05f-401d-bc1c-ed10081ee071"
   },
   "engines": {
     "node": ">=10.16.0 <=14.x.x",
-    "npm": ">=6.0.0"
+    "npm": "^6.0.0"
   },
   "license": "MIT"
 }
