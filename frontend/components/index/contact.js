@@ -80,8 +80,8 @@ export default function contactForm() {
           Any question or remarks? Just write us a message!
         </p>
       </div>
-      <div className="lg:m-22 md:m-14 m-9 bg-inherit pb-12 grid grid-cols-6 w-4/5">
-        <SvgContact className="lg:col-span-4 col-span-6 md:row-start-1 md:row-end-2 hidden md:block" />
+      <div className="mx-auto my-12 bg-inherit pb-12 grid grid-cols-6 w-4/5">
+        <SvgContact className="lg:col-span-3 col-span-6 md:row-start-1 md:row-end-2 hidden md:block" />
         <div className="mt-10 lg:col-span-2 col-span-6 md:ml-11">
           <form onSubmit={formik.handleSubmit} id="contact_form">
             <label htmlFor="name" className="inline-block mb-1 font-medium">
