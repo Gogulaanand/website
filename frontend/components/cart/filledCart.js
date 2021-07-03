@@ -1,0 +1,36 @@
+import React, { useContext } from "react";
+import { ArrowLeftOutlined } from "@ant-design/icons";
+import CartItem from "./itemCard";
+import AppContext from "../../context/AppContext";
+import Link from "next/link";
+
+export default function FilledCart() {
+  const appContext = useContext(AppContext);
+  const { cart } = appContext;
+
+  return (
+    <div className="grid grid-cols-6 w-4/5 min-h-screen lg:mt-24 lg:mx-0 sm:mx-auto">
+      <div className="lg:col-span-1"></div>
+      <div className="lg:col-span-4 md:col-span-6">
+        <div className="flex flex-col overflow-auto">
+          <h1 className="text-2xl font-semibold lg:ml-2">Shopping cart</h1>
+          {cart.items &&
+            cart.items.map((item) => {
+              return <CartItem data={item} key={item.id} />;
+            })}
+
+          <div className="flex justify-between">
+            <Link href="/products">
+              <a className="flex cursor-pointer space-x-2" href="/products">
+                <ArrowLeftOutlined className="mt-1" />
+                <p className="text-lg">Continue Shopping</p>
+              </a>
+            </Link>
+            <p>Subtotal: {cart.totalAmount}</p>
+          </div>
+        </div>
+      </div>
+      <div className="lg:col-span-1"></div>
+    </div>
+  );
+}

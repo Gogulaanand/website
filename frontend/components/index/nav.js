@@ -8,7 +8,7 @@ import { Badge } from "antd";
 export default function Nav() {
   const appContext = useContext(AppContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { user, setUser, isAuthenticated, cart } = appContext;
+  const { user, setUser, cart } = appContext;
 
   const handleLogout = () => {
     logout();

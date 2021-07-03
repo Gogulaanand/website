@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }) {
     const token = Cookie.get("token");
     const cookieCart = Cookie.get("cart");
 
-    if (cookieCart !== undefined) {
+    if (cookieCart !== undefined && cookieCart.length > 0) {
       let totalCount = 0;
       JSON.parse(cookieCart).forEach((item) => {
         totalCount += item.quantity;
@@ -30,6 +30,12 @@ function MyApp({ Component, pageProps }) {
           totalAmount: item.price * item.quantity,
           totalQuantity: totalCount,
         });
+      });
+    } else {
+      updateCart({
+        items: [],
+        totalAmount: 0,
+        totalQuantity: 0,
       });
     }
 
@@ -62,14 +68,19 @@ function MyApp({ Component, pageProps }) {
 
     if (!existingItem) {
       updateCart({
-        items: [...(items || []), item],
+        items: [
+          ...(items || []),
+          Object.assign({}, item, {
+            quantity: 1,
+          }),
+        ],
         totalAmount: cart.totalAmount + item.price * 1,
         totalQuantity: cart.totalQuantity + 1,
       });
     } else {
       const index = items.findIndex((i) => i.id === item.id);
       items[index] = Object.assign({}, item, {
-        quantity: item.quantity + 1,
+        quantity: existingItem.quantity + 1,
       });
       updateCart({
         items,
@@ -86,7 +97,9 @@ function MyApp({ Component, pageProps }) {
 
     if (removeItem.quantity > 1) {
       const index = items.findIndex((i) => i.id === item.id);
-      items[index] = Object.assign({}, item, { quantity: item.quantity - 1 });
+      items[index] = Object.assign({}, item, {
+        quantity: removeItem.quantity - 1,
+      });
       updateCart({
         items,
         totalAmount: cart.totalAmount - item.price,
