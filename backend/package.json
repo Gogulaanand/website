@@ -6,7 +6,7 @@
   "scripts": {
     "develop": "strapi develop",
     "start": "strapi start",
-    "build": "strapi serve -s build",
+    "build": "strapi build",
     "strapi": "strapi",
     "heroku-postbuild": "yarn run build"
   },
