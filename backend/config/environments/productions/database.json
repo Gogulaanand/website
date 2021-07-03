@@ -5,15 +5,15 @@
       "connector": "mongoose",
       "settings": {
         "host": "${process.env.DATABASE_HOST}",
-        "srv": true,
-        "port": 27017,
-        "database": "strapi",
+        "srv": "${process.env.DATABASE_SRV}",
+        "port": "${process.env.DATABASE_PORT}",
+        "database": "${process.env.DATABASE_NAME}",
         "username": "${process.env.DATABASE_USERNAME}",
         "password": "${process.env.DATABASE_PASSWORD}"
       },
       "options": {
         "authenticationDatabase": "${process.env.AUTHENTICATION_DATABASE}",
-        "ssl": true
+        "ssl": "${process.env.DATABASE_SSL}"
       }
     }
   }
