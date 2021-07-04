@@ -84,19 +84,19 @@ export default function Nav() {
         <ul className="flex items-center hidden space-x-8 lg:flex z-10">
           <li>
             <Link href="/cart">
-              <a
-                aria-label="Shopping cart"
-                title="Shopping cart"
-                href="/cart"
-                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400 flex flex-row justify-between"
-              >
-                <Badge count={cart.totalQuantity} offset={[-2, 5]}>
+              <Badge count={cart.totalQuantity} offset={[-2, 5]}>
+                <a
+                  aria-label="Shopping cart"
+                  title="Shopping cart"
+                  href="/cart"
+                  className="font-medium text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                >
                   <ShoppingCartOutlined
                     className="mx-2"
                     style={{ fontSize: "2rem" }}
                   />
-                </Badge>
-              </a>
+                </a>
+              </Badge>
             </Link>
           </li>
           <li>

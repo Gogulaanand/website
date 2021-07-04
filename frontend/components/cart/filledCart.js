@@ -9,11 +9,13 @@ export default function FilledCart() {
   const { cart } = appContext;
 
   return (
-    <div className="grid grid-cols-6 w-4/5 min-h-screen lg:mt-24 lg:mx-0 sm:mx-auto">
+    <div className="grid grid-cols-6 w-4/5 min-h-screen lg:mt-24 lg:mx-0 mx-auto">
       <div className="lg:col-span-1"></div>
-      <div className="lg:col-span-4 md:col-span-6">
+      <div className="lg:col-span-4 col-span-6">
         <div className="flex flex-col overflow-auto">
-          <h1 className="text-2xl font-semibold lg:ml-2">Shopping cart</h1>
+          <h1 className="md:text-2xl sm:text-xl font-semibold lg:ml-2">
+            Shopping cart
+          </h1>
           {cart.items &&
             cart.items.map((item) => {
               return <CartItem data={item} key={item.id} />;
@@ -21,12 +23,15 @@ export default function FilledCart() {
 
           <div className="flex justify-between">
             <Link href="/products">
-              <a className="flex cursor-pointer space-x-2" href="/products">
+              <a
+                className="cursor-pointer space-x-2 md:visible invisible md:flex"
+                href="/products"
+              >
                 <ArrowLeftOutlined className="mt-1" />
-                <p className="text-lg">Continue Shopping</p>
+                <p className="md:text-lg sm:text-md">Continue Shopping</p>
               </a>
             </Link>
-            <p>Subtotal: {cart.totalAmount}</p>
+            <p className="md:mt-0 mt-2">Subtotal: {cart.totalAmount}</p>
           </div>
         </div>
       </div>

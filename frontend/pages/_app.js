@@ -84,7 +84,7 @@ function MyApp({ Component, pageProps }) {
       });
       updateCart({
         items,
-        totalAmount: cart.totalAmount + item.price,
+        totalAmount: cart.totalAmount + existingItem.price,
         totalQuantity: cart.totalQuantity + 1,
       });
     }
