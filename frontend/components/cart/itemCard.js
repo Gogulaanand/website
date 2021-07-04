@@ -112,7 +112,7 @@ export default function CartItem(props) {
               ></Button>
             </Popconfirm>
           </div>
-          <Divider className="" />
+          <Divider />
         </div>
       </>
     );

@@ -189,7 +189,7 @@ export default function ProductDetail(props) {
             <img
               src={`${process.env.NEXT_PUBLIC_API_URL}${props.cover.formats.small.url}`}
               alt={`Image of ${props.name}`}
-              className="col-span-2 lg:ml-8 mt-4 object-left object-none object-right"
+              className="col-span-2 lg:ml-8 mt-4"
               data-aos="fade-in"
               data-aos-duration="800"
               data-aos-delay="200"
