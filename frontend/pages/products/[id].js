@@ -130,7 +130,7 @@ export default function ProductDetail(props) {
               slideOnThumbnailOver={true}
             />
           </div>
-          <div className="productIntro flex-col text-left ml-16 mt-12 sm:ml-24 lg:mt-2">
+          <div className="productIntro flex-col text-left lg:ml-16 md:ml-32 mt-12 sm:ml-24 lg:mt-2">
             <h1 className="font-bold text-3xl">{props.name}</h1>
             <h2 className="mt-8 text-xl">{props.description}</h2>
             <div className="mt-8 text-xl flex">
@@ -171,7 +171,7 @@ export default function ProductDetail(props) {
             </button>
           </div>
         </div>
-        <div className="flex-col -mt-36 lg:mb-32 mb-12">
+        <div className="flex-col lg:-mt-48 md:mt-8 lg:mb-32 mb-12">
           <div className="lg:grid lg:grid-cols-6 lg:gap-6">
             <p
               className="col-span-4 text-right md:text-xl text-base self-center lg:leading-relaxed lg:tracking-wide"
@@ -187,9 +187,9 @@ export default function ProductDetail(props) {
               nulla pariatur.
             </p>
             <img
-              src={`${process.env.NEXT_PUBLIC_API_URL}${props.cover.formats.medium.url}`}
+              src={`${process.env.NEXT_PUBLIC_API_URL}${props.cover.formats.small.url}`}
               alt={`Image of ${props.name}`}
-              className="col-span-2 lg:ml-8 lg:mt-0 mt-4"
+              className="col-span-2 lg:ml-8 mt-4"
               data-aos="fade-in"
               data-aos-duration="800"
               data-aos-delay="200"
@@ -199,7 +199,7 @@ export default function ProductDetail(props) {
         <div className="flex-col mt-48 mb-48">
           <div className="lg:grid lg:grid-cols-6 lg:gap-6">
             <img
-              src={`${process.env.NEXT_PUBLIC_API_URL}${props.cover.formats.medium.url}`}
+              src={`${process.env.NEXT_PUBLIC_API_URL}${props.cover.formats.small.url}`}
               alt={`Image of ${props.name}`}
               className="col-span-2"
               data-aos="fade-in"

@@ -10,6 +10,7 @@ const QUERY = gql`
       id
       name
       description
+      price
       cover {
         name
         url
