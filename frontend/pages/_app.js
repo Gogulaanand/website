@@ -137,6 +137,7 @@ function MyApp({ Component, pageProps }) {
           addItem,
           removeItem,
           deleteItem,
+          enableCart: false,
         }}
       >
         <title>Sunfabb</title>
