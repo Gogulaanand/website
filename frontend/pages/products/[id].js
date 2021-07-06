@@ -156,19 +156,22 @@ export default function ProductDetail(props) {
                 })}
               </Select>
             </div> */}
-
-            <button
-              type="submit"
-              className="my-8 py-3 px-5 border-black border-2 font-medium text-black bg-white hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
-              onClick={() =>
-                appContext.addItem({
-                  id: props.id,
-                  price: props.price,
-                })
-              }
-            >
-              Add to cart
-            </button>
+            {appContext.enableCart ? (
+              <button
+                type="submit"
+                className="my-8 py-3 px-5 border-black border-2 font-medium text-black bg-white hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
+                onClick={() =>
+                  appContext.addItem({
+                    id: props.id,
+                    price: props.price,
+                  })
+                }
+              >
+                Add to cart
+              </button>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
         <div className="flex-col lg:-mt-48 md:mt-8 lg:mb-32 mb-12">
