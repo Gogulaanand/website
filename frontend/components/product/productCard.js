@@ -12,7 +12,7 @@ export default function ProductCard(props) {
         <div className="absolute bottom-0 right-0 w-1 h-full duration-300 origin-top transform scale-y-0 bg-indigo-600 group-hover:scale-y-100"></div>
         <div className="relative bg-white rounded-sm">
           <img
-            src={`${process.env.NEXT_PUBLIC_API_URL}${props.data.cover.url}`}
+            src={`${props.data.cover.url}`}
             className="object-cover w-full h-64"
             alt=""
           />
