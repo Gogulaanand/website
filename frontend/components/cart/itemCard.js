@@ -41,7 +41,7 @@ export default function CartItem(props) {
           <div className="md:grid md:grid-cols-12 flex flex-col my-8 md:static relative">
             <Link href={`/products/${item.id}`}>
               <img
-                src={`${process.env.NEXT_PUBLIC_API_URL}${item.cover.url}`}
+                src={`${item.cover.url}`}
                 className="object-cover md:w-full w-3/5 md:h-64 sm:h-32 cursor-pointer col-span-4"
                 alt=""
               />

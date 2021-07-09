@@ -11,6 +11,7 @@
   },
   "devDependencies": {},
   "dependencies": {
+    "graphql": "^15.5.1",
     "strapi": "3.6.5",
     "strapi-admin": "3.6.5",
     "strapi-connector-mongoose": "3.6.5",
@@ -21,6 +22,7 @@
     "strapi-plugin-i18n": "3.6.5",
     "strapi-plugin-upload": "3.6.5",
     "strapi-plugin-users-permissions": "3.6.5",
+    "strapi-provider-upload-cloudinary": "^3.6.5",
     "strapi-utils": "3.6.5"
   },
   "author": {

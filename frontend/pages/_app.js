@@ -2,14 +2,15 @@ import { useEffect, useState } from "react";
 import "../styles/globals.sass";
 import Nav from "../components/index/nav";
 import Footer from "../components/index/footer";
-import withData from "../lib/apollo";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Cookie from "js-cookie";
-import fetch from "isomorphic-fetch";
+import fetch from "isomorphic-unfetch";
 import AppContext from "../context/AppContext";
+import withData from "../lib/apollo";
+import { ApolloProvider } from "@apollo/react-hooks";
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, apollo }) {
   const [user, setUser] = useState(null);
   const [cart, updateCart] = useState({
     items: [],
@@ -127,7 +128,7 @@ function MyApp({ Component, pageProps }) {
   };
 
   return (
-    <>
+    <ApolloProvider client={apollo}>
       <AppContext.Provider
         value={{
           user,
@@ -153,7 +154,7 @@ function MyApp({ Component, pageProps }) {
           href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
         ></link>
       </AppContext.Provider>
-    </>
+    </ApolloProvider>
   );
 }
 
