@@ -149,7 +149,7 @@ function MyApp({ Component, pageProps, apollo }) {
           addItem,
           removeItem,
           deleteItem,
-          enableCart: false,
+          enableCart: true,
         }}
       >
         <title>Sunfabb</title>
