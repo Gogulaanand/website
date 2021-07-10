@@ -5,10 +5,10 @@ import { HttpLink } from "apollo-link-http";
 import { onError } from "apollo-link-error";
 import ImageGallery from "react-image-gallery";
 import AppContext from "../../context/AppContext";
-import { useContext, useState } from "react";
-import { Select } from "antd";
+import { useContext } from "react";
+// import { Select } from "antd";
 // import { parse } from "graphql";
-const { Option } = Select;
+// const { Option } = Select;
 
 // Instantiate apollo client constructor
 const cache = new InMemoryCache();
@@ -104,12 +104,12 @@ export default function ProductDetail(props) {
 
   const images = [
     {
-      original: `${process.env.NEXT_PUBLIC_API_URL}${props.cover.formats.medium.url}`,
-      thumbnail: `${process.env.NEXT_PUBLIC_API_URL}${props.cover.formats.medium.url}`,
+      original: `${props.cover.formats.medium.url}`,
+      thumbnail: `${props.cover.formats.medium.url}`,
     },
     {
-      original: `${process.env.NEXT_PUBLIC_API_URL}${props.cover.formats.medium.url}`,
-      thumbnail: `${process.env.NEXT_PUBLIC_API_URL}${props.cover.formats.medium.url}`,
+      original: `${props.cover.formats.medium.url}`,
+      thumbnail: `${props.cover.formats.medium.url}`,
     },
   ];
 
@@ -156,19 +156,22 @@ export default function ProductDetail(props) {
                 })}
               </Select>
             </div> */}
-
-            <button
-              type="submit"
-              className="my-8 py-3 px-5 border-black border-2 font-medium text-black bg-white hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
-              onClick={() =>
-                appContext.addItem({
-                  id: props.id,
-                  price: props.price,
-                })
-              }
-            >
-              Add to cart
-            </button>
+            {appContext.enableCart ? (
+              <button
+                type="submit"
+                className="my-8 py-3 px-5 border-black border-2 font-medium text-black bg-white hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
+                onClick={() =>
+                  appContext.addItem({
+                    id: props.id,
+                    price: props.price,
+                  })
+                }
+              >
+                Add to cart
+              </button>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
         <div className="flex-col lg:-mt-48 md:mt-8 lg:mb-32 mb-12">
@@ -187,7 +190,7 @@ export default function ProductDetail(props) {
               nulla pariatur.
             </p>
             <img
-              src={`${process.env.NEXT_PUBLIC_API_URL}${props.cover.formats.small.url}`}
+              src={`${props.cover.formats.small.url}`}
               alt={`Image of ${props.name}`}
               className="col-span-2 lg:ml-8 mt-4"
               data-aos="fade-in"
@@ -199,7 +202,7 @@ export default function ProductDetail(props) {
         <div className="flex-col mt-48 mb-48">
           <div className="lg:grid lg:grid-cols-6 lg:gap-6">
             <img
-              src={`${process.env.NEXT_PUBLIC_API_URL}${props.cover.formats.small.url}`}
+              src={`${props.cover.formats.small.url}`}
               alt={`Image of ${props.name}`}
               className="col-span-2"
               data-aos="fade-in"

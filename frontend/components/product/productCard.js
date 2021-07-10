@@ -12,7 +12,7 @@ export default function ProductCard(props) {
         <div className="absolute bottom-0 right-0 w-1 h-full duration-300 origin-top transform scale-y-0 bg-indigo-600 group-hover:scale-y-100"></div>
         <div className="relative bg-white rounded-sm">
           <img
-            src={`${process.env.NEXT_PUBLIC_API_URL}${props.data.cover.url}`}
+            src={`${props.data.cover.url}`}
             className="object-cover w-full h-64"
             alt=""
           />
@@ -34,18 +34,22 @@ export default function ProductCard(props) {
                 View
               </a>
             </Link>
-            <button
-              aria-label="add to cart"
-              className="absolute bottom-0 right-0 mb-4 mr-4 inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
-              onClick={() =>
-                appContext.addItem({
-                  id: props.data.id,
-                  price: props.data.price,
-                })
-              }
-            >
-              Add to cart
-            </button>
+            {appContext.enableCart ? (
+              <button
+                aria-label="add to cart"
+                className="absolute bottom-0 right-0 mb-4 mr-4 inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
+                onClick={() =>
+                  appContext.addItem({
+                    id: props.data.id,
+                    price: props.data.price,
+                  })
+                }
+              >
+                Add to cart
+              </button>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       </div>

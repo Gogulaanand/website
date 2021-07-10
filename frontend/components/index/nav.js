@@ -82,23 +82,28 @@ export default function Nav() {
           </li>
         </ul>
         <ul className="flex items-center hidden space-x-8 lg:flex z-10">
-          <li>
-            <Link href="/cart">
-              <Badge count={cart.totalQuantity} offset={[-2, 5]}>
-                <a
-                  aria-label="Shopping cart"
-                  title="Shopping cart"
-                  href="/cart"
-                  className="font-medium text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                >
-                  <ShoppingCartOutlined
-                    className="mx-2"
-                    style={{ fontSize: "2rem" }}
-                  />
-                </a>
-              </Badge>
-            </Link>
-          </li>
+          {appContext.enableCart ? (
+            <li>
+              <Link href="/cart">
+                <Badge count={cart.totalQuantity} offset={[-2, 5]}>
+                  <a
+                    aria-label="Shopping cart"
+                    title="Shopping cart"
+                    href="/cart"
+                    className="font-medium text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                  >
+                    <ShoppingCartOutlined
+                      className="mx-2"
+                      style={{ fontSize: "2rem" }}
+                    />
+                  </a>
+                </Badge>
+              </Link>
+            </li>
+          ) : (
+            <></>
+          )}
+
           <li>
             {user ? (
               <Link href="/">
@@ -248,18 +253,22 @@ export default function Nav() {
                         </a>
                       </Link>
                     </li>
-                    <li>
-                      <Link href="/cart">
-                        <a
-                          aria-label="Shopping cart"
-                          title="Shopping cart"
-                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                          onClick={() => setIsMenuOpen(false)}
-                        >
-                          Cart
-                        </a>
-                      </Link>
-                    </li>
+                    {appContext.enableCart ? (
+                      <li>
+                        <Link href="/cart">
+                          <a
+                            aria-label="Shopping cart"
+                            title="Shopping cart"
+                            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            Cart
+                          </a>
+                        </Link>
+                      </li>
+                    ) : (
+                      <></>
+                    )}
                     <li>
                       <a
                         href="/register"
