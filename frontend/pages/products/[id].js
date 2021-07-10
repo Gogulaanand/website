@@ -133,7 +133,7 @@ export default function ProductDetail(props) {
             {appContext.enableCart ? (
               <button
                 type="submit"
-                className="my-8 py-3 px-5 border-black border-2 font-medium text-black bg-white hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
+                className="my-8 py-3 px-5 inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 hover:text-white focus:shadow-outline focus:outline-none"
                 onClick={() =>
                   appContext.addItem({
                     id: props.id,

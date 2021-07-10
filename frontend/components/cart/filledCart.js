@@ -26,10 +26,14 @@ export default function FilledCart() {
                 href="/products"
               >
                 <ArrowLeftOutlined className="mt-1" />
-                <p className="md:text-lg sm:text-md">Continue Shopping</p>
+                <p className="md:text-lg sm:text-md font-semibold transition-colors duration-200 hover:text-deep-purple-400">
+                  Continue Shopping
+                </p>
               </a>
             </Link>
-            <p className="md:mt-0 mt-2">Subtotal: {cart.totalAmount}</p>
+            <p className="md:mt-0 mt-2 font-semibold">
+              Subtotal: {cart.totalAmount}
+            </p>
           </div>
         </div>
       </div>
