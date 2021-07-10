@@ -4,6 +4,7 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 import { HttpLink } from "apollo-link-http";
 import { onError } from "apollo-link-error";
 import ImageGallery from "react-image-gallery";
+import Image from "next/image";
 import AppContext from "../../context/AppContext";
 import { useContext } from "react";
 
@@ -163,26 +164,32 @@ export default function ProductDetail(props) {
               reprehenderit in voluptate velit esse cillum dolore eu fugiat
               nulla pariatur.
             </p>
-            <img
-              src={`${props.cover.formats.small.url}`}
-              alt={`Image of ${props.name}`}
-              className="col-span-2 lg:ml-8 mt-4"
-              data-aos="fade-in"
-              data-aos-duration="800"
-              data-aos-delay="200"
-            />
+            <div className="col-span-2 lg:ml-8 mt-4 h-full w-full relative">
+              <Image
+                src={`${props.cover.formats.small.url}`}
+                alt={`Image of ${props.name}`}
+                layout="fill"
+                objectFit="cover"
+                data-aos="fade-in"
+                data-aos-duration="800"
+                data-aos-delay="200"
+              />
+            </div>
           </div>
         </div>
         <div className="flex-col mt-48 mb-48">
           <div className="lg:grid lg:grid-cols-6 lg:gap-6">
-            <img
-              src={`${props.cover.formats.small.url}`}
-              alt={`Image of ${props.name}`}
-              className="col-span-2"
-              data-aos="fade-in"
-              data-aos-duration="800"
-              data-aos-delay="200"
-            />
+            <div className="col-span-2 relative">
+              <Image
+                src={`${props.cover.formats.small.url}`}
+                alt={`Image of ${props.name}`}
+                layout="fill"
+                objectFit="cover"
+                data-aos="fade-in"
+                data-aos-duration="800"
+                data-aos-delay="200"
+              />
+            </div>
             <p
               className="lg:ml-8 lg:mt-0 mt-4 col-span-4 text-left md:text-xl text-base self-center lg:leading-relaxed lg:tracking-wide"
               data-aos="fade-in"

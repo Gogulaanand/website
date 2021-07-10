@@ -20,17 +20,15 @@ export default function FilledCart() {
             })}
 
           <div className="flex justify-between">
-            <Link href="/products">
-              <a
-                className="cursor-pointer space-x-2 md:visible invisible md:flex"
-                href="/products"
-              >
-                <ArrowLeftOutlined className="mt-1" />
+            <div className="cursor-pointer space-x-2 md:visible invisible md:flex">
+              <ArrowLeftOutlined className="mt-1" />
+              <Link href="/products" passHref>
                 <p className="md:text-lg sm:text-md font-semibold transition-colors duration-200 hover:text-deep-purple-400">
                   Continue Shopping
                 </p>
-              </a>
-            </Link>
+              </Link>
+            </div>
+
             <p className="md:mt-0 mt-2 font-semibold">
               Subtotal: {cart.totalAmount}
             </p>

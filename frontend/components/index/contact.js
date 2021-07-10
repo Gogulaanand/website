@@ -5,7 +5,7 @@ import { notification } from "antd";
 import dynamic from "next/dynamic";
 const SvgContact = dynamic(() => import("../svg/SvgContact"));
 
-export default function contactForm() {
+export default function ContactForm() {
   const [loading, setloading] = useState(false);
   const formik = useFormik({
     initialValues: {
