@@ -6,9 +6,6 @@ import { onError } from "apollo-link-error";
 import ImageGallery from "react-image-gallery";
 import AppContext from "../../context/AppContext";
 import { useContext } from "react";
-// import { Select } from "antd";
-// import { parse } from "graphql";
-// const { Option } = Select;
 
 // Instantiate apollo client constructor
 const cache = new InMemoryCache();
@@ -96,11 +93,6 @@ export async function getStaticProps({ params }) {
 
 export default function ProductDetail(props) {
   const appContext = useContext(AppContext);
-  // const [quantity, setquantity] = useState(0);
-
-  // const handleChange = (value) => {
-  //   setquantity(parseInt(value));
-  // };
 
   const images = [
     {
@@ -138,24 +130,6 @@ export default function ProductDetail(props) {
               <i className="fa fa-inr mt-1"></i>
               <p className="ml-1">{props.price}</p>
             </div>
-
-            {/* <div>
-              <p className="mt-8 text-lg mb-2">Quantity: </p>
-              <Select
-                defaultValue="1"
-                style={{ width: 60 }}
-                onChange={handleChange}
-                className="border-1 border-black focus:outline-none"
-              >
-                {[...Array(30)].map((_, i) => {
-                  return (
-                    <Option value={i + 1} key={i + 1}>
-                      {i + 1}
-                    </Option>
-                  );
-                })}
-              </Select>
-            </div> */}
             {appContext.enableCart ? (
               <button
                 type="submit"

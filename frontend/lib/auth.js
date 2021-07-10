@@ -2,6 +2,11 @@ import Router from "next/router";
 import Cookie from "js-cookie";
 import axios from "axios";
 
+function setCookie(res) {
+  Cookie.set("token", res.data.jwt, { sameSite: "None", secure: true });
+  Router.push("/");
+}
+
 export const registerUser = (username, email, password) => {
   if (typeof window === undefined) return;
 
@@ -13,9 +18,8 @@ export const registerUser = (username, email, password) => {
         password,
       })
       .then((res) => {
-        Cookie.set("token", res.data.jwt, { sameSite: "None", secure: true });
+        setCookie(res);
         resolve(res);
-        Router.push("/");
       })
       .catch((err) => reject(err));
   });
@@ -31,9 +35,8 @@ export const loginUser = (identifier, password) => {
         password,
       })
       .then((res) => {
-        Cookie.set("token", res.data.jwt, { sameSite: "None", secure: true });
+        setCookie(res);
         resolve(res);
-        Router.push("/");
       })
       .catch((err) => reject(err));
   });

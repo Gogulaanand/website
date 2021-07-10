@@ -24,11 +24,13 @@ function MyApp({ Component, pageProps, apollo }) {
 
     if (cookieCart !== undefined && cookieCart.length > 0) {
       let totalCount = 0;
+      let totalPrice = 0;
       JSON.parse(cookieCart).forEach((item) => {
         totalCount += item.quantity;
+        totalPrice += item.price * item.quantity;
         updateCart({
           items: JSON.parse(cookieCart),
-          totalAmount: item.price * item.quantity,
+          totalAmount: totalPrice,
           totalQuantity: totalCount,
         });
       });
@@ -48,8 +50,8 @@ function MyApp({ Component, pageProps, apollo }) {
           Cookie.remove("token");
           return null;
         }
-        const user = await res.json();
-        setUser(user);
+        const verifiedUser = await res.json();
+        setUser(verifiedUser);
       });
     }
 
@@ -89,41 +91,50 @@ function MyApp({ Component, pageProps, apollo }) {
         totalQuantity: cart.totalQuantity + 1,
       });
     }
-    Cookie.set("cart", items, { secure: true, expires: 365 });
+    Cookie.set("cart", items, { sameSite: "None", secure: true, expires: 365 });
   };
 
   const removeItem = (item) => {
     let items = cart.items;
-    const removeItem = items.find((i) => i.id === item.id);
+    const item_to_remove = items.find((i) => i.id === item.id);
 
-    if (removeItem.quantity > 1) {
+    if (item_to_remove.quantity > 1) {
       const index = items.findIndex((i) => i.id === item.id);
       items[index] = Object.assign({}, item, {
-        quantity: removeItem.quantity - 1,
+        quantity: item_to_remove.quantity - 1,
       });
       updateCart({
         items,
         totalAmount: cart.totalAmount - item.price,
         totalQuantity: cart.totalQuantity - 1,
       });
+      Cookie.set("cart", items, {
+        sameSite: "None",
+        secure: true,
+        expires: 365,
+      });
     } else {
       deleteItem(item);
     }
-    Cookie.set("cart", items, { secure: true, expires: 365 });
   };
 
   const deleteItem = (item) => {
     let items = cart.items;
-    const deleteItem = items.find((i) => i.id === item.id);
-    if (deleteItem) {
+    const item_to_delete = items.find((i) => i.id === item.id);
+    if (item_to_delete) {
       const index = items.findIndex((i) => i.id === item.id);
       items.splice(index, 1);
       updateCart({
         items,
-        totalAmount: cart.totalAmount - deleteItem.price * deleteItem.quantity,
-        totalQuantity: cart.totalQuantity - deleteItem.quantity,
+        totalAmount:
+          cart.totalAmount - item_to_delete.price * item_to_delete.quantity,
+        totalQuantity: cart.totalQuantity - item_to_delete.quantity,
       });
-      Cookie.set("cart", items, { secure: true, expires: 365 });
+      Cookie.set("cart", items, {
+        sameSite: "None",
+        secure: true,
+        expires: 365,
+      });
     }
   };
 
