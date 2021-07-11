@@ -3,7 +3,7 @@ import Document, { Html, Head, Main, NextScript } from "next/document";
 class MyDocument extends Document {
   render() {
     return (
-      <Html>
+      <Html lang="en">
         <Head>
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
@@ -18,7 +18,9 @@ class MyDocument extends Document {
           <link
             rel="stylesheet"
             href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
-          ></link>
+            media="print"
+            onload="this.media='all'"
+          />
           <meta
             name="keyword"
             content="sunfabb, bedsheets, cloth, towel, cover, shawl, napkin, kercheif, fabric, export, bulk orders"
