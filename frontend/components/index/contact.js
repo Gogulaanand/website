@@ -67,7 +67,7 @@ export default function ContactForm() {
 
   return (
     <div id="contact">
-      <Script>
+      <Script strategy="lazyOnload">
         {function onSubmit(token) {
           document.getElementById("contact_form").submit();
         }}
@@ -171,7 +171,10 @@ export default function ContactForm() {
               )}
             </div>
           </form>
-          <Script src="https://www.google.com/recaptcha/api.js"></Script>
+          <Script
+            src="https://www.google.com/recaptcha/api.js"
+            strategy="lazyOnload"
+          ></Script>
         </div>
       </div>
     </div>

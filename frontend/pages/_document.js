@@ -15,6 +15,10 @@ class MyDocument extends Document {
             rel="stylesheet"
             href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
           ></link>
+          <meta
+            name="keyword"
+            content="sunfabb, bedsheets, cloth, towel, cover, shawl, napkin, kercheif, fabric, export, bulk orders"
+          ></meta>
         </Head>
         <body>
           <Main />
