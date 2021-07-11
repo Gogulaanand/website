@@ -51,14 +51,15 @@ export default function CartItem(props) {
               </div>
             </Link>
             <div className="md:p-5 pt-2 col-span-3 justify-self-center my-auto">
-              <a
-                href={`/products/${item.id}`}
-                aria-label="product"
-                title={item.name}
-                className="inline-block mb-3 md:text-2xl sm:text-xl font-bold leading-5 transition-colors duration-200 hover:text-deep-purple-accent-700"
-              >
-                {item.name}
-              </a>
+              <Link href={`/products/${item.id}`} passHref>
+                <a
+                  aria-label="product"
+                  title={item.name}
+                  className="inline-block mb-3 md:text-2xl sm:text-xl font-bold leading-5 transition-colors duration-200 hover:text-deep-purple-accent-700"
+                >
+                  {item.name}
+                </a>
+              </Link>
             </div>
             <div className="md:col-span-2 md:my-auto flex md:justify-center md:static absolute top-full left-0">
               <Button

@@ -160,10 +160,6 @@ function MyApp({ Component, pageProps, apollo }) {
         <Nav />
         <Component {...pageProps} />
         <Footer />
-        <link
-          rel="stylesheet"
-          href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
-        ></link>
       </AppContext.Provider>
     </ApolloProvider>
   );

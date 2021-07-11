@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import emailjs from "emailjs-com";
 import { notification } from "antd";
 import dynamic from "next/dynamic";
+import Script from "next/script";
 const SvgContact = dynamic(() => import("../svg/SvgContact"));
 
 export default function ContactForm() {
@@ -66,11 +67,11 @@ export default function ContactForm() {
 
   return (
     <div id="contact">
-      <script>
+      <Script>
         {function onSubmit(token) {
           document.getElementById("contact_form").submit();
         }}
-      </script>
+      </Script>
 
       <div className="text-center mx-auto w-4/5 md:mt-5">
         <h1 className="lg:text-5xl md:text-4xl sm:text-3xl font-large mt-12 inline-block">
@@ -170,7 +171,7 @@ export default function ContactForm() {
               )}
             </div>
           </form>
-          <script src="https://www.google.com/recaptcha/api.js"></script>
+          <Script src="https://www.google.com/recaptcha/api.js"></Script>
         </div>
       </div>
     </div>

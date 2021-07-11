@@ -18,7 +18,6 @@ export default function ProductCard(props) {
               layout="fill"
               objectFit="cover"
               alt=""
-              placeholder="blur"
             />
           </div>
           <div className="p-5 border border-t-0">
@@ -31,7 +30,7 @@ export default function ProductCard(props) {
               {props.data.name}
             </a>
             <p className="mb-2 text-gray-700">{props.data.description}</p>
-            <Link href={`/products/${props.data.id}`}>
+            <Link href={`/products/${props.data.id}`} passHref>
               <a
                 aria-label="view product"
                 className="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
