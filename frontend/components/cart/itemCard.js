@@ -55,7 +55,7 @@ export default function CartItem(props) {
                 <a
                   aria-label="product"
                   title={item.name}
-                  className="inline-block mb-3 md:text-2xl sm:text-xl font-bold leading-5 transition-colors duration-200 hover:text-deep-purple-accent-700"
+                  className="cursor-pointer inline-block mb-3 md:text-2xl sm:text-xl font-bold leading-5 transition-colors duration-200 hover:text-deep-purple-accent-700"
                 >
                   {item.name}
                 </a>
