@@ -19,7 +19,7 @@ class MyDocument extends Document {
             rel="stylesheet"
             href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
             media="print"
-            onload="this.media='all'"
+            onLoad="this.media='all'"
           />
           <meta
             name="keyword"
