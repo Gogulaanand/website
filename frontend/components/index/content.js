@@ -32,7 +32,7 @@ export default function Content() {
             />
           </div>
         </div>
-        <div className="flex flex-col justify-center -mx-4 lg:pl-8">
+        <div className="flex flex-col justify-center md:-mx-4 lg:pl-8">
           <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-teal-accent-400">
             <svg className="text-teal-900 w-7 h-7" viewBox="0 0 24 24">
               <polyline
