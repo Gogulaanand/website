@@ -22,7 +22,7 @@ class MyDocument extends Document {
             onLoad="this.media='all'"
           />
           <meta
-            name="keyword"
+            name="description"
             content="sunfabb, bedsheets, cloth, towel, cover, shawl, napkin, kercheif, fabric, export, bulk orders"
           ></meta>
         </Head>

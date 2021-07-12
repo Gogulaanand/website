@@ -83,18 +83,18 @@ export default function Nav() {
           {appContext.enableCart ? (
             <li>
               <Link href="/cart" passHref>
-                <Badge count={cart.totalQuantity} offset={[-2, 5]}>
-                  <a
-                    aria-label="Shopping cart"
-                    title="Shopping cart"
-                    className="font-medium text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                  >
+                <a
+                  aria-label="Shopping cart"
+                  title="Shopping cart"
+                  className="font-medium text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                >
+                  <Badge count={cart.totalQuantity} offset={[-2, 5]}>
                     <ShoppingCartOutlined
                       className="mx-2"
                       style={{ fontSize: "2rem" }}
                     />
-                  </a>
-                </Badge>
+                  </Badge>
+                </a>
               </Link>
             </li>
           ) : (

@@ -95,6 +95,7 @@ export default function Content() {
             <Link href="/products" passHref>
               <a
                 aria-label="view products"
+                title="Check out our products"
                 className="cursor-pointer inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
               >
                 Learn more
