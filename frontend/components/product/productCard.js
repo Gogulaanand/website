@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { useContext } from "react";
 import AppContext from "../../context/AppContext";
 export default function ProductCard(props) {
@@ -11,11 +12,14 @@ export default function ProductCard(props) {
         <div className="absolute top-0 left-0 w-full h-1 duration-300 origin-right transform scale-x-0 bg-indigo-600 group-hover:scale-x-100"></div>
         <div className="absolute bottom-0 right-0 w-1 h-full duration-300 origin-top transform scale-y-0 bg-indigo-600 group-hover:scale-y-100"></div>
         <div className="relative bg-white rounded-sm">
-          <img
-            src={`${props.data.cover.url}`}
-            className="object-cover w-full h-64"
-            alt=""
-          />
+          <div className="object-cover w-full h-64 relative">
+            <Image
+              src={`${props.data.cover.url}`}
+              layout="fill"
+              objectFit="cover"
+              alt=""
+            />
+          </div>
           <div className="p-5 border border-t-0">
             <a
               href={`/products/${props.data.id}`}
@@ -26,7 +30,7 @@ export default function ProductCard(props) {
               {props.data.name}
             </a>
             <p className="mb-2 text-gray-700">{props.data.description}</p>
-            <Link href={`/products/${props.data.id}`}>
+            <Link href={`/products/${props.data.id}`} passHref>
               <a
                 aria-label="view product"
                 className="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"

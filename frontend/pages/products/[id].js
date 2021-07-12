@@ -4,11 +4,9 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 import { HttpLink } from "apollo-link-http";
 import { onError } from "apollo-link-error";
 import ImageGallery from "react-image-gallery";
+import Image from "next/image";
 import AppContext from "../../context/AppContext";
 import { useContext } from "react";
-// import { Select } from "antd";
-// import { parse } from "graphql";
-// const { Option } = Select;
 
 // Instantiate apollo client constructor
 const cache = new InMemoryCache();
@@ -96,11 +94,6 @@ export async function getStaticProps({ params }) {
 
 export default function ProductDetail(props) {
   const appContext = useContext(AppContext);
-  // const [quantity, setquantity] = useState(0);
-
-  // const handleChange = (value) => {
-  //   setquantity(parseInt(value));
-  // };
 
   const images = [
     {
@@ -138,28 +131,10 @@ export default function ProductDetail(props) {
               <i className="fa fa-inr mt-1"></i>
               <p className="ml-1">{props.price}</p>
             </div>
-
-            {/* <div>
-              <p className="mt-8 text-lg mb-2">Quantity: </p>
-              <Select
-                defaultValue="1"
-                style={{ width: 60 }}
-                onChange={handleChange}
-                className="border-1 border-black focus:outline-none"
-              >
-                {[...Array(30)].map((_, i) => {
-                  return (
-                    <Option value={i + 1} key={i + 1}>
-                      {i + 1}
-                    </Option>
-                  );
-                })}
-              </Select>
-            </div> */}
             {appContext.enableCart ? (
               <button
                 type="submit"
-                className="my-8 py-3 px-5 border-black border-2 font-medium text-black bg-white hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
+                className="my-8 py-3 px-5 inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 hover:text-white focus:shadow-outline focus:outline-none"
                 onClick={() =>
                   appContext.addItem({
                     id: props.id,
@@ -189,26 +164,32 @@ export default function ProductDetail(props) {
               reprehenderit in voluptate velit esse cillum dolore eu fugiat
               nulla pariatur.
             </p>
-            <img
-              src={`${props.cover.formats.small.url}`}
-              alt={`Image of ${props.name}`}
-              className="col-span-2 lg:ml-8 mt-4"
-              data-aos="fade-in"
-              data-aos-duration="800"
-              data-aos-delay="200"
-            />
+            <div className="col-span-2 lg:ml-8 mt-4 h-full w-full relative">
+              <Image
+                src={`${props.cover.formats.small.url}`}
+                alt={`Image of ${props.name}`}
+                layout="fill"
+                objectFit="cover"
+                data-aos="fade-in"
+                data-aos-duration="800"
+                data-aos-delay="200"
+              />
+            </div>
           </div>
         </div>
         <div className="flex-col mt-48 mb-48">
           <div className="lg:grid lg:grid-cols-6 lg:gap-6">
-            <img
-              src={`${props.cover.formats.small.url}`}
-              alt={`Image of ${props.name}`}
-              className="col-span-2"
-              data-aos="fade-in"
-              data-aos-duration="800"
-              data-aos-delay="200"
-            />
+            <div className="col-span-2 relative">
+              <Image
+                src={`${props.cover.formats.small.url}`}
+                alt={`Image of ${props.name}`}
+                layout="fill"
+                objectFit="cover"
+                data-aos="fade-in"
+                data-aos-duration="800"
+                data-aos-delay="200"
+              />
+            </div>
             <p
               className="lg:ml-8 lg:mt-0 mt-4 col-span-4 text-left md:text-xl text-base self-center lg:leading-relaxed lg:tracking-wide"
               data-aos="fade-in"

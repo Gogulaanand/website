@@ -9,11 +9,11 @@ export default function label() {
             </p>
             <br />
             <p className="text-center text-4xl text-darkBlue leading-6">
-              3' x 6.25'
+              3&apos; x 6.25&apos;
             </p>
             <br />
             <p className="text-center text-4xl text-darkBlue leading-6">
-              5" THICK
+              5&quot; THICK
             </p>
           </div>
         </div>

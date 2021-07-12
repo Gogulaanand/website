@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import Link from "next/link";
+import Image from "next/image";
 import dynamic from "next/dynamic";
 import { Divider, InputNumber, Button, Popconfirm, message } from "antd";
 import { PlusOutlined, MinusOutlined, CloseOutlined } from "@ant-design/icons";
@@ -39,22 +40,26 @@ export default function CartItem(props) {
       <>
         <div>
           <div className="md:grid md:grid-cols-12 flex flex-col my-8 md:static relative">
-            <Link href={`/products/${item.id}`}>
-              <img
-                src={`${item.cover.url}`}
-                className="object-cover md:w-full w-3/5 md:h-64 sm:h-32 cursor-pointer col-span-4"
-                alt=""
-              />
+            <Link href={`/products/${item.id}`} passHref>
+              <div className="object-cover md:w-full w-3/5 md:h-64 sm:h-32 cursor-pointer col-span-4 relative">
+                <Image
+                  src={`${item.cover.url}`}
+                  layout="fill"
+                  objectFit="cover"
+                  alt=""
+                />
+              </div>
             </Link>
             <div className="md:p-5 pt-2 col-span-3 justify-self-center my-auto">
-              <a
-                href={`/products/${item.id}`}
-                aria-label="product"
-                title={item.name}
-                className="inline-block mb-3 md:text-2xl sm:text-xl font-bold leading-5 transition-colors duration-200 hover:text-deep-purple-accent-700"
-              >
-                {item.name}
-              </a>
+              <Link href={`/products/${item.id}`} passHref>
+                <a
+                  aria-label="product"
+                  title={item.name}
+                  className="cursor-pointer inline-block mb-3 md:text-2xl sm:text-xl font-bold leading-5 transition-colors duration-200 hover:text-deep-purple-accent-700"
+                >
+                  {item.name}
+                </a>
+              </Link>
             </div>
             <div className="md:col-span-2 md:my-auto flex md:justify-center md:static absolute top-full left-0">
               <Button
@@ -93,7 +98,7 @@ export default function CartItem(props) {
               ></Button>
             </div>
             <p className="md:col-span-2 my-auto text-center font-semibold md:text-lg text-md md:static absolute inset-y-1/3 right-0">
-              <i class="fa fa-inr"></i> {item.price * count}
+              <i className="fa fa-inr"></i> {item.price * count}
             </p>
             <Popconfirm
               title="Are you sure to delete this item?"

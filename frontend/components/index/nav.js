@@ -18,38 +18,38 @@ export default function Nav() {
   return (
     <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
       <div className="flex items-center justify-between">
-        <a
-          href="/"
-          aria-label="Company"
-          title="Company"
-          className="inline-flex items-center"
-        >
-          <svg
-            className="w-8 text-deep-purple-accent-400"
-            viewBox="0 0 24 24"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeMiterlimit="10"
-            stroke="currentColor"
-            fill="none"
+        <Link href="/" passHref>
+          <a
+            aria-label="Company"
+            title="Company"
+            className="inline-flex items-center"
           >
-            <rect x="3" y="1" width="7" height="12" />
-            <rect x="3" y="17" width="7" height="6" />
-            <rect x="14" y="1" width="7" height="6" />
-            <rect x="14" y="11" width="7" height="12" />
-          </svg>
-          <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
-            Company
-          </span>
-        </a>
+            <svg
+              className="w-8 text-deep-purple-accent-400"
+              viewBox="0 0 24 24"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeMiterlimit="10"
+              stroke="currentColor"
+              fill="none"
+            >
+              <rect x="3" y="1" width="7" height="12" />
+              <rect x="3" y="17" width="7" height="6" />
+              <rect x="14" y="1" width="7" height="6" />
+              <rect x="14" y="11" width="7" height="12" />
+            </svg>
+            <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
+              Company
+            </span>
+          </a>
+        </Link>
         <ul className="flex hidden items-center space-x-8 lg:flex z-10">
           <li>
-            <Link href="/">
+            <Link href="/" passHref>
               <a
                 aria-label="Home"
                 title="Home"
-                href="/"
                 className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
               >
                 Home
@@ -57,11 +57,10 @@ export default function Nav() {
             </Link>
           </li>
           <li>
-            <Link href="/products">
+            <Link href="/products" passHref>
               <a
                 aria-label="Our products"
                 title="Our products"
-                href="/products"
                 className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
               >
                 Products
@@ -69,11 +68,10 @@ export default function Nav() {
             </Link>
           </li>
           <li>
-            <Link href="/#contact">
+            <Link href="/#contact" passHref>
               <a
                 aria-label="Contact us"
                 title="Contact us"
-                href="/#contact"
                 className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
               >
                 Contact us
@@ -84,20 +82,19 @@ export default function Nav() {
         <ul className="flex items-center hidden space-x-8 lg:flex z-10">
           {appContext.enableCart ? (
             <li>
-              <Link href="/cart">
-                <Badge count={cart.totalQuantity} offset={[-2, 5]}>
-                  <a
-                    aria-label="Shopping cart"
-                    title="Shopping cart"
-                    href="/cart"
-                    className="font-medium text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                  >
+              <Link href="/cart" passHref>
+                <a
+                  aria-label="Shopping cart"
+                  title="Shopping cart"
+                  className="font-medium text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                >
+                  <Badge count={cart.totalQuantity} offset={[-2, 5]}>
                     <ShoppingCartOutlined
                       className="mx-2"
                       style={{ fontSize: "2rem" }}
                     />
-                  </a>
-                </Badge>
+                  </Badge>
+                </a>
               </Link>
             </li>
           ) : (
@@ -106,24 +103,22 @@ export default function Nav() {
 
           <li>
             {user ? (
-              <Link href="/">
+              <Link href="/" passHref>
                 <a
                   className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                   aria-label="Logout"
                   title="Logout"
                   onClick={handleLogout}
-                  href="/"
                 >
                   Logout
                 </a>
               </Link>
             ) : (
-              <Link href="/login">
+              <Link href="/login" passHref>
                 <a
-                  className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 hover:text-white focus:shadow-outline focus:outline-none"
+                  className="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
                   aria-label="Sign Up"
                   title="Sign Up"
-                  href="/login"
                 >
                   Sign Up
                 </a>
@@ -132,11 +127,10 @@ export default function Nav() {
           </li>
         </ul>
         <div className="lg:hidden flex">
-          <Link href="/cart">
+          <Link href="/cart" passHref>
             <a
               aria-label="Shopping cart"
               title="Shopping cart"
-              href="/cart"
               className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400 flex flex-row justify-between"
             >
               <Badge count={cart.totalQuantity} offset={[-2, 5]}>
@@ -173,31 +167,32 @@ export default function Nav() {
               <div className="p-5 bg-white border rounded shadow-sm">
                 <div className="flex items-center justify-between mb-4">
                   <div>
-                    <a
-                      href="/"
-                      aria-label="Company"
-                      title="Company"
-                      className="inline-flex items-center"
-                    >
-                      <svg
-                        className="w-8 text-deep-purple-accent-400"
-                        viewBox="0 0 24 24"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeMiterlimit="10"
-                        stroke="currentColor"
-                        fill="none"
+                    <Link href="/" passHref>
+                      <a
+                        aria-label="Company"
+                        title="Company"
+                        className="inline-flex items-center"
                       >
-                        <rect x="3" y="1" width="7" height="12" />
-                        <rect x="3" y="17" width="7" height="6" />
-                        <rect x="14" y="1" width="7" height="6" />
-                        <rect x="14" y="11" width="7" height="12" />
-                      </svg>
-                      <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
-                        Company
-                      </span>
-                    </a>
+                        <svg
+                          className="w-8 text-deep-purple-accent-400"
+                          viewBox="0 0 24 24"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeMiterlimit="10"
+                          stroke="currentColor"
+                          fill="none"
+                        >
+                          <rect x="3" y="1" width="7" height="12" />
+                          <rect x="3" y="17" width="7" height="6" />
+                          <rect x="14" y="1" width="7" height="6" />
+                          <rect x="14" y="11" width="7" height="12" />
+                        </svg>
+                        <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
+                          Company
+                        </span>
+                      </a>
+                    </Link>
                   </div>
                   <div>
                     <button
@@ -218,7 +213,7 @@ export default function Nav() {
                 <nav>
                   <ul className="space-y-4">
                     <li>
-                      <Link href="/">
+                      <Link href="/" passHref>
                         <a
                           aria-label="Home"
                           title="Home"
@@ -230,7 +225,7 @@ export default function Nav() {
                       </Link>
                     </li>
                     <li>
-                      <Link href="/products">
+                      <Link href="/products" passHref>
                         <a
                           aria-label="Our products"
                           title="Our products"
@@ -242,7 +237,7 @@ export default function Nav() {
                       </Link>
                     </li>
                     <li>
-                      <Link href="/#contact">
+                      <Link href="/#contact" passHref>
                         <a
                           aria-label="Contact us"
                           title="Contact us"
@@ -255,7 +250,7 @@ export default function Nav() {
                     </li>
                     {appContext.enableCart ? (
                       <li>
-                        <Link href="/cart">
+                        <Link href="/cart" passHref>
                           <a
                             aria-label="Shopping cart"
                             title="Shopping cart"
@@ -270,14 +265,15 @@ export default function Nav() {
                       <></>
                     )}
                     <li>
-                      <a
-                        href="/register"
-                        className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                        aria-label="Sign up"
-                        title="Sign up"
-                      >
-                        Sign up
-                      </a>
+                      <Link href="/register" passHref>
+                        <a
+                          className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                          aria-label="Sign up"
+                          title="Sign up"
+                        >
+                          Sign up
+                        </a>
+                      </Link>
                     </li>
                   </ul>
                 </nav>
