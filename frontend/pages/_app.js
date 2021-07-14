@@ -9,6 +9,7 @@ import fetch from "isomorphic-unfetch";
 import AppContext from "../context/AppContext";
 import withData from "../lib/apollo";
 import { ApolloProvider } from "@apollo/react-hooks";
+import "antd/dist/antd.min.css";
 
 function MyApp({ Component, pageProps, apollo }) {
   const [user, setUser] = useState(null);
