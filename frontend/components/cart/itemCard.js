@@ -107,7 +107,6 @@ export default function CartItem(props) {
               onConfirm={() => {
                 setcount(0);
                 appContext.deleteItem({ id: props.data.id });
-                message.warning("Item has been deleted from your cart");
               }}
             >
               <Button
