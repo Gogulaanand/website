@@ -73,7 +73,7 @@ export default function ContactForm() {
   };
 
   useEffect(() => {
-    if (token) {
+    if (token && loading) {
       let templateParams = {
         from_name: formik.values.name,
         to_name: "Company",
