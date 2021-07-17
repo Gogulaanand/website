@@ -10,7 +10,7 @@ export default function Hero() {
               The quick, brown fox
               <br className="hidden md:block" />
               jumps over{" "}
-              <span className="inline-block text-deep-purple-accent-400">
+              <span className="inline-block text-transparent bg-clip-text bg-gradient-r from-gradientBlue via-gradientPink to-gradientRed">
                 a lazy dog
               </span>
             </h2>
@@ -22,14 +22,27 @@ export default function Hero() {
           </div>
           <div className="flex items-center">
             <Link href="/products" passHref>
-              <a className="inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-white transition duration-200 rounded-full shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none cursor-pointer">
+              <a className="inline-flex items-center justify-center h-12 px-8 py-3 border border-transparent text-base leading-6 font-semibold rounded-full text-white shadow-md bg-deep-purple-accent-400 cursor-pointer hover:text-white transition duration-150 ease-in-out md:py-3 md:text-lg md:px-10">
                 Explore Products
+                <svg
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="3"
+                  height="1em"
+                  width="1em"
+                  className="-mr-1 ml-3"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
               </a>
             </Link>
             <Link href="/#contact" passHref>
               <a
                 aria-label=""
-                className="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800 cursor-pointer"
+                className="inline-flex items-center text-base leading-6 font-semibold transition duration-150 ease-in-out md:py-3 md:text-lg md:px-10 text-deep-purple-accent-400 cursor-pointer hover:text-deep-purple-accent-400"
               >
                 Contact Us
               </a>
