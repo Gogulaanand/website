@@ -13,59 +13,54 @@ export default function ContactForm() {
 
   const formik = useFormik({
     initialValues: {
-      email: "",
       name: "",
+      email: "",
       phone: "",
       message: "",
     },
-    onSubmit: (values, { resetForm }) => {
-      console.log(values);
+    onSubmit: () => {
       if (loading) return;
       setloading(true);
-      let templateParams = {
-        from_name: values.name,
-        to_name: "Company",
-        message_html: `<table>
-                        <tr><th>Subject</th><td>${values.name} contacting from Company website</td></tr>
-                        <tr><th>Phone</th><td>${values.phone}</td></tr>
-                        <tr><th>Email</th><td>${values.email}</td></tr>
-                        <tr><th>Message</th><td>${values.message}</td></tr>`,
-      };
-      emailjs
-        .send(
-          "gmail",
-          process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
-          templateParams,
-          process.env.NEXT_PUBLIC_EMAILJS_USER_ID
-        )
-        .then((resp) => {
-          if (resp.status === 200) {
-            openNotification(
-              "success",
-              "Message sent successfully !",
-              "We will get you back to you shortly"
-            );
-            resetForm({});
-            setloading(false);
-          }
-        })
-        .catch((e) => {
-          console.log(e);
-          openNotification(
-            "warning",
-            "Something went wrong, pls try after sometime!",
-            "If the issue persists, pls write to us at abc@gmail.com"
-          );
-          setloading(false);
-        });
       captchaRef.current.execute();
     },
   });
+
+  const sendFormData = (templateParams) => {
+    emailjs
+      .send(
+        "gmail",
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+        templateParams,
+        process.env.NEXT_PUBLIC_EMAILJS_USER_ID
+      )
+      .then((resp) => {
+        if (resp.status === 200) {
+          openNotification(
+            "success",
+            "Message sent successfully !",
+            "We will get you back to you shortly"
+          );
+
+          setloading(false);
+          formik.resetForm();
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        openNotification(
+          "warning",
+          "Something went wrong, pls try after sometime!",
+          "If the issue persists, pls write to us at abc@gmail.com"
+        );
+        setloading(false);
+      });
+  };
 
   const openNotification = (type, message, description) => {
     notification[type]({
       message,
       description,
+      duration: 3,
     });
   };
 
@@ -79,7 +74,16 @@ export default function ContactForm() {
 
   useEffect(() => {
     if (token) {
-      console.log(`hCaptcha Token: ${token}`);
+      let templateParams = {
+        from_name: formik.values.name,
+        to_name: "Company",
+        message_html: `<table>
+                        <tr><th>Subject</th><td>${formik.values.name} contacting from Company website</td></tr>
+                        <tr><th>Phone</th><td>${formik.values.phone}</td></tr>
+                        <tr><th>Email</th><td>${formik.values.email}</td></tr>
+                        <tr><th>Message</th><td>${formik.values.message}</td></tr>`,
+      };
+      sendFormData(templateParams);
     }
   }, [token]);
 
