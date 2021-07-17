@@ -1,5 +1,4 @@
 import Link from "next/link";
-// import Image from "next/image";
 export default function Hero() {
   return (
     <div className="flex flex-col flex-1 h-full">
