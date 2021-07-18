@@ -14,7 +14,6 @@
     "@apollo/react-hooks": "^3.1.5",
     "@apollo/react-ssr": "^4.0.0",
     "@hcaptcha/react-hcaptcha": "^0.3.6",
-    "@stripe/react-stripe-js": "^1.4.1",
     "@stripe/stripe-js": "^1.15.1",
     "@tailwindcss/forms": "^0.2.1",
     "animate.css": "^4.1.1",
