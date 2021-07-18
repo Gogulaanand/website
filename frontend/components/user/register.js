@@ -14,6 +14,7 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setshowPassword] = useState(false);
   const appContext = useContext(AppContext);
+  const { addToast } = useToasts();
 
   const formik = useFormik({
     initialValues: {

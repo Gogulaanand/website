@@ -21,6 +21,8 @@ class MyDocument extends Document {
             media="print"
             onLoad="this.media='all'"
           />
+          <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta
             name="description"
             content="sunfabb, bedsheets, cloth, towel, cover, shawl, napkin, kercheif, fabric, export, bulk orders"
