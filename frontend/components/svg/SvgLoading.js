@@ -1,7 +1,4 @@
-import * as React from "react";
-
-export default function SvgLoading(props) {
-  const color = props.color || "white";
+export default function SvgLoading() {
   return (
     <svg
       width="20"

@@ -81,7 +81,7 @@ export default function Content() {
               Let us handle
               <br className="hidden md:block" />
               your next{" "}
-              <span className="inline-block text-deep-purple-accent-400">
+              <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-teal-400">
                 destination
               </span>
             </h2>
@@ -96,7 +96,7 @@ export default function Content() {
               <a
                 aria-label="view products"
                 title="Check out our products"
-                className="cursor-pointer inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
+                className="inline-block text-base leading-6 font-semibold transition duration-150 ease-in-out md:py-3 md:text-lg text-gray-800 cursor-pointer hover:text-gray-800"
               >
                 Check out our products
                 <svg

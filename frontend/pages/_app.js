@@ -9,6 +9,7 @@ import fetch from "isomorphic-unfetch";
 import AppContext from "../context/AppContext";
 import withData from "../lib/apollo";
 import { ApolloProvider } from "@apollo/react-hooks";
+import { ToastProvider } from "react-toast-notifications";
 
 function MyApp({ Component, pageProps, apollo }) {
   const [user, setUser] = useState(null);
@@ -140,27 +141,29 @@ function MyApp({ Component, pageProps, apollo }) {
 
   return (
     <ApolloProvider client={apollo}>
-      <AppContext.Provider
-        value={{
-          user,
-          isAuthenticated: !!user,
-          setUser,
-          cart,
-          addItem,
-          removeItem,
-          deleteItem,
-          enableCart: true,
-        }}
-      >
-        <title>Sunfabb</title>
-        <meta
-          name="description"
-          content="company name: Sunfabb. High Quality bedspreads, bed sheets, pillow covers, scarf, hand keys, kerchief manufactured and priced reasonable but of best quality unmatched by others in the market"
-        ></meta>
-        <Nav />
-        <Component {...pageProps} />
-        <Footer />
-      </AppContext.Provider>
+      <ToastProvider>
+        <AppContext.Provider
+          value={{
+            user,
+            isAuthenticated: !!user,
+            setUser,
+            cart,
+            addItem,
+            removeItem,
+            deleteItem,
+            enableCart: true,
+          }}
+        >
+          <title>Sunfabb</title>
+          <meta
+            name="description"
+            content="company name: Sunfabb. High Quality bedspreads, bed sheets, pillow covers, scarf, hand keys, kerchief manufactured and priced reasonable but of best quality unmatched by others in the market"
+          ></meta>
+          <Nav />
+          <Component {...pageProps} />
+          <Footer />
+        </AppContext.Provider>
+      </ToastProvider>
     </ApolloProvider>
   );
 }

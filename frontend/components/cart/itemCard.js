@@ -3,7 +3,7 @@ import { gql } from "apollo-boost";
 import Link from "next/link";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import { Divider, InputNumber, Button, Popconfirm, message } from "antd";
+import { Divider, InputNumber, Button, Popconfirm } from "antd";
 import { PlusOutlined, MinusOutlined, CloseOutlined } from "@ant-design/icons";
 import { useContext, useState } from "react";
 import AppContext from "../../context/AppContext";
