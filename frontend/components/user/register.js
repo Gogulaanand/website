@@ -2,9 +2,8 @@ import { useState, useContext } from "react";
 import { registerUser } from "../../lib/auth";
 import { useFormik } from "formik";
 import AppContext from "../../context/AppContext";
-import { notification } from "antd";
-
 import dynamic from "next/dynamic";
+import { useToasts } from "react-toast-notifications";
 
 const SvgArrowPointingToRight = dynamic(() =>
   import("../svg/SvgArrowPointingToRight")
@@ -39,8 +38,7 @@ export default function Register() {
           console.log(err);
           openNotification(
             "warning",
-            "Something went wrong, pls try after sometime!",
-            "If the issue persists, pls write to us at abc@gmail.com"
+            "Something went wrong, pls try after sometime!, If the issue persists, pls write to us at abc@gmail.com"
           );
         });
       resetForm({});
@@ -48,10 +46,10 @@ export default function Register() {
     },
   });
 
-  const openNotification = (type, message, description = "") => {
-    notification[type]({
-      message,
-      description,
+  const openNotification = (type, message) => {
+    addToast(message, {
+      appearance: type,
+      autoDismiss: true,
     });
   };
 

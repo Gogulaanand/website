@@ -1,9 +1,9 @@
 import { useState, useContext } from "react";
 import { loginUser } from "../../lib/auth";
 import { useFormik } from "formik";
-import { notification } from "antd";
 import AppContext from "../../context/AppContext";
 import dynamic from "next/dynamic";
+import { useToasts } from "react-toast-notifications";
 
 const SvgArrowPointingToRight = dynamic(() =>
   import("../svg/SvgArrowPointingToRight")
@@ -14,6 +14,7 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setshowPassword] = useState(false);
   const appContext = useContext(AppContext);
+  const { addToast } = useToasts();
 
   const formik = useFormik({
     initialValues: {
@@ -35,21 +36,17 @@ export default function Register() {
         .catch((err) => {
           setLoading(false);
           console.log(err);
-          openNotification(
-            "warning",
-            "Login unsuccessful!",
-            "Please try again"
-          );
+          openNotification("warning", "Login unsuccessful! Please try again");
         });
       resetForm({});
       setLoading(false);
     },
   });
 
-  const openNotification = (type, message, description = "") => {
-    notification[type]({
-      message,
-      description,
+  const openNotification = (type, message) => {
+    addToast(message, {
+      appearance: type,
+      autoDismiss: true,
     });
   };
 

@@ -1,16 +1,17 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useFormik } from "formik";
 import emailjs from "emailjs-com";
-import { notification } from "antd";
 import dynamic from "next/dynamic";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 const SvgContact = dynamic(() => import("../svg/SvgContact"));
 const SvgLoading = dynamic(() => import("../svg/SvgLoading"));
+import { useToasts } from "react-toast-notifications";
 
 export default function ContactForm() {
   const [loading, setloading] = useState(false);
   const [token, setToken] = useState(null);
   const captchaRef = useRef(null);
+  const { addToast } = useToasts();
 
   const formik = useFormik({
     initialValues: {
@@ -38,8 +39,7 @@ export default function ContactForm() {
         if (resp.status === 200) {
           openNotification(
             "success",
-            "Message sent successfully !",
-            "We will get you back to you shortly"
+            "Message sent successfully! We will get you back to you shortly"
           );
 
           setloading(false);
@@ -50,18 +50,16 @@ export default function ContactForm() {
         console.log(e);
         openNotification(
           "warning",
-          "Something went wrong, pls try after sometime!",
-          "If the issue persists, pls write to us at abc@gmail.com"
+          "Something went wrong, pls try after sometime! If the issue persists, pls write to us at sunfabb.website@gmail.com"
         );
         setloading(false);
       });
   };
 
-  const openNotification = (type, message, description) => {
-    notification[type]({
-      message,
-      description,
-      duration: 3,
+  const openNotification = (type, message) => {
+    addToast(message, {
+      appearance: type,
+      autoDismiss: true,
     });
   };
 
