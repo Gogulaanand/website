@@ -20,8 +20,8 @@ export default function Nav() {
       <div className="flex items-center justify-between">
         <Link href="/" passHref>
           <a
-            aria-label="Company"
-            title="Company"
+            aria-label="Sunfabb"
+            title="Sunfabb"
             className="inline-flex items-center"
           >
             <svg
@@ -40,7 +40,6 @@ export default function Nav() {
               <rect x="14" y="11" width="7" height="12" />
             </svg>
             <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
-              Company
             </span>
           </a>
         </Link>
@@ -169,8 +168,8 @@ export default function Nav() {
                   <div>
                     <Link href="/" passHref>
                       <a
-                        aria-label="Company"
-                        title="Company"
+                        aria-label="Sunfabb"
+                        title="Sunfabb"
                         className="inline-flex items-center"
                       >
                         <svg
@@ -189,7 +188,6 @@ export default function Nav() {
                           <rect x="14" y="11" width="7" height="12" />
                         </svg>
                         <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
-                          Company
                         </span>
                       </a>
                     </Link>
