@@ -49,15 +49,6 @@ export default function Hero() {
           </div>
         </div>
       </div>
-      {/* <div className="flex justify-center h-full overflow-hidden lg:w-2/3 xl:w-1/2 lg:absolute lg:justify-start lg:bottom-0 lg:right-0 lg:items-center lg:mb-32">
-        <Image
-          src="/full-browser.jpeg"
-          className="object-cover object-top w-4/5 h-64 max-w-xl -mb-16 rounded shadow-2xl lg:ml-32 xl:ml-4 lg:-mb-24 xl:-mb-28 lg:h-auto lg:max-w-screen-md"
-          alt=""
-          width={700}
-          height={550}
-        />
-      </div> */}
     </div>
   );
 }
