@@ -40,6 +40,7 @@ export default function Nav() {
               <rect x="14" y="11" width="7" height="12" />
             </svg>
             <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
+              Company
             </span>
           </a>
         </Link>
@@ -188,6 +189,7 @@ export default function Nav() {
                           <rect x="14" y="11" width="7" height="12" />
                         </svg>
                         <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
+                          Company
                         </span>
                       </a>
                     </Link>
