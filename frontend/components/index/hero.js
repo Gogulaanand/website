@@ -13,7 +13,7 @@ export default function Hero() {
                 a lazy dog
               </span>
             </h2>
-            <p className="mt-12 text-xl sm:text-2xl leading-tight font-medium text-gray-500 max-w-4xl mx-auto ">
+            <p className="mt-12 text-xl sm:text-2xl leading-tight font-medium text-gray-700 max-w-4xl mx-auto ">
               Sed ut perspiciatis unde omnis iste natus error sit voluptatem
               accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
               quae. explicabo.
