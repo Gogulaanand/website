@@ -81,7 +81,7 @@ export default function Content() {
               Let us handle
               <br className="hidden md:block" />
               your next{" "}
-              <span className="inline-block text-deep-purple-accent-400">
+              <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-teal-400">
                 destination
               </span>
             </h2>
