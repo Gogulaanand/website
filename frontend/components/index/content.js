@@ -77,18 +77,16 @@ export default function Content() {
             </svg>
           </div>
           <div className="max-w-xl mb-6">
-            <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
-              Let us handle
-              <br className="hidden md:block" />
-              your next{" "}
-              <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-teal-400">
-                destination
+            <h1 className="max-w-lg mb-6 font-sans font-bold tracking-tight leading-tight text-gray-900 text-5xl">
+              Tell us about your
+              <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-400">
+                design & requirement
               </span>
-            </h2>
+            </h1>
             <p className="text-base text-gray-700 md:text-lg">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-              quae. explicabo.
+              We handle design, procuring high quality raw materials,
+              manufacturing and shipping custom ordered fabrics in large scale.
+              We cater to customers within and outside India.
             </p>
           </div>
           <div>

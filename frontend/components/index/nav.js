@@ -39,9 +39,9 @@ export default function Nav() {
               <rect x="14" y="1" width="7" height="6" />
               <rect x="14" y="11" width="7" height="12" />
             </svg>
-            <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
-              Company
-            </span>
+            <h1 className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
+              SUNFABB
+            </h1>
           </a>
         </Link>
         <ul className="flex hidden items-center space-x-8 lg:flex z-10">
