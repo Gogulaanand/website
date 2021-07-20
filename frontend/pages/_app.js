@@ -154,7 +154,6 @@ function MyApp({ Component, pageProps, apollo }) {
         <ToastProvider>
           <AppContext.Provider
             value={{
-              magic,
               user,
               isAuthenticated: !!user,
               setUser,
