@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Head from "next/head";
 import "../styles/globals.sass";
 import Nav from "../components/index/nav";
 import Footer from "../components/index/footer";
@@ -140,31 +141,37 @@ function MyApp({ Component, pageProps, apollo }) {
   };
 
   return (
-    <ApolloProvider client={apollo}>
-      <ToastProvider>
-        <AppContext.Provider
-          value={{
-            user,
-            isAuthenticated: !!user,
-            setUser,
-            cart,
-            addItem,
-            removeItem,
-            deleteItem,
-            enableCart: true,
-          }}
-        >
-          <title>Sunfabb</title>
-          <meta
-            name="description"
-            content="company name: Sunfabb. High Quality bedspreads, bed sheets, pillow covers, scarf, hand keys, kerchief manufactured and priced reasonable but of best quality unmatched by others in the market"
-          ></meta>
-          <Nav />
-          <Component {...pageProps} />
-          <Footer />
-        </AppContext.Provider>
-      </ToastProvider>
-    </ApolloProvider>
+    <>
+      <Head>
+        <title>Sunfabb</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+          name="description"
+          content="company name: Sunfabb. High Quality bedspreads, bed sheets, pillow covers, scarf, hand keys, kerchief manufactured and priced reasonable but of best quality unmatched by others in the market"
+        ></meta>
+      </Head>
+      <ApolloProvider client={apollo}>
+        <ToastProvider>
+          <AppContext.Provider
+            value={{
+              magic,
+              user,
+              isAuthenticated: !!user,
+              setUser,
+              cart,
+              addItem,
+              removeItem,
+              deleteItem,
+              enableCart: true,
+            }}
+          >
+            <Nav />
+            <Component {...pageProps} />
+            <Footer />
+          </AppContext.Provider>
+        </ToastProvider>
+      </ApolloProvider>
+    </>
   );
 }
 

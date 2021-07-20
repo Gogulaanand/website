@@ -167,7 +167,7 @@ export default function ContactForm() {
                 {loading ? (
                   <button
                     type="submit"
-                    className="my-8 inline-flex justify-center py-3 px-5 border border-transparent shadow-sm text-sm font-medium bg-white text-black border-black hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
+                    className="my-8 inline-flex justify-center py-3 px-5 border border-transparent shadow-sm text-sm font-medium bg-white text-black rounded-full border-gray-800 hover:bg-gray-800 hover:text-white focus:outline-none"
                   >
                     <SvgLoading />
                     Sending...
@@ -175,7 +175,7 @@ export default function ContactForm() {
                 ) : (
                   <button
                     type="submit"
-                    className="my-8 inline-flex justify-center py-3 px-5 border border-transparent shadow-sm text-sm font-medium bg-white text-black border-black hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
+                    className="my-8 inline-flex justify-center py-3 px-5 border border-transparent shadow-sm text-sm font-medium bg-white text-black rounded-full border-gray-800 hover:bg-gray-800 hover:text-white focus:outline-none"
                   >
                     Send Message
                   </button>
