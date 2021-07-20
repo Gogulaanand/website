@@ -13,9 +13,10 @@ export default function Hero() {
               </span>
             </h1>
             <p className="mt-12 text-xl sm:text-2xl leading-tight font-medium text-gray-700 max-w-4xl mx-auto ">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-              quae. explicabo.
+              We have decades of experience in manufacturing fabrics in large
+              scale and delivering within India and overseas. We take pride in
+              the quality of our products. Check out our array of existing
+              products and contact us for bulk orders and custom orders.
             </p>
             <div className="pt-6 pb-24 sm:text-center mx-auto md:mt-8">
               <Link href="/products" passHref>

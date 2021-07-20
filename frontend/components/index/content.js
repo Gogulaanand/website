@@ -84,9 +84,9 @@ export default function Content() {
               </span>
             </h1>
             <p className="text-base text-gray-700 md:text-lg">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-              quae. explicabo.
+              We handle design, procuring high quality raw materials,
+              manufacturing and shipping custom ordered fabrics in large scale.
+              We cater to customers within and outside India.
             </p>
           </div>
           <div>
