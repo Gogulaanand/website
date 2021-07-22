@@ -48,7 +48,7 @@ export default function Success() {
   return (
     <div>
       <h2>Hold on!</h2>
-      {loading && <p>We're confirming your purchase!</p>}
+      {loading && <p>We&apos;re confirming your purchase!</p>}
       {!loading && order && (
         <p>
           Your order was processed successfully!{" "}
