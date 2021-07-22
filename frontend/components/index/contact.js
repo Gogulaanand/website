@@ -48,7 +48,6 @@ export default function ContactForm() {
         }
       })
       .catch((e) => {
-        console.log(e);
         openNotification(
           "warning",
           "Something went wrong, pls try after sometime! If the issue persists, pls write to us at sunfabb.website@gmail.com"

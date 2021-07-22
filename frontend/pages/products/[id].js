@@ -87,9 +87,7 @@ export async function getStaticProps({ params }) {
     return {
       props: res.data.product,
     };
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err) {}
 }
 
 export default function ProductDetail(props) {

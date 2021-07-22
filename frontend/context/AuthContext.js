@@ -43,7 +43,6 @@ export const AuthProvider = (props) => {
         const { email } = await magic.user.getMetadata();
         setUser(email);
         const token = getToken();
-        console.log("token", token);
       }
     } catch (err) {}
   };

@@ -22,8 +22,7 @@ const useOrder = (session_id) => {
         );
 
         const data = await res.json();
-        console.log(data);
-        setOrder(data);
+        data.id ? setOrder(data) : setOrder(null);
       } catch (err) {}
       setLoading(false);
     };
@@ -48,6 +47,7 @@ export default function success() {
       <h2>Thank you for your purchase</h2>
 
       {loading && <p>Loading...</p>}
+
       {order && <p>Your order number no is : {order.id}</p>}
     </>
   );
