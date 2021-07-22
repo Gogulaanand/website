@@ -93,17 +93,23 @@ module.exports = {
 
   async confirm(ctx) {
     const { checkout_session } = ctx.request.body;
-
     const session = await stripe.checkout.sessions.retrieve(checkout_session);
 
     if (session.payment_status === "paid") {
-      const updateOrder = await strapi.services.order.update(
-        { checkout_session },
-        { status: "paid" }
+      //Update order
+      await strapi.services.order.update(
+        {
+          checkout_session,
+        },
+        {
+          status: "paid",
+        }
       );
-      return sanitizeEntity(updateOrder, { model: strapi.models.order });
     } else {
-      ctx.throw(400, "The payment wasn't successful, please call support");
+      ctx.throw(
+        400,
+        "It seems like the order wasn't verified, please contact support"
+      );
     }
   },
 };
