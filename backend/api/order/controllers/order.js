@@ -80,7 +80,7 @@ module.exports = {
       ],
     });
 
-    const newOrder = await strapi.services.order.create({
+    await strapi.services.order.create({
       user: user.id,
       product: realProduct.id,
       total: realProduct.price,

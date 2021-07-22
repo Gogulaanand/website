@@ -46,15 +46,21 @@ export default function Success() {
   const { order, loading } = useOrder(session_id);
 
   return (
-    <div>
-      <h2>Hold on!</h2>
-      {loading && <p>We&apos;re confirming your purchase!</p>}
-      {!loading && order && (
-        <p>
-          Your order was processed successfully!{" "}
-          <Link href="/account">View Orders</Link>
-        </p>
-      )}
-    </div>
+    <>
+      <Head>
+        <title>Payment success</title>
+        <meta name="description" content="Thank you for the purchase" />
+      </Head>
+      <div>
+        <h2>Hold on!</h2>
+        {loading && <p>We&apos;re confirming your purchase!</p>}
+        {!loading && order && (
+          <p>
+            Your order was processed successfully!{" "}
+            <Link href="/account">View Orders</Link>
+          </p>
+        )}
+      </div>
+    </>
   );
 }

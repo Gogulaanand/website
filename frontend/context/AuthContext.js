@@ -42,7 +42,7 @@ export const AuthProvider = (props) => {
       if (isLoggedIn) {
         const { email } = await magic.user.getMetadata();
         setUser(email);
-        const token = getToken();
+        getToken();
       }
     } catch (err) {}
   };
