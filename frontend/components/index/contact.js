@@ -1,11 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useFormik } from "formik";
 import emailjs from "emailjs-com";
 import dynamic from "next/dynamic";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
+import { useToasts } from "react-toast-notifications";
+
 const SvgContact = dynamic(() => import("../svg/SvgContact"));
 const SvgLoading = dynamic(() => import("../svg/SvgLoading"));
-import { useToasts } from "react-toast-notifications";
 
 export default function ContactForm() {
   const [loading, setloading] = useState(false);

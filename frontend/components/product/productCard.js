@@ -1,9 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useContext } from "react";
+
 import AppContext from "../../context/AppContext";
+
 export default function ProductCard(props) {
-  const {enableCart, addItem} = useContext(AppContext);
+  const { enableCart, addItem } = useContext(AppContext);
   return (
     <>
       <div className="relative overflow-hidden p-px transition-shadow duration-300 bg-white rounded-sm shadow-sm hover:scale-105 group hover:shadow-xl">

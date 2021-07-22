@@ -1,9 +1,10 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import Link from "next/link";
-import AuthContext from "../../context/AuthContext";
-import AppContext from "../../context/AppContext";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { Badge } from "antd";
+
+import AuthContext from "../../context/AuthContext";
+import AppContext from "../../context/AppContext";
 
 export default function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

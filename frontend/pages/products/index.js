@@ -1,8 +1,9 @@
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import dynamic from "next/dynamic";
-const Fetching = dynamic(() => import("../../components/svg/SvgFetching"));
+
 import ProductCard from "../../components/product/productCard";
+const Fetching = dynamic(() => import("../../components/svg/SvgFetching"));
 
 const QUERY = gql`
   {

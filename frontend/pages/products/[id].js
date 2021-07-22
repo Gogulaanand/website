@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { gql, ApolloLink } from "apollo-boost";
 import { ApolloClient } from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
@@ -6,7 +7,6 @@ import { onError } from "apollo-link-error";
 import ImageGallery from "react-image-gallery";
 import Image from "next/image";
 import AppContext from "../../context/AppContext";
-import { useContext } from "react";
 
 // Instantiate apollo client constructor
 const cache = new InMemoryCache();
@@ -93,7 +93,7 @@ export async function getStaticProps({ params }) {
 }
 
 export default function ProductDetail(props) {
-  const {enableCart, addItem} = useContext(AppContext);
+  const { enableCart, addItem } = useContext(AppContext);
 
   const images = [
     {
