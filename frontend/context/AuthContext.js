@@ -28,6 +28,17 @@ export const AuthProvider = (props) => {
     }
   };
 
+  const oauthLogin = async () => {
+    await magic.oauth.loginWithRedirect({
+      provider: "google",
+      redirectURI: process.env.NEXT_PUBLIC_MAGIC_CALLBACK_URI,
+    });
+    const result = await magic.oauth.getRedirectResult();
+    const profile = JSON.stringify(result.oauth.userInfo, undefined, 2);
+    setUser(profile.email);
+    router.push("/");
+  };
+
   const logoutUser = async () => {
     try {
       await magic.user.logout();
@@ -54,7 +65,9 @@ export const AuthProvider = (props) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loginUser, logoutUser, getToken }}>
+    <AuthContext.Provider
+      value={{ user, loginUser, oauthLogin, logoutUser, getToken }}
+    >
       {props.children}
     </AuthContext.Provider>
   );

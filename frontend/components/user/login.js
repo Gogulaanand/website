@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import AuthContext from "../../context/AuthContext";
 import dynamic from "next/dynamic";
+import { Button } from "antd";
 
 const SvgArrowPointingToRight = dynamic(() =>
   import("../svg/SvgArrowPointingToRight")
@@ -8,7 +9,7 @@ const SvgArrowPointingToRight = dynamic(() =>
 
 export default function Login() {
   const [email, setEmail] = useState("");
-  const { loginUser } = useContext(AuthContext);
+  const { loginUser, oauthLogin } = useContext(AuthContext);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -38,6 +39,7 @@ export default function Login() {
         </button>
         <SvgArrowPointingToRight className="w-5 h-6 fill-current stroke-current text-white absolute inset-y-0 right-0 my-2 mr-3" />
       </div>
+      <Button onClick={oauthLogin}>Login with Google</Button>
     </form>
   );
 }
