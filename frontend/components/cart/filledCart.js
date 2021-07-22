@@ -11,7 +11,7 @@ import AuthContext from "../../context/AuthContext";
 
 export default function FilledCart() {
   const { cart } = useContext(AppContext);
-  const { user } = useContext(AuthContext);
+  const { user, getToken } = useContext(AuthContext);
   const router = useRouter();
 
   const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PK);
@@ -20,7 +20,25 @@ export default function FilledCart() {
     router.push("/login");
   };
 
-  const handleCheckout = async () => {};
+  const handleCheckout = async () => {
+    const stripe = await stripePromise;
+    const token = await getToken();
+
+    const product = { id: cart.items[0].id };
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/orders`, {
+      method: "POST",
+      body: JSON.stringify({ product }),
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const session = await res.json();
+
+    const result = await stripe.redirectToCheckout({ sessionId: session.id });
+  };
 
   return (
     <div className="grid grid-cols-6 w-4/5 min-h-screen lg:mt-24 mt-12 lg:mx-0 mx-auto">
