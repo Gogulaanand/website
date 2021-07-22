@@ -1,11 +1,12 @@
+import { useContext, useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import Link from "next/link";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import { Divider, InputNumber, Button, Popconfirm } from "antd";
 import { PlusOutlined, MinusOutlined, CloseOutlined } from "@ant-design/icons";
-import { useContext, useState } from "react";
+import { Divider, InputNumber, Button, Popconfirm } from "antd";
+
 import AppContext from "../../context/AppContext";
 const Fetching = dynamic(() => import("../../components/svg/SvgFetching"));
 
@@ -27,7 +28,7 @@ const QUERY = gql`
 
 export default function CartItem(props) {
   var { loading, error, data } = useQuery(QUERY);
-  const appContext = useContext(AppContext);
+  const { addItem, removeItem, deleteItem } = useContext(AppContext);
 
   const [count, setcount] = useState(props.data.quantity);
   const [disableMinus, setdisableMinus] = useState(count === 1);
@@ -68,7 +69,7 @@ export default function CartItem(props) {
                 onClick={() => {
                   setcount(count - 1);
                   if (count - 1 === 1) setdisableMinus(true);
-                  appContext.removeItem({
+                  removeItem({
                     id: props.data.id,
                     price: item.price,
                   });
@@ -90,7 +91,7 @@ export default function CartItem(props) {
                 onClick={() => {
                   setcount(count + 1);
                   setdisableMinus(false);
-                  appContext.addItem({
+                  addItem({
                     id: props.data.id,
                     price: item.price,
                   });
@@ -106,7 +107,7 @@ export default function CartItem(props) {
               cancelText="No"
               onConfirm={() => {
                 setcount(0);
-                appContext.deleteItem({ id: props.data.id });
+                deleteItem({ id: props.data.id });
               }}
             >
               <Button

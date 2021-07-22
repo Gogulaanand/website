@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { gql, ApolloLink } from "apollo-boost";
 import { ApolloClient } from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
@@ -6,7 +7,6 @@ import { onError } from "apollo-link-error";
 import ImageGallery from "react-image-gallery";
 import Image from "next/image";
 import AppContext from "../../context/AppContext";
-import { useContext } from "react";
 
 // Instantiate apollo client constructor
 const cache = new InMemoryCache();
@@ -93,7 +93,7 @@ export async function getStaticProps({ params }) {
 }
 
 export default function ProductDetail(props) {
-  const appContext = useContext(AppContext);
+  const { enableCart, addItem } = useContext(AppContext);
 
   const images = [
     {
@@ -131,12 +131,12 @@ export default function ProductDetail(props) {
               <i className="fa fa-inr mt-1"></i>
               <p className="ml-1">{props.price}</p>
             </div>
-            {appContext.enableCart ? (
+            {enableCart ? (
               <button
                 type="submit"
                 className="my-8 py-3 px-5 inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 hover:text-white focus:shadow-outline focus:outline-none"
                 onClick={() =>
-                  appContext.addItem({
+                  addItem({
                     id: props.id,
                     price: props.price,
                   })

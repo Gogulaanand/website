@@ -9,7 +9,6 @@
     "build": "strapi build",
     "strapi": "strapi"
   },
-  "devDependencies": {},
   "dependencies": {
     "graphql": "^15.5.1",
     "strapi": "3.6.5",
@@ -17,14 +16,16 @@
     "strapi-connector-mongoose": "3.6.5",
     "strapi-plugin-content-manager": "3.6.5",
     "strapi-plugin-content-type-builder": "3.6.5",
+    "strapi-plugin-documentation": "3.6.5",
     "strapi-plugin-email": "3.6.5",
     "strapi-plugin-graphql": "3.6.5",
     "strapi-plugin-i18n": "3.6.5",
+    "strapi-plugin-magic": "^0.9.0",
     "strapi-plugin-upload": "3.6.5",
     "strapi-plugin-users-permissions": "3.6.5",
-    "stripe": "^8.160.0",
     "strapi-provider-upload-cloudinary": "^3.6.5",
-    "strapi-utils": "3.6.5"
+    "strapi-utils": "3.6.5",
+    "stripe": "^8.160.0"
   },
   "author": {
     "name": "A Strapi developer"

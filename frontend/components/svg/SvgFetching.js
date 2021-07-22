@@ -1,5 +1,7 @@
 import dynamic from "next/dynamic";
+
 const SvgLoading = dynamic(() => import("./SvgLoading"));
+
 export default function Fetching() {
   return (
     <div className="mx-auto w-4/5 h-screen mt-32 flex justify-center">

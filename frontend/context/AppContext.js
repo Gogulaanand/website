@@ -1,3 +1,3 @@
-import React from "react";
-const AppContext = React.createContext({ isAuthenticated: false });
+import { createContext } from "react";
+const AppContext = createContext();
 export default AppContext;

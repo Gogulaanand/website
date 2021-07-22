@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { ArrowLeftOutlined } from "@ant-design/icons";
-import CartItem from "./itemCard";
-import AppContext from "../../context/AppContext";
 import Link from "next/link";
 
+import CartItem from "./itemCard";
+import AppContext from "../../context/AppContext";
+
 export default function FilledCart() {
-  const appContext = useContext(AppContext);
-  const { cart } = appContext;
+  const { cart } = useContext(AppContext);
 
   return (
     <div className="grid grid-cols-6 w-4/5 min-h-screen lg:mt-24 mt-12 lg:mx-0 mx-auto">
