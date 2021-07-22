@@ -1,17 +1,17 @@
 import React, { useContext, useState } from "react";
 import Link from "next/link";
-import { logout } from "../../lib/auth";
+import AuthContext from "../../context/AuthContext";
 import AppContext from "../../context/AppContext";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { Badge } from "antd";
 
 export default function Nav() {
-  const appContext = useContext(AppContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { user, setUser, cart } = appContext;
+  const { cart, enableCart } = useContext(AppContext);
+  const { user, setUser, logoutUser } = useContext(AuthContext);
 
   const handleLogout = () => {
-    logout();
+    logoutUser();
     setUser(null);
   };
 
@@ -80,7 +80,7 @@ export default function Nav() {
           </li>
         </ul>
         <ul className="flex items-center hidden space-x-8 lg:flex z-10">
-          {appContext.enableCart ? (
+          {enableCart ? (
             <li>
               <Link href="/cart" passHref>
                 <a
@@ -248,7 +248,7 @@ export default function Nav() {
                         </a>
                       </Link>
                     </li>
-                    {appContext.enableCart ? (
+                    {enableCart ? (
                       <li>
                         <Link href="/cart" passHref>
                           <a

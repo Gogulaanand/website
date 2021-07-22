@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
-import "../styles/globals.sass";
-import Nav from "../components/index/nav";
-import Footer from "../components/index/footer";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Cookie from "js-cookie";
-import fetch from "isomorphic-unfetch";
-import AppContext from "../context/AppContext";
-import withData from "../lib/apollo";
 import { ApolloProvider } from "@apollo/react-hooks";
 import { ToastProvider } from "react-toast-notifications";
 
+import AppContext from "../context/AppContext";
+import { AuthProvider } from "../context/AuthContext";
+import withData from "../lib/apollo";
+import "../styles/globals.sass";
+import Nav from "../components/index/nav";
+import Footer from "../components/index/footer";
+
 function MyApp({ Component, pageProps, apollo }) {
-  const [user, setUser] = useState(null);
   const [cart, updateCart] = useState({
     items: [],
     totalAmount: 0,
@@ -21,7 +21,6 @@ function MyApp({ Component, pageProps, apollo }) {
   });
 
   useEffect(() => {
-    const token = Cookie.get("token");
     const cookieCart = Cookie.get("cart");
 
     if (cookieCart !== undefined && cookieCart.length > 0) {
@@ -41,19 +40,6 @@ function MyApp({ Component, pageProps, apollo }) {
         items: [],
         totalAmount: 0,
         totalQuantity: 0,
-      });
-    }
-
-    if (token) {
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/me`, {
-        headers: { Authorization: `Bearer ${token}` },
-      }).then(async (res) => {
-        if (!res.ok) {
-          Cookie.remove("token");
-          return null;
-        }
-        const verifiedUser = await res.json();
-        setUser(verifiedUser);
       });
     }
 
@@ -152,23 +138,21 @@ function MyApp({ Component, pageProps, apollo }) {
       </Head>
       <ApolloProvider client={apollo}>
         <ToastProvider>
-          <AppContext.Provider
-            value={{
-              magic,
-              user,
-              isAuthenticated: !!user,
-              setUser,
-              cart,
-              addItem,
-              removeItem,
-              deleteItem,
-              enableCart: true,
-            }}
-          >
-            <Nav />
-            <Component {...pageProps} />
-            <Footer />
-          </AppContext.Provider>
+          <AuthProvider>
+            <AppContext.Provider
+              value={{
+                cart,
+                addItem,
+                removeItem,
+                deleteItem,
+                enableCart: true,
+              }}
+            >
+              <Nav />
+              <Component {...pageProps} />
+              <Footer />
+            </AppContext.Provider>
+          </AuthProvider>
         </ToastProvider>
       </ApolloProvider>
     </>
