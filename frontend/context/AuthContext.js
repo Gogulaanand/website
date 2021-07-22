@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { Magic } from "magic-sdk";
 import { OAuthExtension } from "@magic-ext/oauth";
 
@@ -25,7 +25,6 @@ export const AuthProvider = (props) => {
       router.push("/");
     } catch (err) {
       setUser(null);
-      console.log(err);
     }
   };
 
@@ -34,9 +33,7 @@ export const AuthProvider = (props) => {
       await magic.user.logout();
       setUser(null);
       router.push("/");
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const checkUserLoggedIn = async () => {
@@ -45,21 +42,15 @@ export const AuthProvider = (props) => {
       if (isLoggedIn) {
         const { email } = await magic.user.getMetadata();
         setUser(email);
-        const token = getToken();
-        console.log("token", token);
+        getToken();
       }
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const getToken = async () => {
     try {
-      const token = await magic.user.getIdToken();
-      return token;
-    } catch (err) {
-      console.log(err);
-    }
+      return await magic.user.getIdToken();
+    } catch (err) {}
   };
 
   return (
