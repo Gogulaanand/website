@@ -19,20 +19,19 @@ export const AuthProvider = (props) => {
       if (window.location.pathname === "/oauth") {
         try {
           const result = await magic.oauth.getRedirectResult();
-
           const profile = JSON.stringify(result.oauth.userInfo, undefined, 2);
-
-          setUser(profile.email);
-          router.push("/");
+          if (profile.email) {
+            setUser(profile.email);
+            router.push("/");
+          }
         } catch {
           window.location.href = window.location.origin;
         }
       }
+
+      checkUserLoggedIn();
     };
-
     render();
-
-    checkUserLoggedIn();
   }, []);
 
   const loginUser = async (email) => {
@@ -82,6 +81,14 @@ export const AuthProvider = (props) => {
 
   return (
     <AuthContext.Provider
+      value={{
+        user,
+        loginUser,
+        oauthLogin,
+        logoutUser,
+        getToken,
+        checkUserLoggedIn,
+      }}
     >
       {props.children}
     </AuthContext.Provider>

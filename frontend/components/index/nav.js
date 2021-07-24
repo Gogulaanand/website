@@ -9,12 +9,7 @@ import AppContext from "../../context/AppContext";
 export default function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { cart, enableCart } = useContext(AppContext);
-  const { user, setUser, logoutUser } = useContext(AuthContext);
-
-  const handleLogout = () => {
-    logoutUser();
-    setUser(null);
-  };
+  const { user, logoutUser } = useContext(AuthContext);
 
   return (
     <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
@@ -109,7 +104,7 @@ export default function Nav() {
                   className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                   aria-label="Logout"
                   title="Logout"
-                  onClick={handleLogout}
+                  onClick={logoutUser}
                 >
                   Logout
                 </a>
