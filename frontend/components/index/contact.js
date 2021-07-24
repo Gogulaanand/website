@@ -8,7 +8,30 @@ import { useToasts } from "react-toast-notifications";
 const SvgContact = dynamic(() => import("../svg/SvgContact"));
 const SvgLoading = dynamic(() => import("../svg/SvgLoading"));
 
-export default function ContactForm() {
+export default function Contact() {
+  return (
+    <>
+      <div id="contact">
+        <div className="text-center mx-auto w-4/5 md:mt-5">
+          <h1 className="lg:text-5xl md:text-4xl sm:text-3xl font-bold mt-12 inline-block font-gray-900">
+            Contact Us
+          </h1>
+          <p className="text-xl font-semibold text-gray-700 mt-4">
+            Any question or remarks? Just write us a message!
+          </p>
+        </div>
+        <div className="mx-auto my-12 lg:grid lg:grid-cols-6 md:flex md:flex-col w-4/5 justify-items-center">
+          <SvgContact className="lg:col-span-3 hidden md:block mx-auto" />
+          <div className="lg:col-span-2 mt-10 md:mx-auto w-auto md:w-3/5 lg:w-full">
+            <Form />
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+function Form() {
   const [loading, setloading] = useState(false);
   const [token, setToken] = useState(null);
   const captchaRef = useRef(null);
@@ -88,104 +111,84 @@ export default function ContactForm() {
   }, [token]);
 
   return (
-    <>
-      <div id="contact">
-        <div className="text-center mx-auto w-4/5 md:mt-5">
-          <h1 className="lg:text-5xl md:text-4xl sm:text-3xl font-bold mt-12 inline-block font-gray-900">
-            Contact Us
-          </h1>
-          <p className="text-xl font-semibold text-gray-700 mt-4">
-            Any question or remarks? Just write us a message!
-          </p>
-        </div>
-        <div className="mx-auto my-12 lg:grid lg:grid-cols-6 md:flex md:flex-col w-4/5 justify-items-center">
-          <SvgContact className="lg:col-span-3 hidden md:block mx-auto" />
-          <div className="lg:col-span-2 mt-10 md:mx-auto w-auto md:w-3/5 lg:w-full">
-            <form onSubmit={formik.handleSubmit} id="contact_form">
-              <label htmlFor="name" className="inline-block mb-1 font-medium">
-                Name
-              </label>
-              <input
-                placeholder="John"
-                required
-                type="text"
-                className="w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:outline-none"
-                id="name"
-                name="name"
-                autoComplete="name"
-                onChange={formik.handleChange}
-                value={formik.values.name}
-              />
-              <label htmlFor="email" className="inline-block mb-1 font-medium">
-                E-mail
-              </label>
-              <input
-                placeholder="john.doe@example.org"
-                required
-                type="email"
-                className="w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:outline-none "
-                id="email"
-                name="email"
-                autoComplete="email"
-                onChange={formik.handleChange}
-                value={formik.values.email}
-              />
-              <label htmlFor="phone" className="inline-block mb-1 font-medium">
-                Phone
-              </label>
-              <input
-                placeholder="+123 456 789"
-                type="text"
-                className="w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:outline-none "
-                id="phone"
-                name="phone"
-                autoComplete="phone"
-                onChange={formik.handleChange}
-                value={formik.values.phone}
-              />
+    <form onSubmit={formik.handleSubmit} id="contact_form">
+      <label htmlFor="name" className="inline-block mb-1 font-medium">
+        Name
+      </label>
+      <input
+        placeholder="John"
+        required
+        type="text"
+        className="w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:outline-none"
+        id="name"
+        name="name"
+        autoComplete="name"
+        onChange={formik.handleChange}
+        value={formik.values.name}
+      />
+      <label htmlFor="email" className="inline-block mb-1 font-medium">
+        E-mail
+      </label>
+      <input
+        placeholder="john.doe@example.org"
+        required
+        type="email"
+        className="w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:outline-none "
+        id="email"
+        name="email"
+        autoComplete="email"
+        onChange={formik.handleChange}
+        value={formik.values.email}
+      />
+      <label htmlFor="phone" className="inline-block mb-1 font-medium">
+        Phone
+      </label>
+      <input
+        placeholder="+123 456 789"
+        type="text"
+        className="w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:outline-none "
+        id="phone"
+        name="phone"
+        autoComplete="phone"
+        onChange={formik.handleChange}
+        value={formik.values.phone}
+      />
 
-              <label htmlFor="message" className="mb-1 font-medium">
-                Message
-              </label>
-              <textarea
-                placeholder="Write your message..."
-                required
-                type="textarea"
-                className="h-32 w-full px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:outline-none "
-                id="message"
-                name="message"
-                onChange={formik.handleChange}
-                value={formik.values.message}
-              />
-              <HCaptcha
-                sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY}
-                onVerify={setToken}
-                onExpire={onExpire}
-                onError={onError}
-                ref={captchaRef}
-              />
-              <div className="py-3 text-center sm:px-6">
-                {loading ? (
-                  <button
-                    type="submit"
-                    className="my-8 inline-flex justify-center py-3 px-5 border border-transparent shadow-sm text-sm font-medium bg-white text-black rounded-full border-gray-800 hover:bg-gray-800 hover:text-white focus:outline-none"
-                  >
-                    <SvgLoading />
-                    Sending...
-                  </button>
-                ) : (
-                  <button
-                    type="submit"
-                    className="my-8 inline-flex justify-center py-3 px-5 border border-transparent shadow-sm text-sm font-medium bg-white text-black rounded-full border-gray-800 hover:bg-gray-800 hover:text-white focus:outline-none"
-                  >
-                    Send Message
-                  </button>
-                )}
-              </div>
-            </form>
-          </div>
-        </div>
+      <label htmlFor="message" className="mb-1 font-medium">
+        Message
+      </label>
+      <textarea
+        placeholder="Write your message..."
+        required
+        type="textarea"
+        className="h-32 w-full px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:outline-none "
+        id="message"
+        name="message"
+        onChange={formik.handleChange}
+        value={formik.values.message}
+      />
+      <HCaptcha
+        sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY}
+        onVerify={setToken}
+        onExpire={onExpire}
+        onError={onError}
+        ref={captchaRef}
+      />
+      <div className="py-3 text-center sm:px-6">
+        <button
+          type="submit"
+          className="my-8 inline-flex justify-center py-3 px-5 border border-transparent shadow-sm text-sm font-medium bg-white text-black rounded-full border-gray-800 hover:bg-gray-800 hover:text-white focus:outline-none"
+        >
+          {loading ? (
+            <>
+              <SvgLoading />
+              Sending...
+            </>
+          ) : (
+            "Send Message"
+          )}
+        </button>
       </div>
-    </>
+    </form>
   );
 }
