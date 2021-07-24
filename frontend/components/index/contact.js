@@ -53,6 +53,7 @@ export default function ContactForm() {
           "Something went wrong, pls try after sometime! If the issue persists, pls write to us at sunfabb.website@gmail.com"
         );
         setloading(false);
+        throw new Error("Contact form submission failed");
       });
   };
 
@@ -68,7 +69,7 @@ export default function ContactForm() {
   };
 
   const onError = (err) => {
-    console.log(`hCaptcha Error: ${err}`);
+    throw new Error(`hCaptcha Error: ${err}`);
   };
 
   useEffect(() => {

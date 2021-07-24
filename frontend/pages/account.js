@@ -24,6 +24,7 @@ const useOrders = (user, getToken) => {
           setOrders(data);
         } catch (err) {
           setOrders([]);
+          throw new Error("Unable to fetch orders");
         }
         setLoading(false);
       }

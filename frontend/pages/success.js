@@ -30,6 +30,7 @@ const useOrder = (session_id) => {
           setOrder(data);
         } catch (err) {
           setOrder(null);
+          throw new Error("Order confirmation failed");
         }
         setLoading(false);
       };
