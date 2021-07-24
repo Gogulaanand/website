@@ -83,7 +83,7 @@ export const AuthProvider = (props) => {
     try {
       return await magic.user.getIdToken();
     } catch (err) {
-      throw new Error("Fetch session token failed");
+      throw new Error("Authenticate current session failed");
     }
   };
 
