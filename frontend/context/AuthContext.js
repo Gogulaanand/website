@@ -15,7 +15,23 @@ export const AuthProvider = (props) => {
       extensions: [new OAuthExtension()],
     });
 
-    checkUserLoggedIn();
+    const render = async () => {
+      if (window.location.pathname === "/oauth") {
+        try {
+          const result = await magic.oauth.getRedirectResult();
+          const profile = JSON.stringify(result.oauth.userInfo, undefined, 2);
+          if (profile.email) {
+            setUser(profile.email);
+            router.push("/");
+          }
+        } catch {
+          window.location.href = window.location.origin;
+        }
+      }
+
+      checkUserLoggedIn();
+    };
+    render();
   }, []);
 
   const loginUser = async (email) => {
@@ -26,6 +42,16 @@ export const AuthProvider = (props) => {
     } catch (err) {
       setUser(null);
     }
+  };
+
+  const oauthLogin = async (e) => {
+    e.preventDefault();
+
+    // Start the Google OAuth 2.0 flow!
+    await magic.oauth.loginWithRedirect({
+      provider: "google",
+      redirectURI: `${window.location.origin}/oauth`,
+    });
   };
 
   const logoutUser = async () => {
@@ -54,7 +80,16 @@ export const AuthProvider = (props) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loginUser, logoutUser, getToken }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        loginUser,
+        oauthLogin,
+        logoutUser,
+        getToken,
+        checkUserLoggedIn,
+      }}
+    >
       {props.children}
     </AuthContext.Provider>
   );
