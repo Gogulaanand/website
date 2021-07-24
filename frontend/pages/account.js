@@ -31,7 +31,7 @@ const useOrders = (user, getToken) => {
     };
 
     fetchOrders();
-  }, [user]);
+  }, [user, getToken]);
   return { orders, loading };
 };
 

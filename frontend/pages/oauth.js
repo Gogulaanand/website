@@ -15,7 +15,7 @@ export default function OauthSuccess() {
       setLoginStatus(true);
       setTimeout(() => router.push("/"), 1000);
     }
-  }, [user]);
+  }, [user, router]);
 
   return (
     <>

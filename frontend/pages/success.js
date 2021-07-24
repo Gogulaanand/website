@@ -36,7 +36,7 @@ const useOrder = (session_id) => {
       };
       fetchOrder();
     }
-  }, [user, session_id]);
+  }, [user, session_id, getToken]);
 
   return { order, loading };
 };
