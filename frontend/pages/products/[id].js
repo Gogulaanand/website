@@ -16,7 +16,10 @@ const httpLink = new HttpLink({
 });
 
 const errorLink = onError(({ graphQLErrors }) => {
-  if (graphQLErrors) graphQLErrors.map(({ message }) => console.log(message));
+  if (graphQLErrors)
+    graphQLErrors.map(({ message }) => {
+      throw new Error(message);
+    });
 });
 
 const client = new ApolloClient({
@@ -55,7 +58,7 @@ export async function getStaticPaths() {
         });
       }
     })
-    .catch((err) => console.log(err));
+    .catch((err) => Promise.reject(new Error(err)));
   return {
     paths,
     fallback: false,
@@ -87,7 +90,9 @@ export async function getStaticProps({ params }) {
     return {
       props: res.data.product,
     };
-  } catch (err) {}
+  } catch (err) {
+    throw new Error(err);
+  }
 }
 
 export default function ProductDetail(props) {

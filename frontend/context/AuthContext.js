@@ -26,6 +26,7 @@ export const AuthProvider = (props) => {
           }
         } catch {
           window.location.href = window.location.origin;
+          throw new Error("Oauth login failed");
         }
       }
 
@@ -41,6 +42,7 @@ export const AuthProvider = (props) => {
       router.push("/");
     } catch (err) {
       setUser(null);
+      throw new Error("Email login failed");
     }
   };
 
@@ -59,7 +61,9 @@ export const AuthProvider = (props) => {
       await magic.user.logout();
       setUser(null);
       router.push("/");
-    } catch (err) {}
+    } catch (err) {
+      throw new Error("User logout failed");
+    }
   };
 
   const checkUserLoggedIn = async () => {
@@ -70,13 +74,17 @@ export const AuthProvider = (props) => {
         setUser(email);
         getToken();
       }
-    } catch (err) {}
+    } catch (err) {
+      throw new Error("User is not logged in");
+    }
   };
 
   const getToken = async () => {
     try {
       return await magic.user.getIdToken();
-    } catch (err) {}
+    } catch (err) {
+      throw new Error("Authenticate current session failed");
+    }
   };
 
   return (
