@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import Link from "next/link";
-import { ShoppingCartOutlined } from "@ant-design/icons";
-import { Badge } from "antd";
+import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
+import { Badge, Menu, Dropdown } from "antd";
 
 import AuthContext from "../../context/AuthContext";
 import AppContext from "../../context/AppContext";
@@ -10,6 +10,34 @@ export default function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { cart, enableCart } = useContext(AppContext);
   const { user, logoutUser } = useContext(AuthContext);
+
+  const menu = (
+    <Menu>
+      <Menu.Item>
+        <Link href="/account" passHref>
+          <a
+            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+            aria-label="Account"
+            title="Account"
+          >
+            Account
+          </a>
+        </Link>
+      </Menu.Item>
+      <Menu.Item>
+        <Link href="/" passHref>
+          <a
+            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+            aria-label="Logout"
+            title="Logout"
+            onClick={logoutUser}
+          >
+            Logout
+          </a>
+        </Link>
+      </Menu.Item>
+    </Menu>
+  );
 
   return (
     <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
@@ -99,16 +127,12 @@ export default function Nav() {
 
           <li>
             {user ? (
-              <Link href="/" passHref>
-                <a
-                  className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                  aria-label="Logout"
-                  title="Logout"
-                  onClick={logoutUser}
-                >
-                  Logout
-                </a>
-              </Link>
+              <Dropdown overlay={menu}>
+                <UserOutlined
+                  className="ant-dropdown-link text-2xl"
+                  onClick={(e) => e.preventDefault()}
+                />
+              </Dropdown>
             ) : (
               <Link href="/login" passHref>
                 <a
@@ -260,17 +284,51 @@ export default function Nav() {
                     ) : (
                       <></>
                     )}
-                    <li>
-                      <Link href="/register" passHref>
-                        <a
-                          className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                          aria-label="Sign up"
-                          title="Sign up"
-                        >
-                          Sign up
-                        </a>
-                      </Link>
-                    </li>
+
+                    {!user ? (
+                      <li>
+                        <Link href="/login" passHref>
+                          <a
+                            className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                            aria-label="Sign up"
+                            title="Sign up"
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            Register / Sign in
+                          </a>
+                        </Link>
+                      </li>
+                    ) : (
+                      <>
+                        <li>
+                          <Link href="/account" passHref>
+                            <a
+                              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                              aria-label="Account"
+                              title="Account"
+                              onClick={() => setIsMenuOpen(false)}
+                            >
+                              Account
+                            </a>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/" passHref>
+                            <a
+                              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                              aria-label="Logout"
+                              title="Logout"
+                              onClick={() => {
+                                setIsMenuOpen(false);
+                                logoutUser();
+                              }}
+                            >
+                              Logout
+                            </a>
+                          </Link>
+                        </li>
+                      </>
+                    )}
                   </ul>
                 </nav>
               </div>
