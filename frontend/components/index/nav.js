@@ -1,15 +1,13 @@
 import { useContext, useState } from "react";
 import Link from "next/link";
-import { ShoppingCartOutlined } from "@ant-design/icons";
-import { Badge } from "antd";
+import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
+import { Badge, Menu, Dropdown } from "antd";
 
 import AuthContext from "../../context/AuthContext";
 import AppContext from "../../context/AppContext";
 
 export default function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { cart, enableCart } = useContext(AppContext);
-  const { user, logoutUser } = useContext(AuthContext);
 
   return (
     <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
@@ -76,67 +74,15 @@ export default function Nav() {
           </li>
         </ul>
         <ul className="flex items-center hidden space-x-8 lg:flex z-10">
-          {enableCart ? (
-            <li>
-              <Link href="/cart" passHref>
-                <a
-                  aria-label="Shopping cart"
-                  title="Shopping cart"
-                  className="font-medium text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                >
-                  <Badge count={cart.totalQuantity} offset={[-2, 5]}>
-                    <ShoppingCartOutlined
-                      className="mx-2"
-                      style={{ fontSize: "2rem" }}
-                    />
-                  </Badge>
-                </a>
-              </Link>
-            </li>
-          ) : (
-            <></>
-          )}
-
           <li>
-            {user ? (
-              <Link href="/" passHref>
-                <a
-                  className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                  aria-label="Logout"
-                  title="Logout"
-                  onClick={logoutUser}
-                >
-                  Logout
-                </a>
-              </Link>
-            ) : (
-              <Link href="/login" passHref>
-                <a
-                  className="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
-                  aria-label="Sign Up"
-                  title="Sign Up"
-                >
-                  Sign Up
-                </a>
-              </Link>
-            )}
+            <Cart />
+          </li>
+          <li>
+            <UserControls />
           </li>
         </ul>
         <div className="lg:hidden flex">
-          <Link href="/cart" passHref>
-            <a
-              aria-label="Shopping cart"
-              title="Shopping cart"
-              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400 flex flex-row justify-between"
-            >
-              <Badge count={cart.totalQuantity} offset={[-2, 5]}>
-                <ShoppingCartOutlined
-                  className="mx-2"
-                  style={{ fontSize: "2rem" }}
-                />
-              </Badge>
-            </a>
-          </Link>
+          <Cart />
           <button
             aria-label="Open Menu"
             title="Open Menu"
@@ -160,7 +106,7 @@ export default function Nav() {
           </button>
           {isMenuOpen && (
             <div className="absolute top-0 left-0 w-full z-10">
-              <div className="p-5 bg-white border rounded shadow-sm">
+              <div className="p-5 bg-white border rounded shadow-lg">
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <Link href="/" passHref>
@@ -232,6 +178,7 @@ export default function Nav() {
                         </a>
                       </Link>
                     </li>
+
                     <li>
                       <Link href="/#contact" passHref>
                         <a
@@ -244,33 +191,15 @@ export default function Nav() {
                         </a>
                       </Link>
                     </li>
-                    {enableCart ? (
-                      <li>
-                        <Link href="/cart" passHref>
-                          <a
-                            aria-label="Shopping cart"
-                            title="Shopping cart"
-                            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                            onClick={() => setIsMenuOpen(false)}
-                          >
-                            Cart
-                          </a>
-                        </Link>
-                      </li>
-                    ) : (
-                      <></>
-                    )}
+
                     <li>
-                      <Link href="/register" passHref>
-                        <a
-                          className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                          aria-label="Sign up"
-                          title="Sign up"
-                        >
-                          Sign up
-                        </a>
-                      </Link>
+                      <Cart isMobile={true} setMenuState={setIsMenuOpen} />
                     </li>
+
+                    <UserControls
+                      isMobile={true}
+                      setMenuState={setIsMenuOpen}
+                    />
                   </ul>
                 </nav>
               </div>
@@ -279,5 +208,147 @@ export default function Nav() {
         </div>
       </div>
     </div>
+  );
+}
+
+function Cart(props) {
+  const { cart, enableCart } = useContext(AppContext);
+  return (
+    <>
+      {enableCart && !props.isMobile ? (
+        <Link href="/cart" passHref>
+          <a
+            aria-label="Shopping cart"
+            title="Shopping cart"
+            className="font-medium text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+          >
+            <Badge count={cart.totalQuantity} offset={[-2, 5]}>
+              <ShoppingCartOutlined
+                className="mx-2"
+                style={{ fontSize: "2rem" }}
+              />
+            </Badge>
+          </a>
+        </Link>
+      ) : null}
+      {enableCart && props.isMobile ? (
+        <Link href="/cart" passHref>
+          <a
+            aria-label="Shopping cart"
+            title="Shopping cart"
+            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+            onClick={() => props.setMenuState(false)}
+          >
+            Cart
+          </a>
+        </Link>
+      ) : null}
+    </>
+  );
+}
+
+function UserControls(props) {
+  const { user, logoutUser } = useContext(AuthContext);
+
+  const menu = (
+    <Menu>
+      <Menu.Item>
+        <Link href="/account" passHref>
+          <a
+            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+            aria-label="Account"
+            title="Account"
+          >
+            Account
+          </a>
+        </Link>
+      </Menu.Item>
+      <Menu.Item>
+        <Link href="/" passHref>
+          <a
+            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+            aria-label="Logout"
+            title="Logout"
+            onClick={logoutUser}
+          >
+            Logout
+          </a>
+        </Link>
+      </Menu.Item>
+    </Menu>
+  );
+
+  return (
+    <>
+      {user ? (
+        <>
+          {props.isMobile && (
+            <>
+              <li>
+                <Link href="/account" passHref>
+                  <a
+                    className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                    aria-label="Account"
+                    title="Account"
+                    onClick={() => props.setMenuState(false)}
+                  >
+                    Account
+                  </a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/" passHref>
+                  <a
+                    className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                    aria-label="Logout"
+                    title="Logout"
+                    onClick={() => {
+                      props.setMenuState(false);
+                      logoutUser();
+                    }}
+                  >
+                    Logout
+                  </a>
+                </Link>
+              </li>
+            </>
+          )}
+          {!props.isMobile && (
+            <Dropdown overlay={menu}>
+              <UserOutlined
+                className="ant-dropdown-link text-2xl"
+                onClick={(e) => e.preventDefault()}
+              />
+            </Dropdown>
+          )}
+        </>
+      ) : (
+        <>
+          {props.isMobile && (
+            <Link href="/login" passHref>
+              <a
+                className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                aria-label="Sign up"
+                title="Sign up"
+                onClick={() => props.setMenuState(false)}
+              >
+                Register / Sign in
+              </a>
+            </Link>
+          )}
+          {!props.isMobile && (
+            <Link href="/login" passHref>
+              <a
+                className="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
+                aria-label="Sign Up"
+                title="Sign Up"
+              >
+                Sign Up
+              </a>
+            </Link>
+          )}
+        </>
+      )}
+    </>
   );
 }
