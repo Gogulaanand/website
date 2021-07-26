@@ -24,7 +24,11 @@ class MyDocument extends Document {
           <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
           <meta
             name="description"
-            content="sunfabb, bedsheets, cloth, towel, cover, shawl, napkin, kercheif, fabric, export, bulk orders"
+            content="Your one stop solution for high quality fabrics. 
+              With decades of experience in manufacturing fabrics, we deliver in large
+              scale within India and overseas. Our array of existing products include 
+              woven bedsheets, napkins, shawl, kerchief, DC jaquard etc made from pure 
+              cotton, yarn, polyester and acrylic. Contact us for bulk custom orders."
           ></meta>
         </Head>
         <body>
