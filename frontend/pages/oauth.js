@@ -8,7 +8,7 @@ export default function OauthSuccess() {
   const router = useRouter();
   const [loginStatus, setLoginStatus] = useState(false);
   const { user } = useContext(AuthContext);
-  const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+  const antIcon = <LoadingOutlined style={{ fontSize: 32 }} spin />;
 
   useEffect(() => {
     if (user) {
@@ -23,7 +23,9 @@ export default function OauthSuccess() {
         <div className="mx-auto lg:mt-48 md:mt-32 sm:mt-24 h-3/5 lg:w-1/5 md:w-2/5 sm:w-3/5">
           <div className="mb-12 text-center">
             {loginStatus && (
-              <h1>Login Successful. Redirecting to homepage...</h1>
+              <h1 className="text-2xl">
+                Login Successful. Redirecting to homepage...
+              </h1>
             )}
             {!loginStatus && <Spin indicator={antIcon} />}
           </div>
