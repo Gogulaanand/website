@@ -25,7 +25,12 @@ export default function Products() {
   var { loading, error, data } = useQuery(QUERY);
 
   if (error) return <p className="m-auto">Error fetching products</p>;
-  if (loading) return <Fetching />;
+  if (loading)
+    return (
+      <div className="h-screen">
+        <Fetching />
+      </div>
+    );
   if (data.products && data.products.length) {
     return (
       <>
