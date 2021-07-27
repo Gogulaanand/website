@@ -28,10 +28,6 @@ const QUERY = gql`
 
 export default function CartItem(props) {
   var { loading, error, data } = useQuery(QUERY);
-  const { addItem, removeItem, deleteItem } = useContext(AppContext);
-
-  const [count, setcount] = useState(props.data.quantity);
-  const [disableMinus, setdisableMinus] = useState(count === 1);
 
   if (error) return <p className="m-auto">Error fetching products</p>;
   if (loading) return <Fetching />;
@@ -62,64 +58,70 @@ export default function CartItem(props) {
                 </a>
               </Link>
             </div>
-            <div className="md:col-span-2 md:my-auto flex md:justify-center md:static absolute top-full left-0">
-              <Button
-                disabled={disableMinus}
-                icon={<MinusOutlined />}
-                onClick={() => {
-                  setcount(count - 1);
-                  if (count - 1 === 1) setdisableMinus(true);
-                  removeItem({
-                    id: props.data.id,
-                    price: item.price,
-                  });
-                }}
-                type="text"
-              ></Button>
-              <InputNumber
-                min={1}
-                max={10000}
-                style={{ width: "30%" }}
-                value={count}
-                bordered={false}
-                className="md:ml-1 mt-1 md:static relative"
-              ></InputNumber>
-              <Button
-                icon={<PlusOutlined />}
-                className="md:static absolute left-1/4"
-                type="text"
-                onClick={() => {
-                  setcount(count + 1);
-                  setdisableMinus(false);
-                  addItem({
-                    id: props.data.id,
-                    price: item.price,
-                  });
-                }}
-              ></Button>
-            </div>
-            <p className="md:col-span-2 my-auto text-center font-semibold md:text-lg text-md md:static absolute inset-y-1/3 right-0">
-              &#8377; {item.price * count}
-            </p>
-            <Popconfirm
-              title="Are you sure to delete this item?"
-              okText="Yes"
-              cancelText="No"
-              onConfirm={() => {
-                setcount(0);
-                deleteItem({ id: props.data.id });
-              }}
-            >
-              <Button
-                icon={<CloseOutlined />}
-                type="text"
-                className="my-auto md:col-span-1 justify-self-center md:static absolute bottom-0 right-0"
-              ></Button>
-            </Popconfirm>
+            <ItemControls item={item} data={props.data} />
           </div>
           <Divider />
         </div>
       </>
     );
   }
+}
+
+function ItemControls(props) {
+  const { addItem, removeItem, deleteItem } = useContext(AppContext);
+
+  const [count, setcount] = useState(props.data.quantity);
+  const [disableMinus, setdisableMinus] = useState(count === 1);
+  return (
+    <>
+      <div className="md:col-span-2 md:my-auto flex md:justify-center md:static absolute top-full left-0">
+        <Button
+          disabled={disableMinus}
+          icon={<MinusOutlined />}
+          onClick={() => {
+            setcount(count - 1);
+            if (count - 1 === 1) setdisableMinus(true);
+            removeItem({
+              id: props.data.id,
+              price: props.item.price,
+            });
+          }}
+          type="text"
+        ></Button>
+        <InputNumber
+          min={1}
+          max={10000}
+          style={{ width: "30%" }}
+          value={count}
+          bordered={false}
+          className="md:ml-1 mt-1 md:static relative"
+        ></InputNumber>
+        <Button
+          icon={<PlusOutlined />}
+          className="md:static absolute left-1/4"
+          type="text"
+          onClick={() => {
+            setcount(count + 1);
+            setdisableMinus(false);
+            addItem({
+              id: props.data.id,
+              price: props.item.price,
+            });
+          }}
+        ></Button>
+      </div>
+      <p className="md:col-span-2 my-auto text-center font-semibold md:text-lg text-md md:static absolute inset-y-1/3 right-0">
+        &#8377; {props.item.price * count}
+      </p>
+      <Button
+        icon={<CloseOutlined />}
+        type="text"
+        className="my-auto md:col-span-1 justify-self-center md:static absolute bottom-0 right-0"
+        onClick={() => {
+          setcount(0);
+          deleteItem({ id: props.data.id });
+        }}
+      ></Button>
+    </>
+  );
 }

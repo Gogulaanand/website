@@ -51,7 +51,7 @@ export default function FilledCart() {
               return <CartItem data={item} key={item.id} />;
             })}
 
-          <div className="flex justify-between">
+          <div className="flex justify-between mb-24">
             <div className="cursor-pointer space-x-2 md:visible invisible md:flex">
               <ArrowLeftOutlined className="mt-1" />
               <Link href="/products" passHref>
