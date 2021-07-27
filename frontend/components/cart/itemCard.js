@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { PlusOutlined, MinusOutlined, CloseOutlined } from "@ant-design/icons";
-import { Divider, InputNumber, Button, Popconfirm } from "antd";
+import { Divider, InputNumber, Button } from "antd";
 
 import AppContext from "../../context/AppContext";
 const Fetching = dynamic(() => import("../../components/svg/SvgFetching"));
