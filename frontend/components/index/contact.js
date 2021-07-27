@@ -13,7 +13,7 @@ export default function Contact() {
     <>
       <div id="contact">
         <div className="text-center mx-auto w-4/5 md:mt-5">
-          <h1 className="lg:text-5xl md:text-4xl sm:text-3xl font-bold mt-12 inline-block font-gray-900">
+          <h1 className="md:text-5xl text-4xl font-bold mt-24 lg:mt-12 inline-block font-gray-900">
             Contact Us
           </h1>
           <p className="text-xl font-semibold text-gray-700 mt-4">
