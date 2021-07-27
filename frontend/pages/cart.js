@@ -1,7 +1,9 @@
 import { useContext } from "react";
+import dynamic from "next/dynamic";
+
 import AppContext from "../context/AppContext";
-import FilledCart from "../components/cart/filledCart";
-import EmptyCart from "../components/cart/emptyCart";
+const FilledCart = dynamic(() => import("../components/cart/filledCart"));
+const EmptyCart = dynamic(() => import("../components/cart/emptyCart"));
 
 export default function Cart() {
   const { cart } = useContext(AppContext);
