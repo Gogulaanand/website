@@ -99,7 +99,7 @@ export default function CartItem(props) {
               ></Button>
             </div>
             <p className="md:col-span-2 my-auto text-center font-semibold md:text-lg text-md md:static absolute inset-y-1/3 right-0">
-              <i className="fa fa-inr"></i> {item.price * count}
+              &#8377; {item.price * count}
             </p>
             <Popconfirm
               title="Are you sure to delete this item?"
