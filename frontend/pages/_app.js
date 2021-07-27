@@ -134,6 +134,7 @@ function MyApp({ Component, pageProps, apollo }) {
             <AppContext.Provider
               value={{
                 cart,
+                updateCart,
                 addItem,
                 removeItem,
                 deleteItem,
