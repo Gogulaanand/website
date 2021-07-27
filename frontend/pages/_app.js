@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import dynamic from "next/dynamic";
 import Cookie from "js-cookie";
 import { ApolloProvider } from "@apollo/react-hooks";
 import { ToastProvider } from "react-toast-notifications";
@@ -10,8 +9,9 @@ import AppContext from "../context/AppContext";
 import { AuthProvider } from "../context/AuthContext";
 import withData from "../lib/apollo";
 import "../styles/globals.sass";
-import Nav from "../components/index/nav";
-import Footer from "../components/index/footer";
+
+const Nav = dynamic(() => import("../components/index/nav"));
+const Footer = dynamic(() => import("../components/index/footer"));
 
 function MyApp({ Component, pageProps, apollo }) {
   const [cart, updateCart] = useState({
@@ -42,14 +42,6 @@ function MyApp({ Component, pageProps, apollo }) {
         totalQuantity: 0,
       });
     }
-
-    setTimeout(() => {
-      AOS.init({
-        useClassNames: true,
-        initClassName: false,
-        animatedClassName: "animated",
-      });
-    }, 1000);
   }, []);
 
   const addItem = (item) => {
