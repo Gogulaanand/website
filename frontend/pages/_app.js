@@ -5,6 +5,7 @@ import Cookie from "js-cookie";
 import { ApolloProvider } from "@apollo/react-hooks";
 import { ToastProvider } from "react-toast-notifications";
 
+import ErrorBoundary from "../components/index/errorBoundary";
 import AppContext from "../context/AppContext";
 import { AuthProvider } from "../context/AuthContext";
 import withData from "../lib/apollo";
@@ -141,9 +142,11 @@ function MyApp({ Component, pageProps, apollo }) {
                 enableCart: true,
               }}
             >
-              <Nav />
-              <Component {...pageProps} />
-              <Footer />
+              <ErrorBoundary>
+                <Nav />
+                <Component {...pageProps} />
+                <Footer />
+              </ErrorBoundary>
             </AppContext.Provider>
           </AuthProvider>
         </ToastProvider>
