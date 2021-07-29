@@ -123,6 +123,13 @@ const ProductDetail = (props) => {
             />
           </div>
           <div className="productIntro flex-col text-left lg:ml-16 md:ml-32 mt-12 sm:ml-24 lg:mt-2">
+            <h1 className="animate-fadeInUp2 font-bold text-3xl">
+              {props.name}
+            </h1>
+            <h2 className="animate-fadeInUp3 mt-8 text-xl">
+              {props.description}
+            </h2>
+            <div className="animate-fadeInUp4 mt-8 text-xl flex">
               <h2 className="mr-3">Price:</h2>
               <i className="fa fa-inr mt-1"></i>
               <p className="ml-1">{props.price}</p>
@@ -130,6 +137,7 @@ const ProductDetail = (props) => {
             {enableCart ? (
               <button
                 type="submit"
+                className="animate-fadeInUp5 my-8 py-3 px-5 inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transform duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 hover:text-white focus:shadow-outline focus:outline-none"
                 onClick={() =>
                   addItem({
                     id: props.id,
