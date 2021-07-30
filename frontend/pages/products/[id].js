@@ -4,7 +4,7 @@ import { ApolloClient } from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { HttpLink } from "apollo-link-http";
 import { onError } from "apollo-link-error";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import ImageGallery from "react-image-gallery";
 import AppContext from "../../context/AppContext";
 
@@ -109,21 +109,27 @@ const ProductDetail = (props) => {
     },
   ];
 
-  const variants = {
-    hidden: { opacity: 0 },
-    show: { opacity: 1, transition: { staggerChildren: 0.2 } },
-  };
+  const easing = [0.6, -0.05, 0.01, 0.99];
 
-  const item = {
+  const fadeInUp = {
     hidden: {
       opacity: 0,
-      y: 30,
+      y: 60,
     },
     show: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.5,
+        duration: 0.6,
+        ease: easing,
+      },
+    },
+  };
+
+  const stagger = {
+    animate: {
+      transition: {
+        staggerChildren: 0.05,
       },
     },
   };
@@ -142,42 +148,41 @@ const ProductDetail = (props) => {
               slideOnThumbnailOver={true}
             />
           </div>
-          <motion.div
+          <m.div
             className="children productIntro flex-col text-left lg:ml-16 md:ml-32 mt-12 sm:ml-24 lg:mt-2"
-            variants={variants}
-            initial="hidden"
-            animate="show"
+            variants={stagger}
+            initial="initial"
+            animate="animate"
           >
-            <motion.div variants={item} className="font-bold text-3xl">
+            <m.h1 variants={fadeInUp} className="font-bold text-3xl">
               {props.name}
-            </motion.div>
-            <motion.div variants={item} className="mt-8 text-xl">
+            </m.h1>
+            <m.h2 variants={fadeInUp} className="mt-8 text-xl">
               {props.description}
-            </motion.div>
-            <motion.div variants={item} className="mt-8 text-xl flex">
+            </m.h2>
+            <m.div variants={fadeInUp} className="mt-8 text-xl flex">
               <h2 className="mr-3">Price:</h2>
               <i className="fa fa-inr mt-1"></i>
               <p className="ml-1">{props.price}</p>
-            </motion.div>
+            </m.div>
             {enableCart ? (
-              <motion.div variants={item}>
-                <button
-                  type="submit"
-                  className="my-8 py-3 px-5 inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 hover:text-white focus:shadow-outline focus:outline-none"
-                  onClick={() =>
-                    addItem({
-                      id: props.id,
-                      price: props.price,
-                    })
-                  }
-                >
-                  Add to cart
-                </button>
-              </motion.div>
+              <m.button
+                variants={fadeInUp}
+                type="submit"
+                className="my-8 py-3 px-5 inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 hover:text-white focus:shadow-outline focus:outline-none"
+                onClick={() =>
+                  addItem({
+                    id: props.id,
+                    price: props.price,
+                  })
+                }
+              >
+                Add to cart
+              </m.button>
             ) : (
               <></>
             )}
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </>
