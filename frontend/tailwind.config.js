@@ -331,8 +331,8 @@ module.exports = {
         fadeInUp: {
           "0%": {
             opacity: 0,
-            transform: "translate3d(0,50px,0)",
-            "-webkit-transform": "translate3d(0,50px,0)",
+            transform: "translate3d(0,30px,0)",
+            "-webkit-transform": "translate3d(0,30px,0)",
           },
           "100%": {
             opacity: 1,
@@ -343,11 +343,7 @@ module.exports = {
       },
       animation: {
         fadeIn: "fadeIn ease-in 0.5s",
-        fadeInUp1: "fadeInUp ease-in 0.4s",
-        fadeInUp2: "fadeInUp ease-in 0.6s",
-        fadeInUp3: "fadeInUp ease-in 0.8s",
-        fadeInUp4: "fadeInUp ease-in 1s",
-        fadeInUp5: "fadeInUp ease-in 1.2s",
+        fadeInUp: "fadeInUp ease-out 0.5s",
       },
       width: {
         "340px": "340px",

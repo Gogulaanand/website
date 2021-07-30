@@ -4,6 +4,7 @@ import { ApolloClient } from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { HttpLink } from "apollo-link-http";
 import { onError } from "apollo-link-error";
+import { motion } from "framer-motion";
 import ImageGallery from "react-image-gallery";
 import AppContext from "../../context/AppContext";
 
@@ -108,6 +109,25 @@ const ProductDetail = (props) => {
     },
   ];
 
+  const variants = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1, transition: { staggerChildren: 0.2 } },
+  };
+
+  const item = {
+    hidden: {
+      opacity: 0,
+      y: 30,
+    },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.4,
+      },
+    },
+  };
+
   return (
     <>
       <div className="mx-auto w-4/5 mt-32 justify-center">
@@ -122,35 +142,42 @@ const ProductDetail = (props) => {
               slideOnThumbnailOver={true}
             />
           </div>
-          <div className="productIntro flex-col text-left lg:ml-16 md:ml-32 mt-12 sm:ml-24 lg:mt-2">
-            <h1 className="animate-fadeInUp2 font-bold text-3xl">
+          <motion.div
+            className="children productIntro flex-col text-left lg:ml-16 md:ml-32 mt-12 sm:ml-24 lg:mt-2"
+            variants={variants}
+            initial="hidden"
+            animate="show"
+          >
+            <motion.div variants={item} className="font-bold text-3xl">
               {props.name}
-            </h1>
-            <h2 className="animate-fadeInUp3 mt-8 text-xl">
+            </motion.div>
+            <motion.div variants={item} className="mt-8 text-xl">
               {props.description}
-            </h2>
-            <div className="animate-fadeInUp4 mt-8 text-xl flex">
+            </motion.div>
+            <motion.div variants={item} className="mt-8 text-xl flex">
               <h2 className="mr-3">Price:</h2>
               <i className="fa fa-inr mt-1"></i>
               <p className="ml-1">{props.price}</p>
-            </div>
+            </motion.div>
             {enableCart ? (
-              <button
-                type="submit"
-                className="animate-fadeInUp5 my-8 py-3 px-5 inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transform duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 hover:text-white focus:shadow-outline focus:outline-none"
-                onClick={() =>
-                  addItem({
-                    id: props.id,
-                    price: props.price,
-                  })
-                }
-              >
-                Add to cart
-              </button>
+              <motion.div variants={item}>
+                <button
+                  type="submit"
+                  className="my-8 py-3 px-5 inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 hover:text-white focus:shadow-outline focus:outline-none"
+                  onClick={() =>
+                    addItem({
+                      id: props.id,
+                      price: props.price,
+                    })
+                  }
+                >
+                  Add to cart
+                </button>
+              </motion.div>
             ) : (
               <></>
             )}
-          </div>
+          </motion.div>
         </div>
       </div>
     </>
