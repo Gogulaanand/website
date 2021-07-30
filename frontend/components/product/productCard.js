@@ -1,10 +1,10 @@
+import { memo, useContext } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useContext } from "react";
 
 import AppContext from "../../context/AppContext";
 
-export default function ProductCard(props) {
+const ProductCard = (props) => {
   const { enableCart, addItem } = useContext(AppContext);
   return (
     <>
@@ -61,4 +61,6 @@ export default function ProductCard(props) {
       </div>
     </>
   );
-}
+};
+
+export default memo(ProductCard);

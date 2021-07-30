@@ -105,6 +105,13 @@ module.exports = {
           status: "paid",
         }
       );
+
+      return strapi.services.order
+        .findOne({ checkout_session })
+        .then((data) => {
+          return { order_id: data.id };
+        })
+        .catch((err) => console.log(err));
     } else {
       ctx.throw(
         400,
