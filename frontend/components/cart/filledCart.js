@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { Button } from "antd";
-import { loadStripe } from "@stripe/stripe-js";
+import { loadStripe } from "@stripe/stripe-js/pure";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -9,19 +9,25 @@ import CartItem from "./itemCard";
 import AppContext from "../../context/AppContext";
 import AuthContext from "../../context/AuthContext";
 
+let stripePromise;
 export default function FilledCart() {
   const { cart } = useContext(AppContext);
   const { user, getToken } = useContext(AuthContext);
   const router = useRouter();
 
-  const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PK);
-
   const redirectToLogin = () => {
     router.push("/login");
   };
 
+  const getStripe = () => {
+    if (!stripePromise) {
+      stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PK);
+    }
+    return stripePromise;
+  };
+
   const handleCheckout = async () => {
-    const stripe = await stripePromise;
+    const stripe = await getStripe();
     const token = await getToken();
 
     const product = { id: cart.items[0].id };
