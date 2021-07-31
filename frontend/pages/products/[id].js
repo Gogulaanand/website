@@ -102,10 +102,14 @@ const ProductDetail = (props) => {
     {
       original: `${props.cover.formats.medium.url}`,
       thumbnail: `${props.cover.formats.medium.url}`,
+      originalAlt: `Image 1 of ${props.name}`,
+      thumbnailAlt: `Image 1 of ${props.name}`,
     },
     {
       original: `${props.cover.formats.medium.url}`,
       thumbnail: `${props.cover.formats.medium.url}`,
+      originalAlt: `Image 2 of ${props.name}`,
+      thumbnailAlt: `Image 2 of ${props.name}`,
     },
   ];
 

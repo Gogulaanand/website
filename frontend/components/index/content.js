@@ -10,7 +10,7 @@ export default function Content() {
             <div className="mb-6 rounded shadow-lg h-28 sm:h-48 xl:h-56 w-28 sm:w-48 xl:w-56 relative">
               <Image
                 src="https://images.pexels.com/photos/3184287/pexels-photo-3184287.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
-                alt=""
+                alt="Image of people discussing a design"
                 layout="fill"
                 objectFit="cover"
               />
@@ -18,7 +18,7 @@ export default function Content() {
             <div className="w-20 h-20 rounded shadow-lg sm:h-32 xl:h-40 sm:w-32 xl:w-40 relative">
               <Image
                 src="https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
-                alt=""
+                alt="Image of people collaborating"
                 layout="fill"
                 objectFit="cover"
               />
@@ -26,7 +26,7 @@ export default function Content() {
           </div>
           <div className="px-3 w-40 h-40 rounded shadow-lg sm:h-64 xl:h-80 sm:w-64 xl:w-80 relative">
             <Image
-              alt=""
+              alt="Image of people ordering a custom fabric"
               layout="fill"
               objectFit="cover"
               src="https://images.pexels.com/photos/3182739/pexels-photo-3182739.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;w=500"
