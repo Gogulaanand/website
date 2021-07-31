@@ -19,7 +19,7 @@ const ProductCard = (props) => {
               src={`${props.data.cover.url}`}
               layout="fill"
               objectFit="cover"
-              alt=""
+              alt={`Image of ${props.data.name}`}
             />
           </div>
           <div className="p-5 border border-t-0">

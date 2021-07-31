@@ -102,7 +102,7 @@ const CartItem = (props) => {
                   src={`${item.cover.url}`}
                   layout="fill"
                   objectFit="cover"
-                  alt=""
+                  alt={`Image of ${item.name}`}
                 />
               </div>
             </Link>
