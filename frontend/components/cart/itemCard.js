@@ -97,21 +97,18 @@ const CartItem = (props) => {
         <div>
           <div className="md:grid md:grid-cols-12 flex flex-col my-8 md:static relative">
             <Link href={`/products/${item.id}`} passHref>
-              <div className="object-cover md:w-full w-3/5 md:h-64 sm:h-32 cursor-pointer col-span-4 relative">
-                <Image
-                  src={`${item.cover.url}`}
-                  layout="fill"
-                  objectFit="cover"
-                  alt={`Image of ${item.name}`}
-                />
-              </div>
+              <img
+                src={`${item.cover.url}`}
+                className="object-cover md:w-full w-3/5 md:h-64 sm:h-32 cursor-pointer col-span-4"
+                alt={`Image of ${item.name}`}
+              />
             </Link>
             <div className="md:p-5 pt-2 col-span-3 justify-self-center my-auto">
               <Link href={`/products/${item.id}`} passHref>
                 <a
                   aria-label="product"
                   title={item.name}
-                  className="cursor-pointer inline-block mb-3 md:text-2xl sm:text-xl font-bold leading-5 transition-colors duration-200 hover:text-deep-purple-accent-700"
+                  className="cursor-pointer inline-block mb-3 md:text-xl sm:text-lg font-semibold leading-5 transition-colors duration-200 hover:text-deep-purple-accent-700"
                 >
                   {item.name}
                 </a>
