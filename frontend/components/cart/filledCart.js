@@ -52,7 +52,7 @@ export default function FilledCart() {
             })}
 
           <div className="flex justify-between mb-24">
-            <div className="cursor-pointer space-x-2 md:visible invisible md:flex">
+            <div className="cursor-pointer space-x-2 md:visible hidden md:flex">
               <ArrowLeftOutlined className="mt-1" />
               <Link href="/products" passHref>
                 <a className="md:text-lg sm:text-md font-semibold transition-colors duration-200 hover:text-deep-purple-400">
