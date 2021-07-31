@@ -6,18 +6,18 @@ export default function Hero() {
       <div className="relative bg-white overflow-hidden">
         <div className="relative pt-6 container px-4 sm:px-6 lg:px-8 mx-auto">
           <div className="mt-10 mx-auto max-w-4xl sm:mt-12 md:mt-16 lg:mt-20 xl:mt-28 sm:text-center">
-            <h1 className="text-5xl tracking-tight leading-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-none md:text-5xl lg:text-6xl xl:text-7xl">
+            <h1 className="tracking-tight leading-tight font-extrabold text-gray-900 text-7xl">
               Your one stop solution for
               <br className="hidden md:block" />{" "}
               <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-red-400 py-1">
                 high quality fabrics
               </span>
             </h1>
-            <p className="mt-12 text-xl sm:text-2xl leading-tight font-medium text-gray-700 max-w-4xl mx-auto ">
+            <p className="mt-12 text-xl sm:text-2xl font-medium text-gray-700 max-w-4xl mx-auto">
               We have decades of experience in manufacturing fabrics in large
-              scale and delivering within India and overseas. We take pride in
-              the quality of our products. Check out our array of existing
-              products and contact us for bulk orders and custom orders.
+              scale, delivering within India and overseas. We take pride in the
+              quality of our products. Check out our existing products and
+              contact us for bulk and custom orders.
             </p>
             <div className="pt-6 pb-24 sm:text-center mx-auto md:mt-8">
               <Link href="/products" passHref>
