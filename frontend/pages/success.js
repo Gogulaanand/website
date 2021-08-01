@@ -80,7 +80,8 @@ export default function Success() {
         )}
         {!loading && order && (
           <h1 className="font-bold text-2xl">
-            Your order was processed successfully! Order id: {order.order_id}
+            Your order was processed successfully! <br />
+            Order id: {order.order_id} <br />
             <Link href="/account">View Orders</Link>
           </h1>
         )}
