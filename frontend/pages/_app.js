@@ -23,10 +23,6 @@ function MyApp({ Component, pageProps, apollo }) {
 
   const [cookies, setCookie] = useCookies(["cart"]);
 
-  useEffect(() => {
-    memoizedCart();
-  }, [memoizedCart]);
-
   const memoizedCart = useCallback(() => {
     const cookieCart = cookies.cart;
 
@@ -131,6 +127,10 @@ function MyApp({ Component, pageProps, apollo }) {
       });
     }
   };
+
+  useEffect(() => {
+    memoizedCart();
+  }, [memoizedCart]);
 
   return (
     <>
