@@ -2,7 +2,6 @@ import { memo, useContext, useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import Link from "next/link";
-import Image from "next/image";
 import dynamic from "next/dynamic";
 import { PlusOutlined, MinusOutlined, CloseOutlined } from "@ant-design/icons";
 import { Divider, InputNumber, Button } from "antd";
