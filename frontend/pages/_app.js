@@ -45,7 +45,7 @@ function MyApp({ Component, pageProps, apollo }) {
         totalQuantity: 0,
       });
     }
-  }, []);
+  }, [cookies.cart]);
 
   const addItem = (item) => {
     let items = cart.items;
