@@ -69,13 +69,13 @@ export default function Gallery() {
   };
   return (
     <div className="mx-auto w-4/5 h-4/5 lg:py-24" id="home-gallery">
-      <div className="text-4xl leading-tight font-bold tracking-tight sm:text-5xl sm:leading-12 md:text-6xl text-transparent bg-gradient-to-r bg-clip-text from-orange-300 via-red-400 to-purple-400">
+      <div className="text-5xl leading-tight font-bold tracking-tight sm:text-5xl sm:leading-12 md:text-6xl text-transparent bg-gradient-to-r bg-clip-text from-orange-300 via-red-400 to-purple-400">
         <p>Some of our collections...</p>
       </div>
       <div className="grid grid-cols-6 grid-rows-9 gap-2 mx-auto mt-16 h-auto">
         <div className="w-full col-span-2 row-span-1 overflow-hidden">
           <Image
-            alt=""
+            alt="Image of bedsheet"
             src="/gallery1.jpeg"
             className="animate-fadeIn object-cover w-full h-full transform hover:scale-110 transition hover:ease-in-out hover:duration-2000 cursor-pointer"
             id="0"
@@ -87,7 +87,7 @@ export default function Gallery() {
         </div>
         <div className="w-full col-span-2 row-span-1 overflow-hidden">
           <Image
-            alt=""
+            alt="Image of towel"
             src="/gallery2.jpeg"
             className="animate-fadeIn object-cover w-full h-full transform hover:scale-110 transition hover:ease-in-out hover:duration-2000 cursor-pointer"
             id="1"
@@ -99,7 +99,7 @@ export default function Gallery() {
         </div>
         <div className="w-full col-span-2 row-span-1 overflow-hidden">
           <Image
-            alt=""
+            alt="Image of napkin"
             src="/gallery3.jpeg"
             className="animate-fadeIn object-cover w-full h-full transform hover:scale-110 transition hover:ease-in-out hover:duration-2000 cursor-pointer"
             id="2"
@@ -111,7 +111,7 @@ export default function Gallery() {
         </div>
         <div className="w-full col-span-2 row-span-3 overflow-hidden">
           <Image
-            alt=""
+            alt="Image of shopping bag"
             src="/gallery4.jpeg"
             className="animate-fadeIn object-cover w-full h-full transform hover:scale-110 transition hover:ease-in-out hover:duration-2000 cursor-pointer"
             id="3"
@@ -123,7 +123,7 @@ export default function Gallery() {
         </div>
         <div className="w-full col-span-2 row-span-3 overflow-hidden">
           <Image
-            alt=""
+            alt="Image of bed spreads"
             src="/gallery5.jpeg"
             className="animate-fadeIn object-cover w-full h-full transform hover:scale-110 transition hover:ease-in-out hover:duration-2000 cursor-pointer"
             id="4"
@@ -135,7 +135,7 @@ export default function Gallery() {
         </div>
         <div className="w-full col-span-2 row-span-3 overflow-hidden">
           <Image
-            alt=""
+            alt="Image of pillow covers"
             src="/gallery6.jpeg"
             className="animate-fadeIn object-cover w-full h-full transform hover:scale-110 transition hover:ease-in-out hover:duration-2000 cursor-pointer"
             id="5"

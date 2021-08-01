@@ -1,6 +1,9 @@
 import Head from "next/head";
 import Link from "next/link";
 import { useContext, useState, useEffect } from "react";
+import { Button, Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
+
 import AuthContext from "../context/AuthContext";
 
 const useOrders = (user, getToken) => {
@@ -40,42 +43,49 @@ export default function Account() {
 
   const { orders, loading } = useOrders(user, getToken);
 
+  const antIcon = <LoadingOutlined style={{ fontSize: 32 }} spin />;
+
   if (!user) {
     return (
       <div>
-        <p>Please login or register</p>
+        <Link href="/login" passHref>
+          <a>Please login or register</a>
+        </Link>
       </div>
     );
   }
   return (
     <>
-      <div>
-        <Head>
-          <title>Sunfabb - Account</title>
-          <meta
-            type="description"
-            content="Your sunfabb account section"
-          ></meta>
-        </Head>
+      <Head>
+        <title>Account</title>
+        <meta
+          type="description"
+          content="Your sunfabb account section with details of customer name, past orders, and logout option"
+        ></meta>
+      </Head>
+      <div className="mx-auto h-screen w-4/5 text-center">
+        <div className="lg:my-24 md:my-16 sm:my-12">
+          <h1 className="font-2xl font-bold mt-12">Account page</h1>
 
-        <h1>Account page</h1>
+          <h3 className="my-8 font-xl font-semibold">Your orders</h3>
 
-        <h3>Your orders</h3>
-
-        {loading && <p>Loading your orders...</p>}
-        {orders.map((order) => (
-          <div key={order.id}>
-            {new Date(order.createdAt).toLocaleDateString("en-EN")}{" "}
-            {order.product.name} Rs.{order.total} {order.status}
-          </div>
-        ))}
-
-        <hr />
-
-        <p>Logged in as: {user}</p>
-        <a href="#" onClick={logoutUser}>
+          {loading && (
+            <>
+              <Spin indicator={antIcon} />
+              <h1 className="font-bold text-lg">Loading your orders...</h1>
+            </>
+          )}
+          {orders.map((order) => (
+            <div key={order.id}>
+              {new Date(order.createdAt).toLocaleDateString("en-EN")}{" "}
+              {order.product.name} Rs.{order.total} {order.status}
+            </div>
+          ))}
+        </div>
+        <p className="my-2 mx-4">Logged in as: {user}</p>
+        <Button href="#" onClick={logoutUser} className="my-2 mx-4">
           Logout
-        </a>
+        </Button>
       </div>
     </>
   );

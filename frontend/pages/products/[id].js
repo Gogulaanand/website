@@ -1,4 +1,5 @@
 import { memo, useContext } from "react";
+import Head from "next/head";
 import { gql, ApolloLink } from "apollo-boost";
 import { ApolloClient } from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
@@ -102,10 +103,14 @@ const ProductDetail = (props) => {
     {
       original: `${props.cover.formats.medium.url}`,
       thumbnail: `${props.cover.formats.medium.url}`,
+      originalAlt: `Image 1 of ${props.name}`,
+      thumbnailAlt: `Image 1 of ${props.name}`,
     },
     {
       original: `${props.cover.formats.medium.url}`,
       thumbnail: `${props.cover.formats.medium.url}`,
+      originalAlt: `Image 2 of ${props.name}`,
+      thumbnailAlt: `Image 2 of ${props.name}`,
     },
   ];
 
@@ -130,6 +135,13 @@ const ProductDetail = (props) => {
 
   return (
     <>
+      <Head>
+        <title>{props.name}</title>
+        <meta
+          name="description"
+          content={`Product detail page of ${props.name} containing the name, description, price details and add to cart option for the user `}
+        />
+      </Head>
       <div className="mx-auto w-4/5 mt-32 justify-center">
         <div className="lg:grid lg:grid-cols-2 lg:gap-6 h-screen">
           <div className="productCarousel">

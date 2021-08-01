@@ -2,6 +2,8 @@ import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
+import { Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 
 import AuthContext from "../context/AuthContext";
 import AppContext from "../context/AppContext";
@@ -58,20 +60,29 @@ export default function Success() {
   const { session_id } = router.query;
   const { order, loading } = useOrder(session_id);
 
+  const antIcon = <LoadingOutlined style={{ fontSize: 32 }} spin />;
+
   return (
     <>
       <Head>
         <title>Payment success</title>
         <meta name="description" content="Thank you for the purchase" />
       </Head>
-      <div>
-        <h2>Hold on!</h2>
-        {loading && <p>We&apos;re confirming your purchase!</p>}
+      <div className="lg:my-24 md:my-16 sm:my-12 h-screen w-4/5 text-center mx-auto">
+        {loading && (
+          <>
+            <Spin indicator={antIcon} />
+            <h1 className="font-bold text-2xl">
+              We&apos;re confirming your purchase!
+            </h1>
+          </>
+        )}
         {!loading && order && (
-          <p>
-            Your order was processed successfully! Order id: {order.order_id}
+          <h1 className="font-bold text-2xl">
+            Your order was processed successfully! <br />
+            Order id: {order.order_id} <br />
             <Link href="/account">View Orders</Link>
-          </p>
+          </h1>
         )}
       </div>
     </>
