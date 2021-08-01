@@ -15,7 +15,7 @@ const useOrder = (session_id) => {
   const { getToken, user } = useContext(AuthContext);
   const { updateCart } = useContext(AppContext);
 
-  const fetchOrder = usecallback(async () => {
+  const fetchOrder = useCallback(async () => {
     setLoading(true);
     try {
       const token = await getToken();
