@@ -45,7 +45,7 @@ const useOrder = (session_id) => {
       throw new Error("Order confirmation failed");
     }
     setLoading(false);
-  }, [getToken, session_id]);
+  }, [getToken, session_id, updateCart]);
 
   useEffect(() => {
     if (user) {
