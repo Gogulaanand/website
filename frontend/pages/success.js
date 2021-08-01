@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
@@ -15,42 +15,43 @@ const useOrder = (session_id) => {
   const { getToken, user } = useContext(AuthContext);
   const { updateCart } = useContext(AppContext);
 
+  const fetchOrder = usecallback(async () => {
+    setLoading(true);
+    try {
+      const token = await getToken();
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/orders/confirm`,
+        {
+          method: "POST",
+          body: JSON.stringify({ checkout_session: session_id }),
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const data = await res.json();
+      setOrder(data);
+      if (data) {
+        updateCart({
+          items: [],
+          totalAmount: 0,
+          totalQuantity: 0,
+        });
+      }
+    } catch (err) {
+      setOrder(null);
+      throw new Error("Order confirmation failed");
+    }
+    setLoading(false);
+  }, [getToken, session_id]);
+
   useEffect(() => {
     if (user) {
-      const fetchOrder = async () => {
-        setLoading(true);
-        try {
-          const token = await getToken();
-          const res = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/orders/confirm`,
-            {
-              method: "POST",
-              body: JSON.stringify({ checkout_session: session_id }),
-              headers: {
-                "Content-type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-
-          const data = await res.json();
-          setOrder(data);
-          if (data) {
-            updateCart({
-              items: [],
-              totalAmount: 0,
-              totalQuantity: 0,
-            });
-          }
-        } catch (err) {
-          setOrder(null);
-          throw new Error("Order confirmation failed");
-        }
-        setLoading(false);
-      };
       fetchOrder();
     }
-  }, [user, session_id]);
+  }, [user, fetchOrder]);
 
   return { order, loading };
 };
