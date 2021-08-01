@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import { ApolloProvider } from "@apollo/react-hooks";
@@ -24,6 +24,10 @@ function MyApp({ Component, pageProps, apollo }) {
   const [cookies, setCookie] = useCookies(["cart"]);
 
   useEffect(() => {
+    memoizedCart();
+  }, [memoizedCart]);
+
+  const memoizedCart = useCallback(() => {
     const cookieCart = cookies.cart;
 
     if (cookieCart !== undefined && cookieCart.length > 0) {
@@ -45,7 +49,7 @@ function MyApp({ Component, pageProps, apollo }) {
         totalQuantity: 0,
       });
     }
-  }, []);
+  }, [cookies]);
 
   const addItem = (item) => {
     let items = cart.items;
