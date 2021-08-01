@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Head from "next/head";
 import dynamic from "next/dynamic";
-import Cookie from "js-cookie";
 import { ApolloProvider } from "@apollo/react-hooks";
 import { ToastProvider } from "react-toast-notifications";
+import { useCookies } from "react-cookie";
 
 import ErrorBoundary from "../components/index/errorBoundary";
 import AppContext from "../context/AppContext";
@@ -21,17 +21,18 @@ function MyApp({ Component, pageProps, apollo }) {
     totalQuantity: 0,
   });
 
-  useEffect(() => {
-    const cookieCart = Cookie.get("cart");
+  const [cookies, setCookie] = useCookies(["cart"]);
 
+  const memoziedLoadCart = useCallback(() => {
+    const cookieCart = cookies.cart;
     if (cookieCart !== undefined && cookieCart.length > 0) {
       let totalCount = 0;
       let totalPrice = 0;
-      JSON.parse(cookieCart).forEach((item) => {
+      cookieCart.forEach((item) => {
         totalCount += item.quantity;
         totalPrice += item.price * item.quantity;
         updateCart({
-          items: JSON.parse(cookieCart),
+          items: cookieCart,
           totalAmount: totalPrice,
           totalQuantity: totalCount,
         });
@@ -43,7 +44,11 @@ function MyApp({ Component, pageProps, apollo }) {
         totalQuantity: 0,
       });
     }
-  }, []);
+  }, [cookies.cart]);
+
+  useEffect(() => {
+    memoziedLoadCart();
+  });
 
   const addItem = (item) => {
     let items = cart.items;
@@ -72,7 +77,12 @@ function MyApp({ Component, pageProps, apollo }) {
         totalQuantity: cart.totalQuantity + 1,
       });
     }
-    Cookie.set("cart", items, { sameSite: "None", secure: true, expires: 365 });
+    setCookie("cart", items, {
+      path: "/",
+      sameSite: "None",
+      secure: true,
+      maxAge: 2147483647,
+    });
   };
 
   const removeItem = (item) => {
@@ -89,10 +99,11 @@ function MyApp({ Component, pageProps, apollo }) {
         totalAmount: cart.totalAmount - item.price,
         totalQuantity: cart.totalQuantity - 1,
       });
-      Cookie.set("cart", items, {
+      setCookie("cart", items, {
+        path: "/",
         sameSite: "None",
         secure: true,
-        expires: 365,
+        maxAge: 2147483647,
       });
     } else {
       deleteItem(item);
@@ -111,10 +122,11 @@ function MyApp({ Component, pageProps, apollo }) {
           cart.totalAmount - item_to_delete.price * item_to_delete.quantity,
         totalQuantity: cart.totalQuantity - item_to_delete.quantity,
       });
-      Cookie.set("cart", items, {
+      setCookie("cart", items, {
+        path: "/",
         sameSite: "None",
         secure: true,
-        expires: 365,
+        maxAge: 2147483647,
       });
     }
   };

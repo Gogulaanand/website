@@ -43,7 +43,7 @@ export default function FilledCart() {
 
     const session = await res.json();
 
-    const result = await stripe.redirectToCheckout({ sessionId: session.id });
+    await stripe.redirectToCheckout({ sessionId: session.id });
   };
 
   return (
