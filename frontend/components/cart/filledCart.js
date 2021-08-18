@@ -30,11 +30,13 @@ export default function FilledCart() {
     const stripe = await getStripe();
     const token = await getToken();
 
-    const product = { id: cart.items[0].id };
+    const products = cart.items.map((item) => {
+      return { id: item.id, quantity: item.quantity };
+    });
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/orders`, {
       method: "POST",
-      body: JSON.stringify({ product }),
+      body: JSON.stringify({ products }),
       headers: {
         "Content-type": "application/json",
         Authorization: `Bearer ${token}`,

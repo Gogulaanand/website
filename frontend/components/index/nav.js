@@ -314,7 +314,7 @@ function UserControls(props) {
             </>
           )}
           {!props.isMobile && (
-            <Dropdown overlay={menu}>
+            <Dropdown overlay={menu} placement="bottomRight">
               <UserOutlined
                 className="ant-dropdown-link text-2xl"
                 onClick={(e) => e.preventDefault()}

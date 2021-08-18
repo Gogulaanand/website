@@ -25,7 +25,12 @@ const QUERY = gql`
 export default function Products() {
   var { loading, error, data } = useQuery(QUERY);
 
-  if (error) return <p className="m-auto">Error fetching products</p>;
+  if (error)
+    return (
+      <div className="h-screen flex">
+        <p className="mt-32 mx-auto">Error fetching products</p>
+      </div>
+    );
   if (loading)
     return (
       <div className="h-screen">

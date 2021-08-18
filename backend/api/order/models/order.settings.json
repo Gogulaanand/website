@@ -25,9 +25,8 @@
     "checkout_session": {
       "type": "string"
     },
-    "product": {
-      "model": "product",
-      "via": "orders"
+    "products": {
+      "collection": "product"
     },
     "user": {
       "plugin": "users-permissions",
