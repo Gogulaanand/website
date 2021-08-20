@@ -81,9 +81,7 @@ export const AuthProvider = (props) => {
 
   const getToken = async () => {
     try {
-      let token = await magic.user.getIdToken();
-      console.log(token);
-      return token;
+      return await magic.user.getIdToken();
     } catch (err) {
       throw new Error("Authenticate current session failed");
     }
