@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import dynamic from "next/dynamic";
 import Head from "next/head";
-import AppContext from "context/AppContext";
+import AppContext from "@/context/AppContext";
 
 const FilledCart = dynamic(() => import("components/cart/filledCart"), {
   loading: function load() {

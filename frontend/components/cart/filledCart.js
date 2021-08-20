@@ -6,8 +6,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import CartItem from "./itemCard";
-import AppContext from "context/AppContext";
-import AuthContext from "context/AuthContext";
+import AppContext from "@/context/AppContext";
+import AuthContext from "@/context/AuthContext";
 
 let stripePromise;
 export default function FilledCart() {

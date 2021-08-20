@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useContext, useState, useEffect } from "react";
-import AuthContext from "context/AuthContext";
+import AuthContext from "@/context/AuthContext";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 

@@ -6,7 +6,7 @@ import dynamic from "next/dynamic";
 import { PlusOutlined, MinusOutlined, CloseOutlined } from "@ant-design/icons";
 import { Divider, InputNumber, Button } from "antd";
 
-import AppContext from "context/AppContext";
+import AppContext from "@/context/AppContext";
 const Fetching = dynamic(() => import("components/svg/SvgFetching"));
 
 const QUERY = gql`

@@ -2,7 +2,7 @@ import { memo, useContext } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-import AppContext from "context/AppContext";
+import AppContext from "@/context/AppContext";
 
 const ProductCard = (props) => {
   const { enableCart, addItem } = useContext(AppContext);

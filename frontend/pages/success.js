@@ -5,8 +5,8 @@ import Link from "next/link";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 
-import AuthContext from "context/AuthContext";
-import AppContext from "context/AppContext";
+import AuthContext from "@/context/AuthContext";
+import AppContext from "@/context/AppContext";
 
 const useOrder = (session_id) => {
   const [order, setOrder] = useState(null);

@@ -1,11 +1,11 @@
 {
-  "moduleResolution": "node",
   "compilerOptions": {
-    "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["*"]
+      "@/components/*": ["components/*"],
+      "@/context/*": ["context/*"],
+      "@/lib/*": ["lib/*"],
+      "@/styles/*": ["styles/*"]
     }
-  },
-  "exclude": ["node_modules", ".next"]
+  }
 }

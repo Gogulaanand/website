@@ -4,7 +4,7 @@ import { useContext, useState, useEffect } from "react";
 import { Button, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 
-import AuthContext from "context/AuthContext";
+import AuthContext from "@/context/AuthContext";
 
 const useOrders = (user, getToken) => {
   const [orders, setOrders] = useState([]);
