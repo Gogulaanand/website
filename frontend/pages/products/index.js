@@ -1,8 +1,8 @@
 import Head from "next/head";
 import { gql } from "apollo-boost";
 
-import ProductCard from "../../components/product/productCard";
-import client from "../../lib/apollo-client";
+import ProductCard from "components/product/productCard";
+import client from "lib/apollo-client";
 
 const QUERY = gql`
   {
@@ -23,8 +23,7 @@ const QUERY = gql`
 export async function getStaticProps() {
   try {
     const res = await client.query({ query: QUERY });
-    if (res.data) {
-      console.log(res);
+    if (res.data && !res.loading) {
       return { props: { products: res.data } };
     }
   } catch (error) {

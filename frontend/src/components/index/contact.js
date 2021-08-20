@@ -5,8 +5,8 @@ import dynamic from "next/dynamic";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { useToasts } from "react-toast-notifications";
 
-const SvgContact = dynamic(() => import("../svg/SvgContact"));
-const SvgLoading = dynamic(() => import("../svg/SvgLoading"));
+const SvgContact = dynamic(() => import("components/svg/SvgContact"));
+const SvgLoading = dynamic(() => import("components/svg/SvgLoading"));
 
 export default function Contact() {
   return (

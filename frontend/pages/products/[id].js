@@ -3,8 +3,8 @@ import Head from "next/head";
 import { gql } from "apollo-boost";
 import { motion } from "framer-motion";
 import ImageGallery from "react-image-gallery";
-import AppContext from "../../context/AppContext";
-import client from "../../lib/apollo-client";
+import AppContext from "context/AppContext";
+import client from "lib/apollo-client";
 
 // get_static_paths query & function
 const GET_ALL_QUERY = gql`

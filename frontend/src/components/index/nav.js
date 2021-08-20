@@ -3,8 +3,8 @@ import Link from "next/link";
 import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
 import { Badge, Menu, Dropdown } from "antd";
 
-import AuthContext from "../../context/AuthContext";
-import AppContext from "../../context/AppContext";
+import AuthContext from "context/AuthContext";
+import AppContext from "context/AppContext";
 
 export default function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

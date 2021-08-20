@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import Nav from "../../components/index/nav";
-import AppContext from "../../context/AppContext";
-import { AuthProvider } from "../../context/AuthContext";
+import Nav from "components/index/nav";
+import AppContext from "context/AppContext";
+import { AuthProvider } from "context/AuthContext";
 
 describe("check default elements", () => {
   const OLD_ENV = process.env;
