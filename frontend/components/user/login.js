@@ -4,9 +4,9 @@ import dynamic from "next/dynamic";
 import { Divider } from "antd";
 
 const SvgArrowPointingToRight = dynamic(() =>
-  import("components/svg/SvgArrowPointingToRight")
+  import("@/components/svg/SvgArrowPointingToRight")
 );
-const SvgGoogle = dynamic(() => import("components/svg/SvgGoogle"));
+const SvgGoogle = dynamic(() => import("@/components/svg/SvgGoogle"));
 
 export default function Login() {
   const [email, setEmail] = useState("");

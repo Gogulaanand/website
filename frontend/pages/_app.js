@@ -9,8 +9,8 @@ import { AuthProvider } from "@/context/AuthContext";
 import withData from "@/lib/apollo";
 import "../styles/globals.sass";
 
-const Nav = dynamic(() => import("components/index/nav"));
-const Footer = dynamic(() => import("components/index/footer"));
+const Nav = dynamic(() => import("@/components/index/nav"));
+const Footer = dynamic(() => import("@/components/index/footer"));
 
 function MyApp({ Component, pageProps, apollo }) {
   return (
