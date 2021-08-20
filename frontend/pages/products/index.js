@@ -1,10 +1,8 @@
-import { useQuery } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
-import dynamic from "next/dynamic";
 import Head from "next/head";
+import { gql } from "apollo-boost";
 
-import ProductCard from "../../components/product/productCard";
-const Fetching = dynamic(() => import("../../components/svg/SvgFetching"));
+import ProductCard from "@/components/product/productCard";
+import client from "@/lib/apollo-client";
 
 const QUERY = gql`
   {
@@ -22,16 +20,19 @@ const QUERY = gql`
   }
 `;
 
-export default function Products() {
-  var { loading, error, data } = useQuery(QUERY);
+export async function getStaticProps() {
+  try {
+    const res = await client.query({ query: QUERY });
+    if (res.data && !res.loading) {
+      return { props: { products: res.data } };
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+}
 
-  if (error) return <p className="m-auto">Error fetching products</p>;
-  if (loading)
-    return (
-      <div className="h-screen">
-        <Fetching />
-      </div>
-    );
+export default function Products({ products }) {
+  const data = products;
   if (data.products && data.products.length) {
     return (
       <>

@@ -43,52 +43,73 @@ module.exports = {
 
   // method to create an order and setup stripe checkout session for frontend
   async create(ctx) {
-    const { product } = ctx.request.body;
+    const { products } = ctx.request.body;
 
-    if (!product) {
+    if (!products) {
       return ctx.throw(400, "Please specify a product");
     }
 
-    const realProduct = await strapi.services.product.findOne({
-      id: product.id,
-    });
-    if (!realProduct) {
-      return ctx.throw(404, "No product found with such id");
-    }
+    const getProductdetails = async () => {
+      let realProducts = [];
+      let ids = [];
+      let totalAmount = 0;
+      for (const product of products) {
+        const data = await strapi.services.product.findOne({
+          id: product.id,
+        });
 
-    const { user } = ctx.state;
-
-    const BASE_URL = ctx.request.headers.origin || "http://localhost:3000";
-
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
-      customer_email: user.email,
-      mode: "payment",
-      success_url: `${BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: BASE_URL,
-      line_items: [
-        {
-          price_data: {
-            currency: "inr",
-            product_data: {
-              name: realProduct.name,
+        realProducts = [
+          ...realProducts,
+          {
+            price_data: {
+              currency: "inr",
+              product_data: {
+                name: data.name,
+              },
+              unit_amount: fromDecimalToInt(data.price),
             },
-            unit_amount: fromDecimalToInt(realProduct.price),
+            quantity: product.quantity,
           },
-          quantity: 1,
-        },
-      ],
-    });
+        ];
 
-    await strapi.services.order.create({
-      user: user.id,
-      product: realProduct.id,
-      total: realProduct.price,
-      status: "unpaid",
-      checkout_session: session.id,
-    });
+        ids = [...ids, product.id];
+        totalAmount += data.price * product.quantity;
+      }
+      return [ids, realProducts, totalAmount];
+    };
 
-    return { id: session.id };
+    const createSessionOrder = async () => {
+      const { user } = ctx.state;
+
+      const BASE_URL = ctx.request.headers.origin || "http://localhost:3000";
+
+      const [ids, items, totalAmount] = await getProductdetails();
+
+      if (!items) {
+        return ctx.throw(404, "No product found with such id");
+      }
+
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        customer_email: user.email,
+        mode: "payment",
+        success_url: `${BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: BASE_URL,
+        line_items: items,
+      });
+
+      await strapi.services.order.create({
+        user: user.id,
+        products: ids,
+        total: totalAmount,
+        status: "unpaid",
+        checkout_session: session.id,
+      });
+
+      return { id: session.id };
+    };
+
+    return createSessionOrder();
   },
 
   async confirm(ctx) {

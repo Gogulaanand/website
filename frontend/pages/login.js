@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 import Head from "next/head";
 
-const Login = dynamic(() => import("../components/user/login"));
+const Login = dynamic(() => import("@/components/user/login"));
 
 export default function User() {
   return (

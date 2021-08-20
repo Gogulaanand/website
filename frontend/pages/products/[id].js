@@ -1,42 +1,10 @@
 import { memo, useContext } from "react";
 import Head from "next/head";
-import { gql, ApolloLink } from "apollo-boost";
-import { ApolloClient } from "apollo-client";
-import { InMemoryCache } from "apollo-cache-inmemory";
-import { HttpLink } from "apollo-link-http";
-import { onError } from "apollo-link-error";
+import { gql } from "apollo-boost";
 import { motion } from "framer-motion";
 import ImageGallery from "react-image-gallery";
-import AppContext from "../../context/AppContext";
-
-// Instantiate apollo client constructor
-const cache = new InMemoryCache();
-
-const httpLink = new HttpLink({
-  uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
-});
-
-const errorLink = onError(({ graphQLErrors }) => {
-  if (graphQLErrors)
-    graphQLErrors.map(({ message }) => {
-      throw new Error(message);
-    });
-});
-
-const client = new ApolloClient({
-  // required constructor fields
-  cache: cache,
-  link: ApolloLink.from([errorLink, httpLink]),
-  // optional constructor fields
-  name: "react-web-client",
-  version: "1.3",
-  queryDeduplication: false,
-  defaultOptions: {
-    watchQuery: {
-      fetchPolicy: "cache-first",
-    },
-  },
-});
+import AppContext from "@/context/AppContext";
+import client from "@/lib/apollo-client";
 
 // get_static_paths query & function
 const GET_ALL_QUERY = gql`
@@ -46,6 +14,7 @@ const GET_ALL_QUERY = gql`
     }
   }
 `;
+
 export async function getStaticPaths() {
   const paths = await client
     .query({
@@ -82,6 +51,7 @@ const GET_ONE_QUERY = gql`
     }
   }
 `;
+
 export async function getStaticProps({ params }) {
   try {
     const res = await client.query({

@@ -881,47 +881,6 @@
               }
             }
           },
-          "orders": {
-            "type": "array",
-            "items": {
-              "required": [
-                "id"
-              ],
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "status": {
-                  "type": "string",
-                  "enum": [
-                    "paid",
-                    "unpaid"
-                  ]
-                },
-                "total": {
-                  "type": "number"
-                },
-                "checkout_session": {
-                  "type": "string"
-                },
-                "product": {
-                  "type": "string"
-                },
-                "user": {
-                  "type": "string"
-                },
-                "published_at": {
-                  "type": "string"
-                },
-                "created_by": {
-                  "type": "string"
-                },
-                "updated_by": {
-                  "type": "string"
-                }
-              }
-            }
-          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -947,12 +906,6 @@
           },
           "detail_desc_3": {
             "type": "string"
-          },
-          "orders": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
           },
           "published_at": {
             "type": "string",

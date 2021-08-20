@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "07/22/2021 7:21:12 PM"
+    "x-generation-date": "08/18/2021 8:04:28 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -3388,67 +3388,64 @@
           "checkout_session": {
             "type": "string"
           },
-          "product": {
-            "required": [
-              "id"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "description": {
-                "type": "string"
-              },
-              "cover": {
-                "type": "string"
-              },
-              "images": {
-                "type": "array",
-                "items": {
+          "products": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "cover": {
+                  "type": "string"
+                },
+                "images": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "price": {
+                  "type": "number"
+                },
+                "detail_desc_1": {
+                  "type": "string"
+                },
+                "detail_desc_2": {
+                  "type": "string"
+                },
+                "detail_desc_3": {
+                  "type": "string"
+                },
+                "detail_img_1": {
+                  "type": "string"
+                },
+                "detail_img_2": {
+                  "type": "string"
+                },
+                "detail_img_3": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "published_at": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
                   "type": "string"
                 }
-              },
-              "price": {
-                "type": "number"
-              },
-              "detail_desc_1": {
-                "type": "string"
-              },
-              "detail_desc_2": {
-                "type": "string"
-              },
-              "detail_desc_3": {
-                "type": "string"
-              },
-              "detail_img_1": {
-                "type": "string"
-              },
-              "detail_img_2": {
-                "type": "string"
-              },
-              "detail_img_3": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "orders": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "published_at": {
-                "type": "string"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
               }
             }
           },
@@ -3524,8 +3521,11 @@
           "checkout_session": {
             "type": "string"
           },
-          "product": {
-            "type": "string"
+          "products": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           },
           "user": {
             "type": "string"
@@ -3909,47 +3909,6 @@
               }
             }
           },
-          "orders": {
-            "type": "array",
-            "items": {
-              "required": [
-                "id"
-              ],
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "status": {
-                  "type": "string",
-                  "enum": [
-                    "paid",
-                    "unpaid"
-                  ]
-                },
-                "total": {
-                  "type": "number"
-                },
-                "checkout_session": {
-                  "type": "string"
-                },
-                "product": {
-                  "type": "string"
-                },
-                "user": {
-                  "type": "string"
-                },
-                "published_at": {
-                  "type": "string"
-                },
-                "created_by": {
-                  "type": "string"
-                },
-                "updated_by": {
-                  "type": "string"
-                }
-              }
-            }
-          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -3975,12 +3934,6 @@
           },
           "detail_desc_3": {
             "type": "string"
-          },
-          "orders": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
           },
           "published_at": {
             "type": "string",
@@ -4235,8 +4188,11 @@
                 "checkout_session": {
                   "type": "string"
                 },
-                "product": {
-                  "type": "string"
+                "products": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 },
                 "user": {
                   "type": "string"

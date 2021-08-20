@@ -83,10 +83,6 @@
       ],
       "plugin": "upload",
       "required": false
-    },
-    "orders": {
-      "via": "product",
-      "collection": "order"
     }
   }
 }
