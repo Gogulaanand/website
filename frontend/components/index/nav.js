@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import Link from "next/link";
 import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
 import { Badge, Menu, Dropdown } from "antd";
@@ -213,6 +213,12 @@ export default function Nav() {
 
 function Cart(props) {
   const { cart, enableCart } = useContext(AppContext);
+  const [count, setCount] = useState(cart.totalQuantity);
+
+  useEffect(() => {
+    setCount(cart.totalQuantity);
+  }, [cart]);
+
   return (
     <>
       {enableCart && !props.isMobile ? (
@@ -222,7 +228,7 @@ function Cart(props) {
             title="Shopping cart"
             className="font-medium text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
           >
-            <Badge count={cart.totalQuantity} offset={[-2, 5]}>
+            <Badge count={count} offset={[-2, 5]}>
               <ShoppingCartOutlined
                 className="mx-2"
                 style={{ fontSize: "2rem" }}

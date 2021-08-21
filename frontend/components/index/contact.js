@@ -195,7 +195,7 @@ function Form() {
       <Divider>or</Divider>
       <div className="flex justify-center">
         <p className="my-auto mr-4">Contact us via whatsapp: </p>
-        <Link href="https://wa.me/917010735152" passHref>
+        <Link href="https://wa.me/917010735152?text=Hi" passHref>
           <a target="_blank" className="cursor-pointer">
             <SvgWhatsapp />
           </a>
