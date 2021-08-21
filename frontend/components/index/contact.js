@@ -2,11 +2,14 @@ import { useState, useRef, useEffect } from "react";
 import { useFormik } from "formik";
 import emailjs from "emailjs-com";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { useToasts } from "react-toast-notifications";
+import { Divider } from "antd";
 
 const SvgContact = dynamic(() => import("@/components/svg/SvgContact"));
 const SvgLoading = dynamic(() => import("@/components/svg/SvgLoading"));
+const SvgWhatsapp = dynamic(() => import("@/components/svg/SvgWhatsapp"));
 
 export default function Contact() {
   return (
@@ -174,7 +177,7 @@ function Form() {
         onError={onError}
         ref={captchaRef}
       />
-      <div className="py-3 text-center sm:px-6">
+      <div className="pt-3 text-center sm:px-6">
         <button
           type="submit"
           className="my-8 inline-flex justify-center py-3 px-5 border border-transparent shadow-sm text-sm font-medium bg-white text-black rounded-full border-gray-800 hover:bg-gray-800 hover:text-white focus:outline-none"
@@ -188,6 +191,15 @@ function Form() {
             "Send Message"
           )}
         </button>
+      </div>
+      <Divider>or</Divider>
+      <div className="flex justify-center">
+        <p className="my-auto mr-4">Contact us via whatsapp: </p>
+        <Link href="https://wa.me/917010735152" passHref>
+          <a target="_blank" className="cursor-pointer">
+            <SvgWhatsapp />
+          </a>
+        </Link>
       </div>
     </form>
   );
