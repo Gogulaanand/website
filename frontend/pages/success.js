@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
-import { Spin } from "antd";
+import { Spin, Divider } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 
 import AuthContext from "@/context/AuthContext";
@@ -70,19 +70,37 @@ export default function Success() {
       </Head>
       <div className="lg:my-24 md:my-16 sm:my-12 h-screen w-4/5 text-center mx-auto">
         {loading && (
-          <>
+          <div className="mt-24">
             <Spin indicator={antIcon} />
-            <h1 className="font-bold text-2xl">
-              We&apos;re confirming your purchase!
+            <h1 className="font-bold text-2xl mt-8">
+              We&apos;re confirming your purchase !
             </h1>
-          </>
+          </div>
         )}
         {!loading && order && (
-          <h1 className="font-bold text-2xl">
-            Your order was processed successfully! <br />
-            Order id: {order.order_id} <br />
-            <Link href="/account">View Orders</Link>
-          </h1>
+          <div className="mx-auto flex-col w-4/5 mt-4 text-center">
+            <img
+              src="/success-confetti.gif"
+              alt="payment success confetti"
+              className="mx-auto"
+            ></img>
+            <p className="font-bold text-xl">
+              Your order was processed successfully !
+            </p>
+            <p className="font-semibold text-lg mt-6">
+              Order id: <br />
+              {order.order_id}{" "}
+            </p>
+            <div className="mt-6">
+              <Link href="/account" passHref>
+                <a className="text-blue-500">View Orders</a>
+              </Link>
+              <Divider />
+              <Link href="/products" passHref>
+                <a className="text-blue-500">Continue Shopping</a>
+              </Link>
+            </div>
+          </div>
         )}
       </div>
     </>
