@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import Link from "next/link";
 import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
 import { Badge, Menu, Dropdown } from "antd";
@@ -8,7 +8,6 @@ import AppContext from "@/context/AppContext";
 
 export default function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { cart, enableCart } = useContext(AppContext);
 
   return (
     <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
@@ -76,14 +75,14 @@ export default function Nav() {
         </ul>
         <ul className="flex items-center hidden space-x-8 lg:flex z-10">
           <li>
-            <Cart cart={cart} enableCart={enableCart} />
+            <Cart />
           </li>
           <li>
             <UserControls />
           </li>
         </ul>
         <div className="lg:hidden flex">
-          <Cart cart={cart} enableCart={enableCart} />
+          <Cart />
           <button
             aria-label="Open Menu"
             title="Open Menu"
@@ -194,12 +193,7 @@ export default function Nav() {
                     </li>
 
                     <li>
-                      <Cart
-                        cart={cart}
-                        enableCart={enableCart}
-                        isMobile={true}
-                        setMenuState={setIsMenuOpen}
-                      />
+                      <Cart isMobile={true} setMenuState={setIsMenuOpen} />
                     </li>
 
                     <UserControls
@@ -218,22 +212,17 @@ export default function Nav() {
 }
 
 function Cart(props) {
-  const [count, setCount] = useState(props.cart.totalQuantity);
-
-  useEffect(() => {
-    setCount(props.cart.totalQuantity);
-  });
-
+  const { cart, enableCart } = useContext(AppContext);
   return (
     <>
-      {props.enableCart && !props.isMobile ? (
+      {enableCart && !props.isMobile ? (
         <Link href="/cart" passHref>
           <a
             aria-label="Shopping cart"
             title="Shopping cart"
             className="font-medium text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
           >
-            <Badge count={count} offset={[-2, 5]}>
+            <Badge count={cart.totalQuantity} offset={[-2, 5]}>
               <ShoppingCartOutlined
                 className="mx-2"
                 style={{ fontSize: "2rem" }}
@@ -242,7 +231,7 @@ function Cart(props) {
           </a>
         </Link>
       ) : null}
-      {props.enableCart && props.isMobile ? (
+      {enableCart && props.isMobile ? (
         <Link href="/cart" passHref>
           <a
             aria-label="Shopping cart"
