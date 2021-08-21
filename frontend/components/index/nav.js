@@ -8,6 +8,7 @@ import AppContext from "@/context/AppContext";
 
 export default function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { cart, enableCart } = useContext(AppContext);
 
   return (
     <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
@@ -75,14 +76,14 @@ export default function Nav() {
         </ul>
         <ul className="flex items-center hidden space-x-8 lg:flex z-10">
           <li>
-            <Cart />
+            <Cart cart={cart} enableCart={enableCart} />
           </li>
           <li>
             <UserControls />
           </li>
         </ul>
         <div className="lg:hidden flex">
-          <Cart />
+          <Cart cart={cart} enableCart={enableCart} />
           <button
             aria-label="Open Menu"
             title="Open Menu"
@@ -193,7 +194,12 @@ export default function Nav() {
                     </li>
 
                     <li>
-                      <Cart isMobile={true} setMenuState={setIsMenuOpen} />
+                      <Cart
+                        cart={cart}
+                        enableCart={enableCart}
+                        isMobile={true}
+                        setMenuState={setIsMenuOpen}
+                      />
                     </li>
 
                     <UserControls
@@ -212,16 +218,15 @@ export default function Nav() {
 }
 
 function Cart(props) {
-  const { cart, enableCart } = useContext(AppContext);
-  const [count, setCount] = useState(cart.totalQuantity);
+  const [count, setCount] = useState(props.cart.totalQuantity);
 
   useEffect(() => {
-    setCount(cart.totalQuantity);
-  }, [cart]);
+    setCount(props.cart.totalQuantity);
+  }, [props.cart.totalQuantity]);
 
   return (
     <>
-      {enableCart && !props.isMobile ? (
+      {props.enableCart && !props.isMobile ? (
         <Link href="/cart" passHref>
           <a
             aria-label="Shopping cart"
@@ -237,7 +242,7 @@ function Cart(props) {
           </a>
         </Link>
       ) : null}
-      {enableCart && props.isMobile ? (
+      {props.enableCart && props.isMobile ? (
         <Link href="/cart" passHref>
           <a
             aria-label="Shopping cart"
