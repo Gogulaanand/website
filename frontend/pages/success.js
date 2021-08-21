@@ -2,7 +2,8 @@ import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
-import { Spin, Divider } from "antd";
+import Image from "next/image";
+import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 
 import AuthContext from "@/context/AuthContext";
@@ -68,7 +69,7 @@ export default function Success() {
         <title>Payment success</title>
         <meta name="description" content="Thank you for the purchase" />
       </Head>
-      <div className="lg:my-24 md:my-16 sm:my-12 h-screen w-4/5 text-center mx-auto">
+      <div className="lg:my-12 md:my-8 sm:my-6 h-screen w-4/5 text-center mx-auto">
         {loading && (
           <div className="mt-24">
             <Spin indicator={antIcon} />
@@ -78,12 +79,14 @@ export default function Success() {
           </div>
         )}
         {!loading && order && (
-          <div className="mx-auto flex-col w-4/5 mt-4 text-center">
-            <img
+          <div className="mx-auto flex-col w-4/5 text-center">
+            <Image
               src="/success-confetti.gif"
               alt="payment success confetti"
               className="mx-auto"
-            ></img>
+              width={400}
+              height={400}
+            ></Image>
             <p className="font-bold text-xl">
               Your order was processed successfully !
             </p>
@@ -91,11 +94,11 @@ export default function Success() {
               Order id: <br />
               {order.order_id}{" "}
             </p>
-            <div className="mt-6">
+            <div className="mt-6 flex-col place-content-between">
               <Link href="/account" passHref>
                 <a className="text-blue-500">View Orders</a>
               </Link>
-              <Divider />
+              <hr className="w-72 mx-auto my-8" />
               <Link href="/products" passHref>
                 <a className="text-blue-500">Continue Shopping</a>
               </Link>
