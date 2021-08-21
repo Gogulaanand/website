@@ -222,7 +222,7 @@ function Cart(props) {
 
   useEffect(() => {
     setCount(props.cart.totalQuantity);
-  }, [props.cart.totalQuantity]);
+  });
 
   return (
     <>
