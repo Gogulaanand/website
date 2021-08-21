@@ -6,6 +6,7 @@ import { ToastProvider } from "react-toast-notifications";
 import ErrorBoundary from "@/components/index/errorBoundary";
 import { AppProvider } from "@/context/AppContext";
 import { AuthProvider } from "@/context/AuthContext";
+import Compose from "@/context/combineProviders";
 import withData from "@/lib/apollo";
 import "../styles/globals.sass";
 
@@ -23,19 +24,16 @@ function MyApp({ Component, pageProps, apollo }) {
           content="company name: Sunfabb. High Quality bedspreads, bed sheets, pillow covers, scarf, hand keys, kerchief manufactured and priced reasonable but of best quality unmatched by others in the market"
         ></meta>
       </Head>
-      <ApolloProvider client={apollo}>
-        <ToastProvider>
-          <AuthProvider>
-            <AppProvider>
-              <ErrorBoundary>
-                <Nav />
-                <Component {...pageProps} />
-                <Footer />
-              </ErrorBoundary>
-            </AppProvider>
-          </AuthProvider>
-        </ToastProvider>
-      </ApolloProvider>
+      <Compose
+        components={[ApolloProvider, AppProvider, AuthProvider, ToastProvider]}
+        client={apollo}
+      >
+        <ErrorBoundary>
+          <Nav />
+          <Component {...pageProps} />
+          <Footer />
+        </ErrorBoundary>
+      </Compose>
     </>
   );
 }
