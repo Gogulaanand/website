@@ -77,8 +77,11 @@ export default function Account() {
           )}
           {orders.map((order) => (
             <div key={order.id}>
-              {new Date(order.createdAt).toLocaleDateString("en-EN")}{" "}
-              {order.product.name} Rs.{order.total} {order.status}
+              <span>
+                {new Date(order.createdAt).toLocaleDateString("en-EN")}
+              </span>
+              <span>{order.total ? `Rs. ${order.total}` : null}</span>
+              <span>{order.status}</span>
             </div>
           ))}
         </div>

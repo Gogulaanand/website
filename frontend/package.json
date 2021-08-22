@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "node server.js",
     "test": "jest --env=jsdom",
-    "build": "next build --profile",
+    "build": "next build",
     "start": "NODE_ENV=production node server.js"
   },
   "dependencies": {
