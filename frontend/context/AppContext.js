@@ -95,7 +95,7 @@ export const AppProvider = (props) => {
       const index = items.findIndex((i) => i.id === item.id);
       items.splice(index, 1);
       updateCart({
-        items,
+        items: [...(items || [])],
         totalAmount:
           cart.totalAmount - item_to_delete.price * item_to_delete.quantity,
         totalQuantity: cart.totalQuantity - item_to_delete.quantity,
