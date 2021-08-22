@@ -13,7 +13,7 @@ export const AppProvider = (props) => {
   useEffect(() => {
     const cookieCart = Cookie.get("cart");
 
-    if (cookieCart !== undefined && cookieCart.length > 0) {
+    if (cookieCart !== undefined) {
       let totalCount = 0;
       let totalPrice = 0;
       JSON.parse(cookieCart).forEach((item) => {

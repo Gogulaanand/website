@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps, apollo }) {
         ></meta>
       </Head>
       <Compose
-        components={[ApolloProvider, AppProvider, AuthProvider, ToastProvider]}
+        components={[AppProvider, AuthProvider, ApolloProvider, ToastProvider]}
         client={apollo}
       >
         <ErrorBoundary>
