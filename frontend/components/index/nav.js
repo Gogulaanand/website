@@ -8,7 +8,6 @@ import AppContext from "@/context/AppContext";
 
 export default function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { cart, enableCart } = useContext(AppContext);
 
   return (
     <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
@@ -76,44 +75,14 @@ export default function Nav() {
         </ul>
         <ul className="flex items-center hidden space-x-8 lg:flex z-10">
           <li>
-            {enableCart ? (
-              <Link href="/cart" passHref>
-                <a
-                  aria-label="Shopping cart"
-                  title="Shopping cart"
-                  className="font-medium text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                >
-                  <Badge count={cart.totalQuantity} offset={[-2, 5]}>
-                    <ShoppingCartOutlined
-                      className="mx-2"
-                      style={{ fontSize: "2rem" }}
-                    />
-                  </Badge>
-                </a>
-              </Link>
-            ) : null}
+            <Cart />
           </li>
           <li>
             <UserControls />
           </li>
         </ul>
         <div className="lg:hidden flex">
-          {enableCart ? (
-            <Link href="/cart" passHref>
-              <a
-                aria-label="Shopping cart"
-                title="Shopping cart"
-                className="font-medium text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-              >
-                <Badge count={cart.totalQuantity} offset={[-2, 5]}>
-                  <ShoppingCartOutlined
-                    className="mx-2"
-                    style={{ fontSize: "2rem" }}
-                  />
-                </Badge>
-              </a>
-            </Link>
-          ) : null}
+          <Cart />
           <button
             aria-label="Open Menu"
             title="Open Menu"
@@ -224,18 +193,7 @@ export default function Nav() {
                     </li>
 
                     <li>
-                      {enableCart ? (
-                        <Link href="/cart" passHref>
-                          <a
-                            aria-label="Shopping cart"
-                            title="Shopping cart"
-                            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                            onClick={() => setIsMenuOpen(false)}
-                          >
-                            Cart
-                          </a>
-                        </Link>
-                      ) : null}
+                      <Cart isMobile={true} setMenuState={setIsMenuOpen} />
                     </li>
 
                     <UserControls
