@@ -7,7 +7,7 @@ import AuthContext from "@/context/AuthContext";
 import AppContext from "@/context/AppContext";
 
 function Cart(props) {
-  const { cart, enableCart } = useContext(AppContext);
+  const { enableCart, totalQuantity } = useContext(AppContext);
   return (
     <>
       {enableCart && !props.isMobile ? (
@@ -17,7 +17,7 @@ function Cart(props) {
             title="Shopping cart"
             className="font-medium text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
           >
-            <Badge count={cart.totalQuantity} offset={[-2, 5]}>
+            <Badge count={totalQuantity} offset={[-2, 5]}>
               <ShoppingCartOutlined
                 className="mx-2"
                 style={{ fontSize: "2rem" }}
