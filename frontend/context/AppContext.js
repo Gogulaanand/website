@@ -1,5 +1,5 @@
 import { useEffect, useState, createContext } from "react";
-import Cookie from "js-cookie";
+import { useCookies } from "react-cookie";
 
 const AppContext = createContext();
 
@@ -7,9 +7,10 @@ export const AppProvider = (props) => {
   const [cartItems, updateCart] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
   const [totalQuantity, setTotalQuantity] = useState(0);
+  const [cookies, setCookie] = useCookies(["cart"]);
 
   useEffect(() => {
-    const cookieCart = JSON.parse(Cookie.get("cart"));
+    const cookieCart = cookies.cart;
 
     if (cookieCart !== undefined) {
       let totalCount = 0;
@@ -51,7 +52,12 @@ export const AppProvider = (props) => {
       setTotalAmount(totalAmount + existingItem.price);
       setTotalQuantity(totalQuantity + 1);
     }
-    Cookie.set("cart", items, { sameSite: "None", secure: true, expires: 365 });
+    setCookie("cart", items, {
+      path: "/",
+      sameSite: "None",
+      secure: true,
+      maxAge: 2147483647,
+    });
   };
 
   const removeItem = (item) => {
@@ -66,10 +72,11 @@ export const AppProvider = (props) => {
       updateCart([...items]);
       setTotalAmount(totalAmount - item.price);
       setTotalQuantity(totalQuantity - 1);
-      Cookie.set("cart", items, {
+      setCookie("cart", items, {
+        path: "/",
         sameSite: "None",
         secure: true,
-        expires: 365,
+        maxAge: 2147483647,
       });
     } else {
       deleteItem(item);
@@ -87,10 +94,11 @@ export const AppProvider = (props) => {
         totalAmount - item_to_delete.price * item_to_delete.quantity
       );
       setTotalQuantity(totalQuantity - item_to_delete.quantity);
-      Cookie.set("cart", items, {
+      setCookie("cart", items, {
+        path: "/",
         sameSite: "None",
         secure: true,
-        expires: 365,
+        maxAge: 2147483647,
       });
     }
   };
