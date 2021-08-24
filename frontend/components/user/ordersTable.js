@@ -37,7 +37,9 @@ const useOrders = (user, getToken) => {
 
 export default function OrdersTable(props) {
   const { user, getToken } = useContext(AuthContext);
-  const [filter, setFilter] = useState(props.columns.length > 0);
+  const [filter, setFilter] = useState(
+    props && props.columns && props.columns.length > 0
+  );
   const { orders, loading } = useOrders(user, getToken);
 
   const ordersData = orders.map((order, index) => {
