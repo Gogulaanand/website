@@ -55,7 +55,9 @@ export default function OrdersTable() {
       title: "Date",
       dataIndex: "date",
       key: "date",
-      render: (text) => <a>{text}</a>,
+      render: function Date(text) {
+        return <a>{text}</a>;
+      },
     },
     {
       title: "Order ID",
@@ -71,23 +73,27 @@ export default function OrdersTable() {
       title: "Status",
       key: "status",
       dataIndex: "status",
-      render: (status) => (
-        <>
-          {status.map((tag, index) => {
-            let color = tag === "paid" ? "green" : "volcano";
-            return (
-              <Tag color={color} key={`${tag}_${index}`}>
-                {tag.toUpperCase()}
-              </Tag>
-            );
-          })}
-        </>
-      ),
+      render: function Status(status) {
+        return (
+          <>
+            {status.map((tag, index) => {
+              let color = tag === "paid" ? "green" : "volcano";
+              return (
+                <Tag color={color} key={`${tag}_${index}`}>
+                  {tag.toUpperCase()}
+                </Tag>
+              );
+            })}
+          </>
+        );
+      },
     },
     {
       title: "Action",
       key: "action",
-      render: () => <a>View</a>,
+      render: function View() {
+        return <a>View</a>;
+      },
     },
   ];
 
