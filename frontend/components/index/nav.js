@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import Link from "next/link";
 import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
-import { Badge, Menu, Dropdown } from "antd";
+import { Badge } from "antd";
 
 import AuthContext from "@/context/AuthContext";
 import AppContext from "@/context/AppContext";
@@ -45,34 +45,6 @@ function Cart(props) {
 function UserControls(props) {
   const { user, logoutUser } = useContext(AuthContext);
 
-  const menu = (
-    <Menu>
-      <Menu.Item>
-        <Link href="/account" passHref>
-          <a
-            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-            aria-label="Account"
-            title="Account"
-          >
-            Account
-          </a>
-        </Link>
-      </Menu.Item>
-      <Menu.Item>
-        <Link href="/" passHref>
-          <a
-            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-            aria-label="Logout"
-            title="Logout"
-            onClick={logoutUser}
-          >
-            Logout
-          </a>
-        </Link>
-      </Menu.Item>
-    </Menu>
-  );
-
   return (
     <>
       {user ? (
@@ -109,12 +81,9 @@ function UserControls(props) {
             </>
           )}
           {!props.isMobile && (
-            <Dropdown overlay={menu} placement="bottomRight">
-              <UserOutlined
-                className="ant-dropdown-link text-2xl"
-                onClick={(e) => e.preventDefault()}
-              />
-            </Dropdown>
+            <Link href="/account">
+              <UserOutlined className="text-2xl" />
+            </Link>
           )}
         </>
       ) : (
