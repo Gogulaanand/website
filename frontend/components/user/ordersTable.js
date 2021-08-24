@@ -1,6 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import { Table, Tag, Spin } from "antd";
-import { LoadingOutlined } from "@ant-design/icons";
+import { Table, Tag, Skeleton, Empty } from "antd";
 
 import AuthContext from "@/context/AuthContext";
 
@@ -36,9 +35,7 @@ const useOrders = (user, getToken) => {
   return { orders, loading };
 };
 
-const antIcon = <LoadingOutlined style={{ fontSize: 32 }} spin />;
-
-export default function OrdersTable(props) {
+export default function OrdersTable() {
   const { user, getToken } = useContext(AuthContext);
 
   const { orders, loading } = useOrders(user, getToken);
@@ -96,18 +93,14 @@ export default function OrdersTable(props) {
 
   return (
     <>
-      {loading && (
-        <div className="mx-auto mt-24 ml-24">
-          <Spin indicator={antIcon} />
-          <h1 className="font-bold text-lg">Loading your orders...</h1>
-        </div>
-      )}
-      {!loading && (
-        <div className="mx-auto flex-col w-3/5 text-center">
-          <h3 className="my-8 font-xl font-semibold">Your orders</h3>
-          <Table columns={columns} dataSource={ordersData} />
-        </div>
-      )}
+      <div className="mx-auto flex-col w-4/5 text-center">
+        <h3 className="my-4 font-xl font-semibold">Your orders</h3>
+        <Table
+          columns={columns}
+          dataSource={loading ? [] : ordersData}
+          locale={{ emptyText: loading ? <Skeleton active /> : <Empty /> }}
+        />
+      </div>
     </>
   );
 }

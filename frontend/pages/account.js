@@ -1,10 +1,12 @@
 import Head from "next/head";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { useContext, useState } from "react";
 import { Button, Menu, Layout } from "antd";
 
 import AuthContext from "@/context/AuthContext";
-import OrdersTable from "@/components/user/ordersTable";
+
+const OrdersTable = dynamic(import("@/components/user/ordersTable"));
 
 const { Content, Sider } = Layout;
 

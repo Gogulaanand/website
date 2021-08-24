@@ -81,7 +81,7 @@ function UserControls(props) {
             </>
           )}
           {!props.isMobile && (
-            <Link href="/account">
+            <Link href="/account" passHref>
               <UserOutlined className="text-2xl" />
             </Link>
           )}
