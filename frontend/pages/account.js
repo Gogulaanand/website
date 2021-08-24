@@ -2,32 +2,24 @@ import Head from "next/head";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useContext, useState } from "react";
-import { Button, Menu, Layout } from "antd";
+import { Menu, Layout } from "antd";
 
 import AuthContext from "@/context/AuthContext";
 
 const OrdersTable = dynamic(import("@/components/user/ordersTable"));
-
+const UserDetails = dynamic(import("@/components/user/userDetails"));
 const { Content, Sider } = Layout;
 
 export default function Account() {
-  const { user, logoutUser } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [selectedMenuItem, setselectedMenuItem] = useState("m1");
 
   const componentsSwitch = (key) => {
     switch (key) {
       case "m1":
-        return <h1>Account</h1>;
+        return <UserDetails />;
       case "m2":
         return <OrdersTable />;
-      case "m3":
-        return (
-          <>
-            <Button href="#" onClick={logoutUser} className="my-2 mx-4">
-              Logout
-            </Button>
-          </>
-        );
       default:
         break;
     }
@@ -67,9 +59,6 @@ export default function Account() {
                   </Menu.Item>
                   <Menu.Item key="m2">
                     <span>Orders</span>
-                  </Menu.Item>
-                  <Menu.Item key="m3">
-                    <span>Logout</span>
                   </Menu.Item>
                 </Menu>
               </Sider>

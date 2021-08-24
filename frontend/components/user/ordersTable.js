@@ -35,9 +35,11 @@ const useOrders = (user, getToken) => {
   return { orders, loading };
 };
 
-export default function OrdersTable() {
+export default function OrdersTable(props) {
   const { user, getToken } = useContext(AuthContext);
-
+  const [filter, setFilter] = useState(
+    props && props.columns && props.columns.length > 0
+  );
   const { orders, loading } = useOrders(user, getToken);
 
   const ordersData = orders.map((order, index) => {
@@ -50,7 +52,7 @@ export default function OrdersTable() {
     };
   });
 
-  const columns = [
+  const columnsData = [
     {
       title: "Date",
       dataIndex: "date",
@@ -97,12 +99,20 @@ export default function OrdersTable() {
     },
   ];
 
+  let filteredColumns;
+  if (filter) {
+    filteredColumns = props.columns.map((column) => {
+      return columnsData.filter((col) => col.key == column)[0];
+    });
+    console.log(filteredColumns);
+  }
+
   return (
     <>
       <div className="mx-auto flex-col w-4/5 text-center">
         <h3 className="my-4 font-xl font-semibold">Your orders</h3>
         <Table
-          columns={columns}
+          columns={filter ? filteredColumns : columnsData}
           dataSource={loading ? [] : ordersData}
           locale={{ emptyText: loading ? <Skeleton active /> : <Empty /> }}
         />
