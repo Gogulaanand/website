@@ -52,14 +52,14 @@ function UserControls(props) {
           {props.isMobile && (
             <>
               <li>
-                <Link href="/account" passHref>
+                <Link href="/orders" passHref>
                   <a
                     className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                     aria-label="Account"
                     title="Account"
                     onClick={() => props.setMenuState(false)}
                   >
-                    Account
+                    Orders
                   </a>
                 </Link>
               </li>
