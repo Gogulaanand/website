@@ -15,7 +15,7 @@ const EmptyCart = dynamic(() => import("@/components/cart/emptyCart"), {
 });
 
 export default function Cart() {
-  const { cart } = useContext(AppContext);
+  const { totalQuantity } = useContext(AppContext);
   return (
     <>
       <Head>
@@ -25,7 +25,7 @@ export default function Cart() {
           content="Cart page which lists all of the sunfabb items that the customer intends to bug or order online and get it delivered"
         />
       </Head>
-      {cart.totalQuantity > 0 ? <FilledCart /> : <EmptyCart />}
+      {totalQuantity > 0 ? <FilledCart /> : <EmptyCart />}
     </>
   );
 }

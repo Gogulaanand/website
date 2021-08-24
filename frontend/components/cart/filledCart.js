@@ -11,7 +11,7 @@ import AuthContext from "@/context/AuthContext";
 
 let stripePromise;
 export default function FilledCart() {
-  const { cart } = useContext(AppContext);
+  const { cartItems, totalAmount } = useContext(AppContext);
   const { user, getToken } = useContext(AuthContext);
   const router = useRouter();
 
@@ -30,7 +30,7 @@ export default function FilledCart() {
     const stripe = await getStripe();
     const token = await getToken();
 
-    const products = cart.items.map((item) => {
+    const products = cartItems.map((item) => {
       return { id: item.id, quantity: item.quantity };
     });
 
@@ -54,8 +54,8 @@ export default function FilledCart() {
       <div className="lg:col-span-4 col-span-6">
         <div className="flex flex-col overflow-auto">
           <h1 className="font-semibold text-2xl">Shopping cart</h1>
-          {cart.items &&
-            cart.items.map((item) => {
+          {cartItems &&
+            cartItems.map((item) => {
               return <CartItem data={item} key={item.id} />;
             })}
 
@@ -70,7 +70,7 @@ export default function FilledCart() {
             </div>
 
             <p className="md:mt-0 mt-2 font-semibold">
-              Subtotal: {cart.totalAmount}
+              Subtotal: {totalAmount}
             </p>
 
             <div>

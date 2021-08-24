@@ -1,71 +1,67 @@
 import { useEffect, useState, createContext } from "react";
-import Cookie from "js-cookie";
+import { useCookies } from "react-cookie";
 
 const AppContext = createContext();
 
 export const AppProvider = (props) => {
-  const [cart, updateCart] = useState({
-    items: [],
-    totalAmount: 0,
-    totalQuantity: 0,
-  });
+  const [cartItems, updateCart] = useState([]);
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [totalQuantity, setTotalQuantity] = useState(0);
+  const [cookies, setCookie] = useCookies(["cart"]);
 
   useEffect(() => {
-    const cookieCart = Cookie.get("cart");
+    const cookieCart = cookies.cart;
 
-    if (cookieCart !== undefined && cookieCart.length > 0) {
+    if (cookieCart !== undefined) {
       let totalCount = 0;
       let totalPrice = 0;
-      JSON.parse(cookieCart).forEach((item) => {
+      updateCart(cookieCart);
+      cookieCart.forEach((item) => {
         totalCount += item.quantity;
         totalPrice += item.price * item.quantity;
-        updateCart({
-          items: JSON.parse(cookieCart),
-          totalAmount: totalPrice,
-          totalQuantity: totalCount,
-        });
+        setTotalAmount(totalPrice);
+        setTotalQuantity(totalCount);
       });
     } else {
-      updateCart({
-        items: [],
-        totalAmount: 0,
-        totalQuantity: 0,
-      });
+      updateCart([]);
+      setTotalAmount(0);
+      setTotalQuantity(0);
     }
   }, []);
 
   const addItem = (item) => {
-    let items = cart.items;
+    let items = cartItems;
     let existingItem;
     if (items) existingItem = items.find((i) => i.id === item.id);
 
     if (!existingItem) {
-      updateCart({
-        items: [
-          ...(items || []),
-          Object.assign({}, item, {
-            quantity: 1,
-          }),
-        ],
-        totalAmount: cart.totalAmount + item.price * 1,
-        totalQuantity: cart.totalQuantity + 1,
-      });
+      updateCart([
+        ...(items || []),
+        Object.assign({}, item, {
+          quantity: 1,
+        }),
+      ]);
+      setTotalAmount(totalAmount + item.price * 1);
+      setTotalQuantity(totalQuantity + 1);
     } else {
       const index = items.findIndex((i) => i.id === item.id);
       items[index] = Object.assign({}, item, {
         quantity: existingItem.quantity + 1,
       });
-      updateCart({
-        items,
-        totalAmount: cart.totalAmount + existingItem.price,
-        totalQuantity: cart.totalQuantity + 1,
-      });
+      updateCart([...items]);
+      setTotalAmount(totalAmount + existingItem.price);
+      setTotalQuantity(totalQuantity + 1);
     }
-    Cookie.set("cart", items, { sameSite: "None", secure: true, expires: 365 });
+    setCookie("cart", items, {
+      path: "/",
+      sameSite: "None",
+      secure: true,
+      maxAge: 2147483647,
+    });
   };
 
   const removeItem = (item) => {
-    let items = cart.items;
+    let items = cartItems;
     const item_to_remove = items.find((i) => i.id === item.id);
 
     if (item_to_remove.quantity > 1) {
@@ -73,15 +69,14 @@ export const AppProvider = (props) => {
       items[index] = Object.assign({}, item, {
         quantity: item_to_remove.quantity - 1,
       });
-      updateCart({
-        items,
-        totalAmount: cart.totalAmount - item.price,
-        totalQuantity: cart.totalQuantity - 1,
-      });
-      Cookie.set("cart", items, {
+      updateCart([...items]);
+      setTotalAmount(totalAmount - item.price);
+      setTotalQuantity(totalQuantity - 1);
+      setCookie("cart", items, {
+        path: "/",
         sameSite: "None",
         secure: true,
-        expires: 365,
+        maxAge: 2147483647,
       });
     } else {
       deleteItem(item);
@@ -89,21 +84,21 @@ export const AppProvider = (props) => {
   };
 
   const deleteItem = (item) => {
-    let items = cart.items;
+    let items = cartItems;
     const item_to_delete = items.find((i) => i.id === item.id);
     if (item_to_delete) {
       const index = items.findIndex((i) => i.id === item.id);
       items.splice(index, 1);
-      updateCart({
-        items,
-        totalAmount:
-          cart.totalAmount - item_to_delete.price * item_to_delete.quantity,
-        totalQuantity: cart.totalQuantity - item_to_delete.quantity,
-      });
-      Cookie.set("cart", items, {
+      updateCart([...(items || [])]);
+      setTotalAmount(
+        totalAmount - item_to_delete.price * item_to_delete.quantity
+      );
+      setTotalQuantity(totalQuantity - item_to_delete.quantity);
+      setCookie("cart", items, {
+        path: "/",
         sameSite: "None",
         secure: true,
-        expires: 365,
+        maxAge: 2147483647,
       });
     }
   };
@@ -111,8 +106,10 @@ export const AppProvider = (props) => {
   return (
     <AppContext.Provider
       value={{
-        cart,
+        cartItems,
         updateCart,
+        totalAmount,
+        totalQuantity,
         addItem,
         removeItem,
         deleteItem,

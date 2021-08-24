@@ -17,11 +17,10 @@ describe("check default elements", () => {
   });
 
   test("<Nav/>", () => {
-    const cart = jest.fn();
-    cart.totalQuantity = 5;
+    let totalQuantity = 5;
     render(
       <AuthProvider>
-        <AppContext.Provider value={{ cart }}>
+        <AppContext.Provider value={{ totalQuantity }}>
           <Nav />
         </AppContext.Provider>
       </AuthProvider>
