@@ -8,6 +8,7 @@ function SvgWhatsapp(props) {
       viewBox="0 0 48 48"
       {...props}
     >
+      <title>Take me to whatsapp for conversation</title>
       <defs>
         <linearGradient
           id="prefix__b"

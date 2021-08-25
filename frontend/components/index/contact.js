@@ -199,7 +199,7 @@ function Form() {
           href="https://api.whatsapp.com/send?phone=917010735151?&text=Hi"
           passHref
         >
-          <a target="_blank" className="cursor-pointer">
+          <a rel="noopener" className="cursor-pointer">
             <SvgWhatsapp />
           </a>
         </Link>
