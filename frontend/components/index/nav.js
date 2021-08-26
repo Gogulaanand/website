@@ -12,11 +12,7 @@ function Cart(props) {
     <>
       {enableCart && !props.isMobile ? (
         <Link href="/cart" passHref>
-          <a
-            aria-label="Shopping cart"
-            title="Shopping cart"
-            className="font-medium text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-          >
+          <a aria-label="Shopping cart" title="Shopping cart">
             <Badge count={totalQuantity} offset={[-2, 5]}>
               <ShoppingCartOutlined
                 className="mx-2"
@@ -82,7 +78,11 @@ function UserControls(props) {
           )}
           {!props.isMobile && (
             <Link href="/account" passHref>
-              <UserOutlined className="text-2xl" />
+              <UserOutlined
+                className="text-2xl"
+                aria-label="Account"
+                title="Account"
+              />
             </Link>
           )}
         </>
