@@ -96,7 +96,7 @@ export default function FilledCart() {
                 {!user && (
                   <p
                     onClick={redirectToLogin}
-                    className="h-12 px-8 py-4 w-full text-center border border-transparent bg-gray-800 rounded-md inline-flex items-center text-base text-white leading-6 shadow-md cursor-pointer bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700"
+                    className="h-12 px-8 py-4 w-full justify-center border border-transparent bg-gray-800 rounded-md inline-flex items-center text-base text-white leading-6 shadow-md cursor-pointer bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700"
                   >
                     Login to Checkout
                   </p>
