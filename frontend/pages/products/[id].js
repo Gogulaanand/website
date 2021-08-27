@@ -138,14 +138,13 @@ const ProductDetail = (props) => {
             </motion.div>
             <motion.div variants={item} className="mt-8 text-xl flex">
               <h2 className="mr-3">Price:</h2>
-              <i className="fa fa-inr mt-1"></i>
-              <p className="ml-1">{props.price}</p>
+              <p className="ml-1">&#x20b9; {props.price}</p>
             </motion.div>
             {enableCart ? (
               <motion.div variants={item}>
                 <button
                   type="submit"
-                  className="my-8 py-3 px-5 inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 hover:text-white focus:shadow-outline focus:outline-none"
+                  className="my-8 py-3 px-5 inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-200 hover:bg-deep-purple-accent-400 hover:text-white focus:shadow-outline focus:outline-none"
                   onClick={() =>
                     addItem({
                       id: props.id,

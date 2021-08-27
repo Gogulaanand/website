@@ -1,14 +1,13 @@
 import { useRouter } from "next/router";
 import { useContext, useState, useEffect } from "react";
+import { RefreshIcon } from "@heroicons/react/outline";
+
 import AuthContext from "@/context/AuthContext";
-import { Spin } from "antd";
-import { LoadingOutlined } from "@ant-design/icons";
 
 export default function OauthSuccess() {
   const router = useRouter();
   const [loginStatus, setLoginStatus] = useState(false);
   const { user } = useContext(AuthContext);
-  const antIcon = <LoadingOutlined style={{ fontSize: 32 }} spin />;
 
   useEffect(() => {
     if (user) {
@@ -27,7 +26,9 @@ export default function OauthSuccess() {
                 Login Successful. Redirecting to homepage...
               </h1>
             )}
-            {!loginStatus && <Spin indicator={antIcon} />}
+            {!loginStatus && (
+              <RefreshIcon className="mx-auto animate-spin w-12 h-12" />
+            )}
           </div>
         </div>
       </div>

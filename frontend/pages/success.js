@@ -3,8 +3,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
-import { Spin } from "antd";
-import { LoadingOutlined } from "@ant-design/icons";
+import { RefreshIcon } from "@heroicons/react/outline";
 
 import AuthContext from "@/context/AuthContext";
 import AppContext from "@/context/AppContext";
@@ -14,7 +13,8 @@ const useOrder = (session_id) => {
   const [loading, setLoading] = useState(false);
 
   const { getToken, user } = useContext(AuthContext);
-  const { updateCart } = useContext(AppContext);
+  const { updateCart, setTotalAmount, setTotalQuantity } =
+    useContext(AppContext);
 
   useEffect(() => {
     if (user) {
@@ -37,11 +37,9 @@ const useOrder = (session_id) => {
           const data = await res.json();
           setOrder(data);
           if (data) {
-            updateCart({
-              items: [],
-              totalAmount: 0,
-              totalQuantity: 0,
-            });
+            updateCart([]);
+            setTotalQuantity(0);
+            setTotalAmount(0);
           }
         } catch (err) {
           setOrder(null);
@@ -61,8 +59,6 @@ export default function Success() {
   const { session_id } = router.query;
   const { order, loading } = useOrder(session_id);
 
-  const antIcon = <LoadingOutlined style={{ fontSize: 32 }} spin />;
-
   return (
     <>
       <Head>
@@ -71,9 +67,9 @@ export default function Success() {
       </Head>
       <div className="lg:my-12 md:my-8 sm:my-6 h-screen w-4/5 text-center mx-auto">
         {loading && (
-          <div className="mt-24">
-            <Spin indicator={antIcon} />
-            <h1 className="font-bold text-2xl mt-8">
+          <div className="mt-24 mx-auto">
+            <RefreshIcon className="mx-auto w-12 h-12 animate-spin" />
+            <h1 className="font-bold text-2xl mt-3 ml-3">
               We&apos;re confirming your purchase !
             </h1>
           </div>

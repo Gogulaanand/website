@@ -29,7 +29,7 @@ export default function Account() {
     return (
       <div className="mx-auto mt-24 flex-col w-4/5 text-center h-screen">
         <Link href="/login" passHref>
-          <a className="text-blue-500">Please login or register</a>
+          <a className="text-blue-500 text-2xl">Please login or register</a>
         </Link>
       </div>
     );
