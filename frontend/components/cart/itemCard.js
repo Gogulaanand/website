@@ -33,15 +33,15 @@ const CartItem = (props) => {
     return (
       <>
         <div className="divide-y divide-gray-700">
-          <div className="flex flex-col md:flex-row my-8">
+          <div className="flex flex-col md:flex-row md:justify-between my-8">
             <Link href={`/products/${item.id}`} passHref>
               <img
                 src={`${item.cover.url}`}
-                className="object-cover md:h-48 md:w-48 sm:h-24 sm:w-24 cursor-pointer"
+                className="object-cover h-48 w-48 cursor-pointer"
                 alt={`Image of ${item.name}`}
               />
             </Link>
-            <div className="md:p-5 pt-2">
+            <div className="md:px-5 pt-2">
               <Link href={`/products/${item.id}`} passHref>
                 <a
                   aria-label="product"
@@ -53,7 +53,7 @@ const CartItem = (props) => {
               </Link>
               <p className="font-semibold">&#x20b9; {item.price}</p>
             </div>
-            <ItemControls item={item} data={props.data} />
+            <ItemControls item={item} data={props.data} className="self-end" />
           </div>
         </div>
       </>

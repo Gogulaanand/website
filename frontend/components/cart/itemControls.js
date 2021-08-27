@@ -9,8 +9,8 @@ export default function ItemControls(props) {
 
   return (
     <>
-      <div className="flex md:px-5 ml-32 mt-7">
-        <div className="flex md:justify-center top-full left-0">
+      <div className="flex md:px-5 md:ml-4 lg:ml-16 mt-7 justify-between sm:flex-row md:flex-col lg:flex-row">
+        <div className="flex flex-row md:justify-center">
           <MinusIcon
             disabled={disableMinus}
             className="w-6 h-6 text-gray-400 cursor-pointer"
@@ -36,14 +36,14 @@ export default function ItemControls(props) {
             }}
           ></PlusIcon>
         </div>
+
+        <XIcon
+          className="lg:ml-24 w-6 h-6 text-gray-400 cursor-pointer mx-auto mr-8 lg:mr-0"
+          onClick={() => {
+            deleteItem({ id: props.data.id });
+          }}
+        ></XIcon>
       </div>
-      <XIcon
-        className="ml-24 w-6 h-6 text-gray-400 m-5 mt-7 cursor-pointer"
-        onClick={() => {
-          setSelected(0);
-          deleteItem({ id: props.data.id });
-        }}
-      ></XIcon>
     </>
   );
 }
