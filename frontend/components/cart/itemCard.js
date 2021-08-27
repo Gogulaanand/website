@@ -1,12 +1,10 @@
-import { memo, useContext, useState } from "react";
+import { memo } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { PlusOutlined, MinusOutlined, CloseOutlined } from "@ant-design/icons";
-import { Divider, InputNumber, Button } from "antd";
 
-import AppContext from "@/context/AppContext";
+const ItemControls = dynamic(() => import("@/components/cart/itemControls"));
 const Fetching = dynamic(() => import("@/components/svg/SvgFetching"));
 
 const QUERY = gql`
@@ -25,65 +23,6 @@ const QUERY = gql`
   }
 `;
 
-function ItemControls(props) {
-  const { addItem, removeItem, deleteItem } = useContext(AppContext);
-
-  const [count, setcount] = useState(props.data.quantity);
-  const [disableMinus, setdisableMinus] = useState(count === 1);
-  return (
-    <>
-      <div className="md:col-span-2 md:my-auto flex md:justify-center md:static absolute top-full left-0">
-        <Button
-          disabled={disableMinus}
-          icon={<MinusOutlined />}
-          onClick={() => {
-            setcount(count - 1);
-            if (count - 1 === 1) setdisableMinus(true);
-            removeItem({
-              id: props.data.id,
-              price: props.item.price,
-            });
-          }}
-          type="text"
-        ></Button>
-        <InputNumber
-          min={1}
-          max={10000}
-          style={{ width: "30%" }}
-          value={count}
-          bordered={false}
-          className="md:ml-1 mt-1 md:static relative"
-        ></InputNumber>
-        <Button
-          icon={<PlusOutlined />}
-          className="md:static absolute left-1/4"
-          type="text"
-          onClick={() => {
-            setcount(count + 1);
-            setdisableMinus(false);
-            addItem({
-              id: props.data.id,
-              price: props.item.price,
-            });
-          }}
-        ></Button>
-      </div>
-      <p className="md:col-span-2 my-auto text-center font-semibold md:text-lg text-md md:static absolute inset-y-1/3 right-0">
-        &#8377; {props.item.price * count}
-      </p>
-      <Button
-        icon={<CloseOutlined />}
-        type="text"
-        className="my-auto md:col-span-1 justify-self-center md:static absolute bottom-0 right-0"
-        onClick={() => {
-          setcount(0);
-          deleteItem({ id: props.data.id });
-        }}
-      ></Button>
-    </>
-  );
-}
-
 const CartItem = (props) => {
   var { loading, error, data } = useQuery(QUERY);
 
@@ -93,29 +32,29 @@ const CartItem = (props) => {
     const item = data.products.find((i) => props.data.id === i.id);
     return (
       <>
-        <div>
-          <div className="md:grid md:grid-cols-12 flex flex-col my-8 md:static relative">
+        <div className="divide-y divide-gray-700">
+          <div className="flex flex-col md:flex-row my-8">
             <Link href={`/products/${item.id}`} passHref>
               <img
                 src={`${item.cover.url}`}
-                className="object-cover md:w-full w-3/5 md:h-64 sm:h-32 cursor-pointer col-span-4"
+                className="object-cover md:h-48 md:w-48 sm:h-24 sm:w-24 cursor-pointer"
                 alt={`Image of ${item.name}`}
               />
             </Link>
-            <div className="md:p-5 pt-2 col-span-3 justify-self-center my-auto">
+            <div className="md:p-5 pt-2">
               <Link href={`/products/${item.id}`} passHref>
                 <a
                   aria-label="product"
                   title={item.name}
-                  className="cursor-pointer inline-block mb-3 md:text-xl sm:text-lg font-semibold leading-5 transition-colors duration-200 hover:text-deep-purple-accent-700"
+                  className="cursor-pointer inline-block mb-3 md:text-lg sm:text-md font-semibold leading-5 transition-colors duration-200 hover:text-deep-purple-accent-700"
                 >
                   {item.name}
                 </a>
               </Link>
+              <p className="font-semibold">&#x20b9; {item.price}</p>
             </div>
             <ItemControls item={item} data={props.data} />
           </div>
-          <Divider />
         </div>
       </>
     );
