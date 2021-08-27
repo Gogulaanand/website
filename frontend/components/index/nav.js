@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import Link from "next/link";
-import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
+import { ShoppingCartIcon, UserIcon } from "@heroicons/react/outline";
 import { Badge } from "antd";
 
 import AuthContext from "@/context/AuthContext";
@@ -13,11 +13,8 @@ function Cart(props) {
       {enableCart && !props.isMobile ? (
         <Link href="/cart" passHref>
           <a aria-label="Shopping cart" title="Shopping cart">
-            <Badge count={totalQuantity} offset={[-2, 5]}>
-              <ShoppingCartOutlined
-                className="mx-2"
-                style={{ fontSize: "2rem" }}
-              />
+            <Badge count={totalQuantity} offset={[0, 5]}>
+              <ShoppingCartIcon className="w-7 h-7" />
             </Badge>
           </a>
         </Link>
@@ -78,11 +75,13 @@ function UserControls(props) {
           )}
           {!props.isMobile && (
             <Link href="/account" passHref>
-              <UserOutlined
-                className="text-2xl"
+              <a
                 aria-label="Account"
                 title="Account"
-              />
+                className="hover:text-gray-800"
+              >
+                <UserIcon className="w-6 h-6 cursor-pointer" />
+              </a>
             </Link>
           )}
         </>
