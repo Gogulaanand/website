@@ -13,12 +13,12 @@ export const AppProvider = (props) => {
   const cookieCart = cookies.cart;
 
   useEffect(() => {
-    if (user) {
+    if (user !== null) {
       userCart();
       loadCartFromStrapi();
     }
     cartOperations();
-  }, []);
+  }, [user]);
 
   const calculateAmountQuantity = (items) => {
     let totalCount = 0;
@@ -59,6 +59,7 @@ export const AppProvider = (props) => {
         }
       );
       const data = await res.json();
+      console.log(data);
       if (data.id) {
         setUserCartId(data.id);
       }
