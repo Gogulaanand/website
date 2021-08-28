@@ -95,19 +95,32 @@ export const AppProvider = (props) => {
   const saveCartToStrapi = async () => {
     try {
       const token = await getToken();
-      await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/carts/${encodeURIComponent(
-          userCartId
-        )}`,
-        {
-          method: userCartId ? "PUT" : "POST",
-          body: JSON.stringify({ items: cartItems, email: user }),
-          headers: {
-            "Content-type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
+      if (user) {
+        if (userCartId) {
+          await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/carts/${encodeURIComponent(
+              userCartId
+            )}`,
+            {
+              method: "PUT",
+              body: JSON.stringify({ items: cartItems, email: user }),
+              headers: {
+                "Content-type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+        } else {
+          await fetch(`${process.env.NEXT_PUBLIC_API_URL}/carts}`, {
+            method: "POST",
+            body: JSON.stringify({ items: cartItems, email: user }),
+            headers: {
+              "Content-type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          });
         }
-      );
+      }
     } catch (err) {
       throw new Error(err);
     }
