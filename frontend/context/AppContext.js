@@ -61,12 +61,10 @@ export const AppProvider = (props) => {
             },
           }
         );
-        if (res) {
-          const data = await res.json();
-          console.log(data);
-          if (data.id) {
-            setUserCartId(data.id);
-          }
+        const data = await res.json();
+        console.log(data);
+        if (data.id) {
+          setUserCartId(data.id);
         }
       } catch (err) {
         throw new Error(err);
@@ -75,7 +73,7 @@ export const AppProvider = (props) => {
   };
 
   const loadCartFromStrapi = async () => {
-    if (user) {
+    if (userCartId) {
       try {
         const token = await getToken();
         const res = await fetch(
@@ -90,11 +88,9 @@ export const AppProvider = (props) => {
             },
           }
         );
-        if (res) {
-          const data = await res.json();
-          if (data.id && data.items.length > 0) {
-            cartOperations(data.items);
-          }
+        const data = await res.json();
+        if (data.id && data.items.length > 0) {
+          cartOperations(data.items);
         }
       } catch (error) {
         throw new Error(error);
@@ -105,7 +101,7 @@ export const AppProvider = (props) => {
   const saveCartToStrapi = async () => {
     try {
       const token = await getToken();
-      if (user || userCartId) {
+      if (userCartId) {
         await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/carts/${encodeURIComponent(
             userCartId
@@ -128,10 +124,8 @@ export const AppProvider = (props) => {
             Authorization: `Bearer ${token}`,
           },
         });
-        if (res) {
-          const data = await res.json();
-          if (data.id) setUserCartId(data.id);
-        }
+        const data = await res.json();
+        if (data.id) setUserCartId(data.id);
       }
     } catch (err) {
       throw new Error(err);
@@ -222,6 +216,7 @@ export const AppProvider = (props) => {
         removeItem,
         deleteItem,
         enableCart: true,
+        userCartId,
       }}
     >
       {props.children}
