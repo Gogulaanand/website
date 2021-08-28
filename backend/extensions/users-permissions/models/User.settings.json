@@ -62,6 +62,10 @@
     "orders": {
       "via": "user",
       "collection": "order"
+    },
+    "cart": {
+      "via": "user",
+      "model": "cart"
     }
   }
 }

@@ -710,6 +710,9 @@
                   "type": "string"
                 }
               },
+              "cart": {
+                "type": "string"
+              },
               "created_by": {
                 "type": "string"
               },
