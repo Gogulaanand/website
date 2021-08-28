@@ -1,33 +1,118 @@
-import { useEffect, useState, createContext } from "react";
-import { useCookies } from "react-cookie";
+import { useEffect, useState, createContext, useContext } from "react";
 
+import AuthContext from "@/context/AuthContext";
 const AppContext = createContext();
 
 export const AppProvider = (props) => {
   const [cartItems, updateCart] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
   const [totalQuantity, setTotalQuantity] = useState(0);
-  const [cookies, setCookie] = useCookies(["cart"]);
+  const [userCartId, setUserCartId] = useState(null);
+  const { user, getToken } = useContext(AuthContext);
 
   useEffect(() => {
-    const cookieCart = cookies.cart;
+    userCart();
+    loadCartFromStrapi();
+  }, [user]);
 
-    if (cookieCart !== undefined) {
-      let totalCount = 0;
-      let totalPrice = 0;
-      updateCart(cookieCart);
-      cookieCart.forEach((item) => {
-        totalCount += item.quantity;
-        totalPrice += item.price * item.quantity;
-        setTotalAmount(totalPrice);
-        setTotalQuantity(totalCount);
-      });
+  const calculateAmountQuantity = (items) => {
+    let totalCount = 0;
+    let totalPrice = 0;
+    items.forEach((item) => {
+      totalCount += item.quantity;
+      totalPrice += item.price * item.quantity;
+      setTotalAmount(totalPrice);
+      setTotalQuantity(totalCount);
+    });
+  };
+
+  const cartOperations = async (items) => {
+    if (items) {
+      console.log(items);
+      updateCart([...items]);
+      calculateAmountQuantity(items);
     } else {
       updateCart([]);
       setTotalAmount(0);
       setTotalQuantity(0);
     }
-  }, []);
+  };
+
+  const userCart = async () => {
+    try {
+      const token = await getToken();
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/carts/${encodeURIComponent(user)}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const data = await res.json();
+      if (data.id) {
+        setUserCartId(data.id);
+      }
+    } catch (err) {
+      throw new Error(err);
+    }
+  };
+
+  const loadCartFromStrapi = async () => {
+    try {
+      const token = await getToken();
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/carts/${userCartId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const data = await res.json();
+      if (data.id && data.items.length > 0) {
+        cartOperations(data.items);
+      }
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
+  const saveCartToStrapi = async () => {
+    try {
+      const token = await getToken();
+      if (userCartId) {
+        await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/carts/${encodeURIComponent(
+            userCartId
+          )}`,
+          {
+            method: "PUT",
+            body: JSON.stringify({ items: cartItems, email: user }),
+            headers: {
+              "Content-type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+      } else {
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/carts`, {
+          method: "POST",
+          body: JSON.stringify({ items: cartItems, email: user }),
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      }
+    } catch (err) {
+      throw new Error(err);
+    }
+  };
 
   const addItem = (item) => {
     let items = cartItems;
@@ -52,12 +137,7 @@ export const AppProvider = (props) => {
       setTotalAmount(totalAmount + existingItem.price);
       setTotalQuantity(totalQuantity + 1);
     }
-    setCookie("cart", items, {
-      path: "/",
-      sameSite: "None",
-      secure: true,
-      maxAge: 2147483647,
-    });
+    saveCartToStrapi();
   };
 
   const removeItem = (item) => {
@@ -72,12 +152,8 @@ export const AppProvider = (props) => {
       updateCart([...items]);
       setTotalAmount(totalAmount - item.price);
       setTotalQuantity(totalQuantity - 1);
-      setCookie("cart", items, {
-        path: "/",
-        sameSite: "None",
-        secure: true,
-        maxAge: 2147483647,
-      });
+
+      saveCartToStrapi();
     } else {
       deleteItem(item);
     }
@@ -94,12 +170,8 @@ export const AppProvider = (props) => {
         totalAmount - item_to_delete.price * item_to_delete.quantity
       );
       setTotalQuantity(totalQuantity - item_to_delete.quantity);
-      setCookie("cart", items, {
-        path: "/",
-        sameSite: "None",
-        secure: true,
-        maxAge: 2147483647,
-      });
+
+      saveCartToStrapi();
     }
   };
 
