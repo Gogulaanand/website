@@ -111,7 +111,7 @@ export const AppProvider = (props) => {
             }
           );
         } else {
-          await fetch(`${process.env.NEXT_PUBLIC_API_URL}/carts}`, {
+          await fetch(`${process.env.NEXT_PUBLIC_API_URL}/carts`, {
             method: "POST",
             body: JSON.stringify({ items: cartItems, email: user }),
             headers: {
