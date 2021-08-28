@@ -1,5 +1,5 @@
 import { useEffect, useState, createContext, useContext } from "react";
-
+import { useCookies } from "react-cookie";
 import AuthContext from "@/context/AuthContext";
 const AppContext = createContext();
 
@@ -8,12 +8,17 @@ export const AppProvider = (props) => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [totalQuantity, setTotalQuantity] = useState(0);
   const [userCartId, setUserCartId] = useState(null);
+  const [cookies, setCookie] = useCookies(["cart"]);
   const { user, getToken } = useContext(AuthContext);
+  const cookieCart = cookies.cart;
 
   useEffect(() => {
-    userCart();
-    loadCartFromStrapi();
-  }, [user]);
+    if (user) {
+      userCart();
+      loadCartFromStrapi();
+    }
+    cartOperations();
+  }, []);
 
   const calculateAmountQuantity = (items) => {
     let totalCount = 0;
@@ -27,8 +32,10 @@ export const AppProvider = (props) => {
   };
 
   const cartOperations = async (items) => {
-    if (items) {
-      console.log(items);
+    if (cookieCart !== undefined) {
+      updateCart([...cookieCart]);
+      calculateAmountQuantity(cookieCart);
+    } else if (items) {
       updateCart([...items]);
       calculateAmountQuantity(items);
     } else {
@@ -64,7 +71,9 @@ export const AppProvider = (props) => {
     try {
       const token = await getToken();
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/carts/${userCartId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/carts/${encodeURIComponent(
+          userCartId
+        )}`,
         {
           method: "GET",
           headers: {
@@ -85,33 +94,31 @@ export const AppProvider = (props) => {
   const saveCartToStrapi = async () => {
     try {
       const token = await getToken();
-      if (userCartId) {
-        await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/carts/${encodeURIComponent(
-            userCartId
-          )}`,
-          {
-            method: "PUT",
-            body: JSON.stringify({ items: cartItems, email: user }),
-            headers: {
-              "Content-type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-      } else {
-        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/carts`, {
-          method: "POST",
+      await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/carts/${encodeURIComponent(
+          userCartId
+        )}`,
+        {
+          method: userCartId ? "PUT" : "POST",
           body: JSON.stringify({ items: cartItems, email: user }),
           headers: {
             "Content-type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-        });
-      }
+        }
+      );
     } catch (err) {
       throw new Error(err);
     }
+  };
+
+  const saveCartToCookie = () => {
+    setCookie("cart", cartItems, {
+      path: "/",
+      sameSite: "None",
+      secure: true,
+      maxAge: 2147483647,
+    });
   };
 
   const addItem = (item) => {
@@ -137,6 +144,7 @@ export const AppProvider = (props) => {
       setTotalAmount(totalAmount + existingItem.price);
       setTotalQuantity(totalQuantity + 1);
     }
+    saveCartToCookie();
     saveCartToStrapi();
   };
 
@@ -152,7 +160,7 @@ export const AppProvider = (props) => {
       updateCart([...items]);
       setTotalAmount(totalAmount - item.price);
       setTotalQuantity(totalQuantity - 1);
-
+      saveCartToCookie();
       saveCartToStrapi();
     } else {
       deleteItem(item);
@@ -170,7 +178,7 @@ export const AppProvider = (props) => {
         totalAmount - item_to_delete.price * item_to_delete.quantity
       );
       setTotalQuantity(totalQuantity - item_to_delete.quantity);
-
+      saveCartToCookie();
       saveCartToStrapi();
     }
   };
