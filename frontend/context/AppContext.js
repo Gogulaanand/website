@@ -34,11 +34,11 @@ export const AppProvider = (props) => {
 
   const cartOperations = async (items) => {
     if (items !== undefined) {
-      updateCart([...cookieCart]);
-      calculateAmountQuantity(cookieCart);
-    } else if (cookieCart !== undefined) {
       updateCart([...items]);
       calculateAmountQuantity(items);
+    } else if (cookieCart !== undefined) {
+      updateCart([...cookieCart]);
+      calculateAmountQuantity(cookieCart);
     } else {
       updateCart([]);
       setTotalAmount(0);
