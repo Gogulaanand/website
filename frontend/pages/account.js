@@ -21,6 +21,7 @@ const { Content, Sider } = Layout;
 export default function Account() {
   const { user, logoutUser } = useContext(AuthContext);
   const [selectedMenuItem, setselectedMenuItem] = useState("m1");
+  const [showModal, setshowModal] = useState(false);
 
   const componentsSwitch = (key) => {
     switch (key) {
@@ -30,11 +31,22 @@ export default function Account() {
         return <UserDetails />;
       case "m4":
         return (
-          <Modal
-            title="Are you sure you want to logout ?"
-            action={logoutUser}
-            buttonText="logout"
-          />
+          <div>
+            <p
+              onClick={() => setshowModal(!showModal)}
+              className="cursor-pointer w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+            >
+              Sign out
+            </p>
+            {showModal ? (
+              <Modal
+                title="Are you sure you want to logout ?"
+                action={logoutUser}
+                buttonText="Sign out"
+                setshowModal={setshowModal}
+              />
+            ) : null}
+          </div>
         );
       default:
         break;
