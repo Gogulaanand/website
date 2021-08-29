@@ -3,9 +3,9 @@ import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import { Skeleton } from "antd";
 
 const ItemControls = dynamic(() => import("@/components/cart/itemControls"));
-const Fetching = dynamic(() => import("@/components/svg/SvgFetching"));
 
 const QUERY = gql`
   {
@@ -27,7 +27,10 @@ const CartItem = (props) => {
   var { loading, error, data } = useQuery(QUERY);
 
   if (error) return <p className="m-auto">Error fetching products</p>;
-  if (loading) return <Fetching />;
+  if (loading)
+    return (
+      <Skeleton active avatar paragraph={{ rows: 4 }} className="w-full" />
+    );
   if (data.products && data.products.length) {
     const item = data.products.find((i) => props.data.id === i.id);
     return (
