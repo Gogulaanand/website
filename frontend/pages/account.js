@@ -3,27 +3,62 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useContext, useState } from "react";
 import { Menu, Layout } from "antd";
+import {
+  TruckIcon,
+  ChevronRightIcon,
+  LogoutIcon,
+  UserIcon,
+  HomeIcon,
+} from "@heroicons/react/outline";
 
 import AuthContext from "@/context/AuthContext";
 
 const OrdersTable = dynamic(import("@/components/user/ordersTable"));
 const UserDetails = dynamic(import("@/components/user/userDetails"));
+const Modal = dynamic(import("@/components/user/modal"));
 const { Content, Sider } = Layout;
 
 export default function Account() {
-  const { user } = useContext(AuthContext);
+  const { user, logoutUser } = useContext(AuthContext);
   const [selectedMenuItem, setselectedMenuItem] = useState("m1");
+  const [showModal, setshowModal] = useState(false);
 
   const componentsSwitch = (key) => {
     switch (key) {
       case "m1":
-        return <UserDetails />;
-      case "m2":
         return <OrdersTable />;
+      case "m2":
+        return <UserDetails />;
+      case "m4":
+        return (
+          <div>
+            <p
+              onClick={() => setshowModal(!showModal)}
+              className="cursor-pointer w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+            >
+              Sign out
+            </p>
+            {showModal ? (
+              <Modal
+                title="Are you sure you want to logout ?"
+                action={logoutUser}
+                buttonText="Sign out"
+                setshowModal={setshowModal}
+              />
+            ) : null}
+          </div>
+        );
       default:
         break;
     }
   };
+
+  const menuItem = [
+    { name: "Order", Icon: TruckIcon },
+    { name: "Personal data", Icon: UserIcon },
+    { name: "Addresses", Icon: HomeIcon },
+    { name: "Sign out", Icon: LogoutIcon },
+  ];
 
   if (!user) {
     return (
@@ -44,7 +79,8 @@ export default function Account() {
         ></meta>
       </Head>
       <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 h-screen">
-        <div className="lg:my-24 md:my-16 sm:my-12">
+        <div className="lg:my-18 md:my-12 sm:my-8">
+          <h1 className="mb-5 font-semibold text-xl">My account</h1>
           <Content>
             <Layout className="site-layout-background">
               <Sider className="site-layout-background" width={200}>
@@ -54,12 +90,21 @@ export default function Account() {
                   selectedKeys={selectedMenuItem}
                   onClick={(e) => setselectedMenuItem(e.key)}
                 >
-                  <Menu.Item key="m1">
-                    <span>Account</span>
-                  </Menu.Item>
-                  <Menu.Item key="m2">
-                    <span>Orders</span>
-                  </Menu.Item>
+                  {menuItem.map((item, idx) => {
+                    return (
+                      <>
+                        <Menu.Item key={`m${idx + 1}`}>
+                          <div className="flex justify-between">
+                            <div className="flex">
+                              <item.Icon className="w-5 h-5 my-auto mr-2" />{" "}
+                              <span>{item.name}</span>{" "}
+                            </div>
+                            <ChevronRightIcon className="w-4 h-4 my-auto" />
+                          </div>{" "}
+                        </Menu.Item>
+                      </>
+                    );
+                  })}
                 </Menu>
               </Sider>
               <Content style={{ padding: "0 24px", minHeight: 280 }}>

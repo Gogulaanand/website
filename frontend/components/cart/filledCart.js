@@ -50,7 +50,7 @@ export default function FilledCart() {
   return (
     <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 mt-16">
       <div className="flex flex-col lg:flex-row items-center justify-between">
-        <div className="flex flex-col overflow-auto divide-y divide-gray-200 w-full lg:w-auto">
+        <div className="flex flex-col overflow-auto divide-y divide-gray-200 w-full lg:pr-5">
           <h1 className="font-semibold text-2xl mb-12">Shopping cart</h1>
           {cartItems &&
             cartItems.map((item) => {
