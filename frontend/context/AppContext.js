@@ -33,10 +33,10 @@ export const AppProvider = (props) => {
   };
 
   const cartOperations = async (items) => {
-    if (cookieCart !== undefined) {
+    if (items !== undefined) {
       updateCart([...cookieCart]);
       calculateAmountQuantity(cookieCart);
-    } else if (items) {
+    } else if (cookieCart !== undefined) {
       updateCart([...items]);
       calculateAmountQuantity(items);
     } else {
@@ -63,7 +63,6 @@ export const AppProvider = (props) => {
           }
         );
         const data = await res.json();
-        console.log(data);
         if (data.id) {
           setUserCartId(data.id);
           if (data.items.length > 0) {
