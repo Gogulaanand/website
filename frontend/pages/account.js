@@ -67,7 +67,8 @@ export default function Account() {
         ></meta>
       </Head>
       <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 h-screen">
-        <div className="lg:my-24 md:my-16 sm:my-12">
+        <div className="lg:my-18 md:my-12 sm:my-8">
+          <h1 className="mb-5 font-semibold text-xl">My account</h1>
           <Content>
             <Layout className="site-layout-background">
               <Sider className="site-layout-background" width={200}>
