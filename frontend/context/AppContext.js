@@ -13,7 +13,7 @@ export const AppProvider = (props) => {
   const cookieCart = cookies.cart;
 
   useEffect(() => {
-    if (user !== null && cookieCart === undefined) {
+    if (user !== null) {
       if (userCartId === null) userCart();
       loadCartFromStrapi();
     } else {
