@@ -1,6 +1,4 @@
-import dynamic from "next/dynamic";
-
-const SvgLoading = dynamic(() => import("./SvgLoading"));
+import SvgLoading from "./SvgLoading";
 
 export default function Fetching() {
   return (
