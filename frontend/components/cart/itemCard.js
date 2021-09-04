@@ -2,10 +2,8 @@ import { memo } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import { Skeleton } from "antd";
-
-const ItemControls = dynamic(() => import("@/components/cart/itemControls"));
+import ItemControls from "@/components/cart/itemControls";
 
 const QUERY = gql`
   {

@@ -12,10 +12,10 @@ import {
 } from "@heroicons/react/outline";
 
 import AuthContext from "@/context/AuthContext";
-
-const OrdersTable = dynamic(import("@/components/user/ordersTable"));
+import OrdersTable from "@/components/user/ordersTable";
 const UserDetails = dynamic(import("@/components/user/userDetails"));
 const Modal = dynamic(import("@/components/user/modal"));
+
 const { Content, Sider } = Layout;
 
 export default function Account() {
