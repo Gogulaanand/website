@@ -3,7 +3,6 @@ import Link from "next/link";
 import { ShoppingCartIcon, UserIcon } from "@heroicons/react/outline";
 import { Badge } from "antd";
 
-import AuthContext from "@/context/AuthContext";
 import AppContext from "@/context/AppContext";
 
 function Cart(props) {
@@ -36,11 +35,11 @@ function Cart(props) {
 }
 
 function UserControls(props) {
-  const { user, logoutUser } = useContext(AuthContext);
+  const { session } = useContext(AppContext);
 
   return (
     <>
-      {user ? (
+      {session ? (
         <>
           {props.isMobile && (
             <>

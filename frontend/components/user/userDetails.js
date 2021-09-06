@@ -1,13 +1,14 @@
-import { useContext } from "react";
-import AuthContext from "@/context/AuthContext";
+import { useSession } from "next-auth/client";
 
 export default function UserDetails() {
-  const { user } = useContext(AuthContext);
+  const [session] = useSession();
 
   return (
     <>
       <div>
-        <p className="my-2 mx-4 text-lg">Logged in as: {user}</p>
+        <p className="my-2 mx-4 text-lg">
+          Logged in as: {session?.user?.email}
+        </p>
       </div>
     </>
   );

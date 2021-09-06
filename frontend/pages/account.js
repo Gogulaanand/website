@@ -1,7 +1,8 @@
 import Head from "next/head";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { useContext, useState } from "react";
+import { useState } from "react";
+import { useSession, signOut } from "next-auth/client";
 import { Menu, Layout } from "antd";
 import {
   TruckIcon,
@@ -11,7 +12,6 @@ import {
   HomeIcon,
 } from "@heroicons/react/outline";
 
-import AuthContext from "@/context/AuthContext";
 import OrdersTable from "@/components/user/ordersTable";
 const UserDetails = dynamic(import("@/components/user/userDetails"));
 const Modal = dynamic(import("@/components/user/modal"));
@@ -19,7 +19,7 @@ const Modal = dynamic(import("@/components/user/modal"));
 const { Content, Sider } = Layout;
 
 export default function Account() {
-  const { user, logoutUser } = useContext(AuthContext);
+  const [session] = useSession();
   const [selectedMenuItem, setselectedMenuItem] = useState("m1");
   const [showModal, setshowModal] = useState(false);
 
@@ -41,7 +41,7 @@ export default function Account() {
             {showModal ? (
               <Modal
                 title="Are you sure you want to logout ?"
-                action={logoutUser}
+                action={signOut}
                 buttonText="Sign out"
                 setshowModal={setshowModal}
               />
@@ -60,7 +60,7 @@ export default function Account() {
     { name: "Sign out", Icon: LogoutIcon },
   ];
 
-  if (!user) {
+  if (!session) {
     return (
       <div className="mx-auto mt-24 flex-col w-4/5 text-center h-screen">
         <Link href="/login" passHref>

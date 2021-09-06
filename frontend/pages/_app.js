@@ -2,10 +2,9 @@ import Head from "next/head";
 import dynamic from "next/dynamic";
 import { ApolloProvider } from "@apollo/react-hooks";
 import { ToastProvider } from "react-toast-notifications";
-
+import { Provider } from "next-auth/client";
 import ErrorBoundary from "@/components/index/errorBoundary";
 import { AppProvider } from "@/context/AppContext";
-import { AuthProvider } from "@/context/AuthContext";
 import Compose from "@/context/combineProviders";
 import withData from "@/lib/apollo";
 import "../styles/globals.sass";
@@ -24,8 +23,9 @@ function MyApp({ Component, pageProps, apollo }) {
         ></meta>
       </Head>
       <Compose
-        components={[AuthProvider, AppProvider, ApolloProvider, ToastProvider]}
+        components={[Provider, AppProvider, ApolloProvider, ToastProvider]}
         client={apollo}
+        session={pageProps.session}
       >
         <ErrorBoundary>
           <Nav />

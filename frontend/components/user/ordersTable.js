@@ -1,17 +1,15 @@
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useSession } from "next-auth/client";
 import { Table, Tag, Skeleton, Empty } from "antd";
 
-import AuthContext from "@/context/AuthContext";
-
-const useOrders = (user, getToken) => {
+const useOrders = (user, token) => {
   const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [fetching, setLoading] = useState(false);
   useEffect(() => {
     const fetchOrders = async () => {
       if (user) {
         try {
           setLoading(true);
-          const token = await getToken();
           const order_res = await fetch(
             `${process.env.NEXT_PUBLIC_API_URL}/orders`,
             {
@@ -32,25 +30,30 @@ const useOrders = (user, getToken) => {
 
     fetchOrders();
   }, [user]);
-  return { orders, loading };
+  return { orders, fetching };
 };
 
 export default function OrdersTable(props) {
-  const { user, getToken } = useContext(AuthContext);
   const [filter, setFilter] = useState(
     props && props.columns && props.columns.length > 0
   );
-  const { orders, loading } = useOrders(user, getToken);
-
-  const ordersData = orders.map((order, index) => {
-    return {
-      key: index,
-      date: new Date(order.createdAt).toLocaleDateString("en-EN"),
-      order_id: order.id,
-      amount: order.total,
-      status: [order.status],
-    };
-  });
+  const [session] = useSession();
+  const user = session?.user?.email;
+  const token = session?.jwt;
+  console.log(session);
+  const { orders, fetching } = useOrders(user, token);
+  console.log("orders", orders);
+  const ordersData = orders
+    ? orders.map((order, index) => {
+        return {
+          key: index,
+          date: new Date(order.createdAt).toLocaleDateString("en-EN"),
+          order_id: order.id,
+          amount: order.total,
+          status: [order.status],
+        };
+      })
+    : [];
 
   const columnsData = [
     {
@@ -113,8 +116,8 @@ export default function OrdersTable(props) {
         <h3 className="my-4 font-xl font-semibold">Your orders</h3>
         <Table
           columns={filter ? filteredColumns : columnsData}
-          dataSource={loading ? [] : ordersData}
-          locale={{ emptyText: loading ? <Skeleton active /> : <Empty /> }}
+          dataSource={fetching ? [] : ordersData}
+          locale={{ emptyText: fetching ? <Skeleton active /> : <Empty /> }}
         />
       </div>
     </>

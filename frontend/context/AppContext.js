@@ -1,6 +1,7 @@
-import { useEffect, useState, createContext, useContext } from "react";
+import { useEffect, useState, createContext } from "react";
 import { useCookies } from "react-cookie";
-import AuthContext from "@/context/AuthContext";
+import { useSession } from "next-auth/client";
+
 const AppContext = createContext();
 
 export const AppProvider = (props) => {
@@ -9,7 +10,9 @@ export const AppProvider = (props) => {
   const [totalQuantity, setTotalQuantity] = useState(0);
   const [userCartId, setUserCartId] = useState(null);
   const [cookies, setCookie] = useCookies(["cart"]);
-  const { user, getToken } = useContext(AuthContext);
+  const [session] = useSession();
+  const token = session?.jwt;
+  const user = session?.user?.email;
   const cookieCart = cookies.cart;
 
   useEffect(() => {
@@ -49,7 +52,6 @@ export const AppProvider = (props) => {
   const userCart = async () => {
     if (user) {
       try {
-        const token = await getToken();
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/carts/${encodeURIComponent(
             user
@@ -79,7 +81,6 @@ export const AppProvider = (props) => {
   const loadCartFromStrapi = async () => {
     if (userCartId) {
       try {
-        const token = await getToken();
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/carts/${encodeURIComponent(
             userCartId
@@ -105,7 +106,6 @@ export const AppProvider = (props) => {
 
   const saveCartToStrapi = async (items) => {
     try {
-      const token = await getToken();
       if (userCartId) {
         await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/carts/${encodeURIComponent(
@@ -223,6 +223,7 @@ export const AppProvider = (props) => {
         deleteItem,
         enableCart: true,
         userCartId,
+        session,
       }}
     >
       {props.children}

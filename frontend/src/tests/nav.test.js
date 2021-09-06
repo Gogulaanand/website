@@ -2,7 +2,6 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import Nav from "@/components/index/nav";
 import AppContext from "@/context/AppContext";
-import { AuthProvider } from "@/context/AuthContext";
 
 describe("check default elements", () => {
   const OLD_ENV = process.env;
@@ -19,11 +18,9 @@ describe("check default elements", () => {
   test("<Nav/>", () => {
     let totalQuantity = 5;
     render(
-      <AuthProvider>
-        <AppContext.Provider value={{ totalQuantity }}>
-          <Nav />
-        </AppContext.Provider>
-      </AuthProvider>
+      <AppContext.Provider value={{ totalQuantity }}>
+        <Nav />
+      </AppContext.Provider>
     );
     expect(screen.getByTitle("Home")).toBeInTheDocument();
     expect(screen.getByTitle("Contact us")).toBeInTheDocument();

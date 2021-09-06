@@ -6,12 +6,12 @@ import { useRouter } from "next/router";
 
 import CartItem from "./itemCard";
 import AppContext from "@/context/AppContext";
-import AuthContext from "@/context/AuthContext";
 
 let stripePromise;
 export default function FilledCart() {
-  const { cartItems, totalAmount } = useContext(AppContext);
-  const { user, getToken } = useContext(AuthContext);
+  const { session, cartItems, totalAmount } = useContext(AppContext);
+  const user = session?.user?.email;
+  const token = session?.jwt;
   const router = useRouter();
 
   const redirectToLogin = () => {
@@ -27,7 +27,6 @@ export default function FilledCart() {
 
   const handleCheckout = async () => {
     const stripe = await getStripe();
-    const token = await getToken();
 
     const products = cartItems.map((item) => {
       return { id: item.id, quantity: item.quantity };
@@ -42,9 +41,9 @@ export default function FilledCart() {
       },
     });
 
-    const session = await res.json();
+    const stripeSession = await res.json();
 
-    await stripe.redirectToCheckout({ sessionId: session.id });
+    await stripe.redirectToCheckout({ sessionId: stripeSession.id });
   };
 
   return (

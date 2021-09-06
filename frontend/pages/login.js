@@ -1,18 +1,42 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
+import {
+  signIn,
+  useSession,
+  getCsrfToken,
+  providers,
+  getSession,
+} from "next-auth/client";
 import Head from "next/head";
 import { Divider } from "antd";
 
-import AuthContext from "@/context/AuthContext";
 import SvgGoogle from "@/components/svg/SvgGoogle";
 import SvgArrowPointingToRight from "@/components/svg/SvgArrowPointingToRight";
 
-export default function User() {
+export async function getServerSideProps(context) {
+  const { req } = context;
+  const session = await getSession({ req });
+  if (session) {
+    return {
+      redirect: {
+        destination: "/",
+      },
+    };
+  }
+  return {
+    props: {
+      csrfToken: await getCsrfToken(context),
+      providers: await providers(context),
+    },
+  };
+}
+
+export default function SignIn({ csrfToken }) {
   const [email, setEmail] = useState("");
-  const { loginUser, oauthLogin } = useContext(AuthContext);
+  const [session] = useSession();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    loginUser(email);
+    signIn("email", { email, callbackUrl: `${process.env.VERCEL_URL}/` });
   };
 
   return (
@@ -31,7 +55,12 @@ export default function User() {
               Sign into your account
             </h1>
           </div>
-          <form onSubmit={handleSubmit} className="w-full">
+          <form
+            // method="post"
+            // action="/api/auth/signin/email"
+            onSubmit={handleSubmit}
+            className="w-full"
+          >
             <div>
               <label htmlFor="email" className="font-medium text-gray-700">
                 Email address
@@ -46,15 +75,34 @@ export default function User() {
                 placeholder="you@company.com"
                 className="mt-1 block w-full rounded-lg bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
               />
+              <input
+                name="csrfToken"
+                type="hidden"
+                defaultValue={csrfToken}
+              ></input>
             </div>
-            <div className="text-base leading-6 font-semibold text-white shadow-md bg-gray-800 hover:hoverbg-gray-900 focus:outline-none cursor-pointer hover:text-white transition duration-150 ease-in-out w-full text-white px-4 py-2 rounded-lg mt-9 text-center flex hover:scale-110 relative">
+            <div className="text-base leading-6 font-semibold text-white shadow-md bg-gray-800 hover:hoverbg-gray-900 focus:outline-none cursor-pointer hover:text-white transition duration-150 ease-in-out w-full px-4 py-2 rounded-lg mt-9 text-center flex hover:scale-110 relative">
               <button className="w-full" type="submit">
                 Email a Login Link
               </button>
               <SvgArrowPointingToRight className="w-5 h-6 fill-current stroke-current text-white absolute inset-y-0 right-0 my-2 mr-3" />
             </div>
             <Divider>or</Divider>
-            <SvgGoogle onClick={oauthLogin} className="w-full cursor-pointer" />
+            <SvgGoogle
+              onClick={() => signIn("google")}
+              className="w-full cursor-pointer"
+            />
+            {/* <div>
+              {Object.values(providers).map((provider) => {
+                return (
+                  <div key={provider.name}>
+                    <button onClick={() => signIn(provider.id)}>
+                      Sign in with {provider.name}
+                    </button>
+                  </div>
+                );
+              })}
+            </div> */}
           </form>
         </div>
       </div>

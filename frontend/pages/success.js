@@ -5,23 +5,21 @@ import Link from "next/link";
 import Image from "next/image";
 import { RefreshIcon } from "@heroicons/react/outline";
 
-import AuthContext from "@/context/AuthContext";
 import AppContext from "@/context/AppContext";
 
 const useOrder = (session_id) => {
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(false);
-
-  const { getToken, user } = useContext(AuthContext);
-  const { updateCart, setTotalAmount, setTotalQuantity } =
+  const { session, updateCart, setTotalAmount, setTotalQuantity } =
     useContext(AppContext);
+  const token = session?.jwt;
+  const user = session?.user?.email;
 
   useEffect(() => {
     if (user) {
       const fetchOrder = async () => {
         setLoading(true);
         try {
-          const token = await getToken();
           const res = await fetch(
             `${process.env.NEXT_PUBLIC_API_URL}/orders/confirm`,
             {
