@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import Link from "next/link";
 import { ShoppingCartIcon, UserIcon } from "@heroicons/react/outline";
 import { Badge } from "antd";
@@ -8,12 +8,17 @@ import AppContext from "@/context/AppContext";
 
 function Cart(props) {
   const { enableCart, totalQuantity } = useContext(AppContext);
+  const [count, setCount] = useState(totalQuantity);
+
+  useEffect(() => {
+    setCount(totalQuantity);
+  }, [totalQuantity]);
   return (
     <>
       {enableCart && !props.isMobile ? (
         <Link href="/cart" passHref>
           <a aria-label="Shopping cart" title="Shopping cart">
-            <Badge count={totalQuantity} offset={[0, 5]}>
+            <Badge count={count} offset={[0, 5]}>
               <ShoppingCartIcon className="w-7 h-7" />
             </Badge>
           </a>
