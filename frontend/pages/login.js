@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   signIn,
   useSession,
@@ -8,6 +8,8 @@ import {
 } from "next-auth/client";
 import Head from "next/head";
 import { Divider } from "antd";
+import { Magic } from "magic-sdk";
+import { useRouter } from "next/router";
 
 import SvgGoogle from "@/components/svg/SvgGoogle";
 import SvgArrowPointingToRight from "@/components/svg/SvgArrowPointingToRight";
@@ -30,13 +32,26 @@ export async function getServerSideProps(context) {
   };
 }
 
+let magic;
+
 export default function SignIn({ csrfToken }) {
   const [email, setEmail] = useState("");
   const [session] = useSession();
+  const router = useRouter();
 
-  const handleSubmit = (event) => {
+  useEffect(() => {
+    magic = new Magic(process.env.NEXT_PUBLIC_MAGIC_API_KEY);
+  }, []);
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    signIn("email", { email, callbackUrl: `${process.env.VERCEL_URL}/` });
+    const didToken = await magic.auth.loginWithMagicLink({ email });
+    console.log("callbackUrl", `${router.query["callbackUrl"]}`);
+    await signIn("credentials", {
+      didToken,
+      // callbackUrl: `${process.env.VERCEL_URL}/`,
+      callbackUrl: `${router.query["callbackUrl"]}`,
+    });
   };
 
   return (
@@ -69,6 +84,7 @@ export default function SignIn({ csrfToken }) {
                 type="text"
                 id="email"
                 name="email"
+                required
                 autoComplete="email"
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}

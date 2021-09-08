@@ -26,7 +26,8 @@ export default function Account() {
   const componentsSwitch = (key) => {
     switch (key) {
       case "m1":
-        return <OrdersTable />;
+        // return <OrdersTable />;
+        return;
       case "m2":
         return <UserDetails />;
       case "m4":

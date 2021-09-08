@@ -27,11 +27,11 @@ function MyApp({ Component, pageProps, apollo }) {
         client={apollo}
         session={pageProps.session}
       >
-        <ErrorBoundary>
-          <Nav />
-          <Component {...pageProps} />
-          <Footer />
-        </ErrorBoundary>
+        {/* <ErrorBoundary> */}
+        <Nav />
+        <Component {...pageProps} />
+        <Footer />
+        {/* </ErrorBoundary> */}
       </Compose>
     </>
   );

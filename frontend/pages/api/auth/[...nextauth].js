@@ -1,38 +1,42 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
+import axios from "axios";
+import { Magic } from "magic-sdk";
+
+const magic = new Magic(process.env.NEXT_PUBLIC_MAGIC_API_KEY);
 
 const options = {
   providers: [
-    Providers.Email({
-      server: process.env.EMAIL_SERVER,
-      from: process.env.EMAIL_FROM,
-    }),
+    // Providers.Email({
+    //   server: process.env.EMAIL_SERVER,
+    //   from: process.env.EMAIL_FROM,
+    // }),
     Providers.Credentials({
       name: "Credentials",
       credentials: {
-        username: {
-          label: "Email",
-          type: "text",
-          placeholder: "email@example.com",
+        didToken: { label: "Magic token", type: "text" },
+        async authorize({ didToken }, req) {
+          magic.token.validate(didToken);
+          const metaData = await magic.user.getMetadataByToken(didToken);
+          return { ...metaData };
         },
-        password: { label: "Password", type: "password" },
       },
-      async authorize(credentials, req) {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/auth/local/register`,
-          {
-            method: "POST",
-            body: JSON.stringify(credentials),
-            headers: { "Content-type": "application/json" },
-          }
-        );
+      // async authorize(credentials, req) {
+      //   const res = await fetch(
+      //     `${process.env.NEXT_PUBLIC_API_URL}/auth/local/register`,
+      //     {
+      //       method: "POST",
+      //       body: JSON.stringify(credentials),
+      //       headers: { "Content-type": "application/json" },
+      //     }
+      //   );
 
-        const user = await res.json();
-        if (res.ok && user) {
-          return user;
-        }
-        return null;
-      },
+      //   const user = await res.json();
+      //   if (res.ok && user) {
+      //     return user;
+      //   }
+      //   return null;
+      // },
     }),
     Providers.Google({
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -46,6 +50,16 @@ const options = {
     jwt: true,
   },
   callbacks: {
+    signIn: async ({ user, account, profile, email, credentials }) => {
+      // console.log("user outside signin callback", user);
+      // console.log("account outside signin callback", account);
+      // console.log("profile outside signin callback", profile);
+      // console.log("email outside signin callback", email);
+      // console.log("credentials outside signin callback", credentials);
+    },
+    redirect: async ({ url, baseUrl }) => {
+      return baseUrl;
+    },
     session: async (session, user) => {
       session.jwt = user.jwt;
       session.id = user.id;
@@ -63,13 +77,27 @@ const options = {
         const data = await response.json();
         token.jwt = data.jwt;
         token.id = data.user.id;
+      } else if (isSignIn) {
+        axios
+          .post(`${process.env.NEXT_PUBLIC_API_URL}/auth/local/register`, {
+            email: user.email || token.email || account.providerAccountId,
+          })
+          .then((res) => {
+            console.log(res);
+            console.log(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+            throw new Error(err);
+          });
       }
       return Promise.resolve(token);
     },
   },
   debug: false,
+  theme: "light",
   pages: {
-    // signIn: "/auth/signin",
+    signIn: "/login",
   },
 };
 
