@@ -160,7 +160,7 @@ export const AppProvider = (props) => {
       ];
       updateCart([...items]);
       setTotalAmount(totalAmount + item.price * 1);
-      setTotalQuantity(totalQuantity + 1);
+      setTotalQuantity((value) => value + 1);
     } else {
       const index = items.findIndex((i) => i.id === item.id);
       items[index] = Object.assign({}, item, {
@@ -168,7 +168,7 @@ export const AppProvider = (props) => {
       });
       updateCart([...items]);
       setTotalAmount(totalAmount + existingItem.price);
-      setTotalQuantity(totalQuantity + 1);
+      setTotalQuantity((value) => value + 1);
     }
     saveCartToCookie(items);
     saveCartToStrapi(items);
@@ -185,7 +185,7 @@ export const AppProvider = (props) => {
       });
       updateCart([...items]);
       setTotalAmount(totalAmount - item.price);
-      setTotalQuantity(totalQuantity - 1);
+      setTotalQuantity((value) => value - 1);
       saveCartToCookie(items);
       saveCartToStrapi(items);
     } else {
@@ -203,7 +203,7 @@ export const AppProvider = (props) => {
       setTotalAmount(
         totalAmount - item_to_delete.price * item_to_delete.quantity
       );
-      setTotalQuantity(totalQuantity - item_to_delete.quantity);
+      setTotalQuantity((value) => value - item_to_delete.quantity);
       saveCartToCookie(items);
       saveCartToStrapi(items);
     }
