@@ -13,6 +13,7 @@ function Cart(props) {
   useEffect(() => {
     setCount(totalQuantity);
   }, [totalQuantity]);
+
   return (
     <>
       {enableCart && !props.isMobile ? (
