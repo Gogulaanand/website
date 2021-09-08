@@ -19,41 +19,28 @@ export const AppProvider = (props) => {
     } else {
       cartOperations();
     }
+  }, [user]);
 
+  const calculateAmountQuantity = (items) => {
     setTotalAmount(
-      cartItems.reduce(
+      items.reduce(
         (total, currentItem) =>
           total + currentItem.price * currentItem.quantity,
         0
       )
     );
     setTotalQuantity(
-      cartItems.reduce((total, currentItem) => total + currentItem.quantity, 0)
+      items.reduce((total, currentItem) => total + currentItem.quantity, 0)
     );
-  }, [user, cartItems]);
-
-  // const calculateAmountQuantity = (items) => {
-  //   let totalCount = 0;
-  //   let totalPrice = 0;
-  //   items.forEach((item) => {
-  //     totalCount += item.quantity;
-  //     totalPrice += item.price * item.quantity;
-  //     setTotalAmount(totalPrice);
-  //     setTotalQuantity(totalCount);
-  //   });
-  // };
+  };
 
   const cartOperations = async (items) => {
     if (items !== undefined) {
       updateCart([...items]);
-      // calculateAmountQuantity(items);
+      calculateAmountQuantity(items);
     } else if (cookieCart !== undefined) {
       updateCart([...cookieCart]);
-      // calculateAmountQuantity(cookieCart);
-    } else {
-      updateCart([]);
-      // setTotalAmount(0);
-      // setTotalQuantity(0);
+      calculateAmountQuantity(cookieCart);
     }
   };
 
@@ -170,19 +157,17 @@ export const AppProvider = (props) => {
         }),
       ];
       updateCart([...items]);
-      // setTotalAmount(totalAmount + item.price * 1);
-      // setTotalQuantity((value) => value + 1);
+      calculateAmountQuantity(items);
     } else {
       const index = items.findIndex((i) => i.id === item.id);
       items[index] = Object.assign({}, item, {
         quantity: existingItem.quantity + 1,
       });
       updateCart([...items]);
-      // setTotalAmount(totalAmount + existingItem.price);
-      // setTotalQuantity((value) => value + 1);
+      calculateAmountQuantity(items);
     }
     saveCartToCookie(items);
-    saveCartToStrapi(items);
+    if (user) saveCartToStrapi(items);
   };
 
   const removeItem = (item) => {
@@ -195,14 +180,9 @@ export const AppProvider = (props) => {
         quantity: item_to_remove.quantity - 1,
       });
       updateCart([...items]);
-      // setTotalAmount(totalAmount - item.price);
-      // setTotalQuantity((value) => {
-      //   console.log(value);
-      //   console.log(value - 1);
-      //   return value - 1;
-      // });
+      calculateAmountQuantity(items);
       saveCartToCookie(items);
-      saveCartToStrapi(items);
+      if (user) saveCartToStrapi(items);
     } else {
       deleteItem(item);
     }
@@ -214,13 +194,10 @@ export const AppProvider = (props) => {
     if (item_to_delete) {
       const index = items.findIndex((i) => i.id === item.id);
       items.splice(index, 1);
-      updateCart([...(items || [])]);
-      // setTotalAmount(
-      //   totalAmount - item_to_delete.price * item_to_delete.quantity
-      // );
-      // setTotalQuantity((value) => value - item_to_delete.quantity);
+      updateCart([...items]);
+      calculateAmountQuantity(items);
       saveCartToCookie(items);
-      saveCartToStrapi(items);
+      if (user) saveCartToStrapi(items);
     }
   };
 
@@ -237,7 +214,6 @@ export const AppProvider = (props) => {
         removeItem,
         deleteItem,
         enableCart: true,
-        userCartId,
       }}
     >
       {props.children}
