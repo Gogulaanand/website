@@ -23,13 +23,12 @@ function MyApp({ Component, pageProps, apollo }) {
           content="company name: Sunfabb. High Quality bedspreads, bed sheets, pillow covers, scarf, hand keys, kerchief manufactured and priced reasonable but of best quality unmatched by others in the market"
         ></meta>
       </Head>
-      <Compose
-        components={[AuthProvider, AppProvider, ApolloProvider, ToastProvider]}
-        client={apollo}
-      >
+      <Compose components={[AuthProvider, AppProvider]}>
         <ErrorBoundary>
           <Nav />
-          <Component {...pageProps} />
+          <Compose components={[ApolloProvider, ToastProvider]} client={apollo}>
+            <Component {...pageProps} />
+          </Compose>
           <Footer />
         </ErrorBoundary>
       </Compose>

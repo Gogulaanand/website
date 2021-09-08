@@ -47,7 +47,7 @@ export default function User() {
                 className="mt-1 block w-full rounded-lg bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
               />
             </div>
-            <div className="text-base leading-6 font-semibold text-white shadow-md bg-gray-800 hover:hoverbg-gray-900 focus:outline-none cursor-pointer hover:text-white transition duration-150 ease-in-out w-full text-white px-4 py-2 rounded-lg mt-9 text-center flex hover:scale-110 relative">
+            <div className="text-base leading-6 font-semibold text-white shadow-md bg-gray-800 hover:hoverbg-gray-900 focus:outline-none cursor-pointer hover:text-white transition duration-150 ease-in-out w-full px-4 py-2 rounded-lg mt-9 text-center flex hover:scale-110 relative">
               <button className="w-full" type="submit">
                 Email a Login Link
               </button>
