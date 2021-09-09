@@ -8,11 +8,19 @@ import AppContext from "@/context/AppContext";
 
 function Cart(props) {
   const { enableCart, totalQuantity } = useContext(AppContext);
+  const [count, setCount] = useState(totalQuantity);
+
+  useEffect(() => {
+    setCount(totalQuantity);
+  }, [totalQuantity]);
 
   return (
     <>
       <AppContext.Consumer>
         {(context) => {
+          {
+            console.log(context);
+          }
           return enableCart && !props.isMobile ? (
             <Link href="/cart" passHref>
               <a aria-label="Shopping cart" title="Shopping cart">
