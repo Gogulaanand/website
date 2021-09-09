@@ -1,21 +1,28 @@
 import { useContext, useState } from "react";
 import Link from "next/link";
 import { ShoppingCartIcon, UserIcon } from "@heroicons/react/outline";
-import { Badge } from "antd";
 
 import AuthContext from "@/context/AuthContext";
 import AppContext from "@/context/AppContext";
 
 function Cart(props) {
   const { enableCart, totalQuantity } = useContext(AppContext);
+
   return (
     <>
       {enableCart && !props.isMobile ? (
         <Link href="/cart" passHref>
-          <a aria-label="Shopping cart" title="Shopping cart">
-            <Badge count={totalQuantity} offset={[0, 5]}>
-              <ShoppingCartIcon className="w-7 h-7" />
-            </Badge>
+          <a
+            aria-label="Shopping cart"
+            title="Shopping cart"
+            className="relative"
+          >
+            <ShoppingCartIcon className="w-7 h-7" />
+            {totalQuantity ? (
+              <span className="absolute -right-8 -top-4 rounded-full bg-red-600 w-4 h-4 top right p-0 m-0 text-white font-mono text-sm leading-tight text-center">
+                {totalQuantity}
+              </span>
+            ) : null}
           </a>
         </Link>
       ) : null}

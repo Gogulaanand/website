@@ -104,7 +104,6 @@ export default function OrdersTable(props) {
     filteredColumns = props.columns.map((column) => {
       return columnsData.filter((col) => col.key == column)[0];
     });
-    console.log(filteredColumns);
   }
 
   return (

@@ -144,7 +144,7 @@ const ProductDetail = (props) => {
               <motion.div variants={item}>
                 <button
                   type="submit"
-                  className="my-8 py-3 px-5 inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-200 hover:bg-deep-purple-accent-400 hover:text-white focus:shadow-outline focus:outline-none"
+                  className="my-8 py-3 px-6 inline-flex items-center justify-center h-12 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-200 hover:bg-deep-purple-accent-400 hover:text-white focus:shadow-outline focus:outline-none"
                   onClick={() =>
                     addItem({
                       id: props.id,
