@@ -8,29 +8,50 @@ import AppContext from "@/context/AppContext";
 
 function Cart(props) {
   const { enableCart, totalQuantity, cartItems } = useContext(AppContext);
-  const [count, setCount] = useState(0);
+  // const [count, setCount] = useState(0);
 
-  useEffect(() => {
-    setCount(
-      cartItems.reduce((total, currentItem) => total + currentItem.quantity, 0)
-    );
-  }, [cartItems]);
+  // useEffect(() => {
+  //   setCount(
+  //     cartItems.reduce((total, currentItem) => total + currentItem.quantity, 0)
+  //   );
+  // }, [cartItems]);
 
   return (
     <>
-      <AppContext.Consumer>
+      {/* <AppContext.Consumer>
         {(context) => {
           return enableCart && !props.isMobile ? (
             <Link href="/cart" passHref>
-              <a aria-label="Shopping cart" title="Shopping cart">
-                <Badge count={count} offset={[0, 5]}>
-                  <ShoppingCartIcon className="w-7 h-7" />
-                </Badge>
+              <a
+                aria-label="Shopping cart"
+                title="Shopping cart"
+                className="relative"
+              >
+                <ShoppingCartIcon className="w-7 h-7" />
+                <span className="absolute top-4 -right-8 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
+                  {totalQuantity}
+                </span>
               </a>
             </Link>
           ) : null;
         }}
-      </AppContext.Consumer>
+      </AppContext.Consumer> */}
+      {enableCart && !props.isMobile ? (
+        <Link href="/cart" passHref>
+          <a
+            aria-label="Shopping cart"
+            title="Shopping cart"
+            className="relative"
+          >
+            <ShoppingCartIcon className="w-7 h-7" />
+            {totalQuantity > 0 ? (
+              <span className="absolute top-4 -right-8 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
+                {totalQuantity}
+              </span>
+            ) : null}
+          </a>
+        </Link>
+      ) : null}
       {enableCart && props.isMobile ? (
         <Link href="/cart" passHref>
           <a
