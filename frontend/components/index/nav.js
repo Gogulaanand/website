@@ -7,24 +7,23 @@ import AuthContext from "@/context/AuthContext";
 import AppContext from "@/context/AppContext";
 
 function Cart(props) {
-  const { enableCart, totalQuantity } = useContext(AppContext);
-  const [count, setCount] = useState(totalQuantity);
+  const { enableCart, totalQuantity, cartItems } = useContext(AppContext);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
-    setCount(totalQuantity);
-  }, [totalQuantity]);
+    setCount(
+      cartItems.reduce((total, currentItem) => total + currentItem.quantity, 0)
+    );
+  }, [cartItems]);
 
   return (
     <>
       <AppContext.Consumer>
         {(context) => {
-          {
-            console.log(context);
-          }
           return enableCart && !props.isMobile ? (
             <Link href="/cart" passHref>
               <a aria-label="Shopping cart" title="Shopping cart">
-                <Badge count={context.totalQuantity} offset={[0, 5]}>
+                <Badge count={count} offset={[0, 5]}>
                   <ShoppingCartIcon className="w-7 h-7" />
                 </Badge>
               </a>
