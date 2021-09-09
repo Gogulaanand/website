@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import Link from "next/link";
 import { ShoppingCartIcon, UserIcon } from "@heroicons/react/outline";
-import { Badge } from "antd";
 
 import AuthContext from "@/context/AuthContext";
 import AppContext from "@/context/AppContext";
