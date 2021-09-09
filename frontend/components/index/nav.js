@@ -13,11 +13,18 @@ function Cart(props) {
     <>
       {enableCart && !props.isMobile ? (
         <Link href="/cart" passHref>
-          <Badge count={totalQuantity} offset={[0, 5]}>
-            <a aria-label="Shopping cart" title="Shopping cart">
-              <ShoppingCartIcon className="w-7 h-7" />
-            </a>
-          </Badge>
+          <a
+            aria-label="Shopping cart"
+            title="Shopping cart"
+            className="relative"
+          >
+            <ShoppingCartIcon className="w-7 h-7" />
+            {totalQuantity ? (
+              <span className="absolute -right-8 -top-4 rounded-full bg-red-600 w-4 h-4 top right p-0 m-0 text-white font-mono text-sm leading-tight text-center">
+                {totalQuantity}
+              </span>
+            ) : null}
+          </a>
         </Link>
       ) : null}
       {enableCart && props.isMobile ? (
