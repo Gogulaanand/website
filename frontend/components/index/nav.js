@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import Link from "next/link";
 import { ShoppingCartIcon, UserIcon } from "@heroicons/react/outline";
 import { Badge } from "antd";
@@ -7,30 +7,19 @@ import AuthContext from "@/context/AuthContext";
 import AppContext from "@/context/AppContext";
 
 function Cart(props) {
-  const { enableCart, totalQuantity, cartItems } = useContext(AppContext);
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    setCount(
-      cartItems.reduce((total, currentItem) => total + currentItem.quantity, 0)
-    );
-  }, [cartItems]);
+  const { enableCart, totalQuantity } = useContext(AppContext);
 
   return (
     <>
-      <AppContext.Consumer>
-        {(context) => {
-          return enableCart && !props.isMobile ? (
-            <Link href="/cart" passHref>
-              <a aria-label="Shopping cart" title="Shopping cart">
-                <Badge count={count} offset={[0, 5]}>
-                  <ShoppingCartIcon className="w-7 h-7" />
-                </Badge>
-              </a>
-            </Link>
-          ) : null;
-        }}
-      </AppContext.Consumer>
+      {enableCart && !props.isMobile ? (
+        <Link href="/cart" passHref>
+          <Badge count={totalQuantity} offset={[0, 5]}>
+            <a aria-label="Shopping cart" title="Shopping cart">
+              <ShoppingCartIcon className="w-7 h-7" />
+            </a>
+          </Badge>
+        </Link>
+      ) : null}
       {enableCart && props.isMobile ? (
         <Link href="/cart" passHref>
           <a
