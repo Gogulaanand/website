@@ -49,7 +49,7 @@
     "react-image-gallery": "^1.2.7",
     "react-toast-notifications": "^2.5.1",
     "sass": "^1.49.8",
-    "sharp": "^0.28.3",
+    "sharp": "^0.30.5",
     "tailwindcss": "^2.0.4"
   },
   "devDependencies": {
